@@ -1,0 +1,180 @@
+/**
+ * VIA Labs Design System — Docusaurus theme overrides
+ * Reference: VIA_LABS_DESIGN_SYSTEM.md
+ */
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+/* ── Light Mode ─────────────────────────────────── */
+:root {
+  /* Brand: VIA Teal #00E5E5 */
+  --ifm-color-primary: #00C4C4;
+  --ifm-color-primary-dark: #00B0B0;
+  --ifm-color-primary-darker: #00A6A6;
+  --ifm-color-primary-darkest: #008989;
+  --ifm-color-primary-light: #00D8D8;
+  --ifm-color-primary-lighter: #00E5E5;
+  --ifm-color-primary-lightest: #33EBEB;
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  --ifm-background-color: #F5F5F7;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.7);
+  --ifm-footer-background-color: #1a1b23;
+  --ifm-footer-color: #94a3b8;
+  --ifm-footer-link-color: #e2e8f0;
+  --ifm-footer-title-color: #ffffff;
+
+  --ifm-code-font-size: 95%;
+  --ifm-global-radius: 0.75rem;
+  --ifm-code-border-radius: 0.5rem;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 229, 229, 0.1);
+}
+
+/* ── Dark Mode ──────────────────────────────────── */
+[data-theme='dark'] {
+  --ifm-color-primary: #00E5E5;
+  --ifm-color-primary-dark: #00CECE;
+  --ifm-color-primary-darker: #00C4C4;
+  --ifm-color-primary-darkest: #00A1A1;
+  --ifm-color-primary-light: #1AE8E8;
+  --ifm-color-primary-lighter: #33EBEB;
+  --ifm-color-primary-lightest: #66F0F0;
+
+  --ifm-background-color: #0F1117;
+  --ifm-background-surface-color: #1a1b23;
+  --ifm-navbar-background-color: rgba(15, 17, 23, 0.8);
+  --ifm-footer-background-color: #0a0b0f;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 229, 229, 0.15);
+}
+
+/* ── Navbar glassmorphism ───────────────────────── */
+.navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+[data-theme='dark'] .navbar {
+  border-bottom-color: rgba(100, 116, 139, 0.3);
+}
+
+.navbar__title {
+  font-weight: 700;
+}
+
+.navbar__logo img {
+  height: 32px;
+}
+
+/* ── Sidebar ────────────────────────────────────── */
+.menu__link {
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(0, 229, 229, 0.1);
+}
+
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(0, 229, 229, 0.15);
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.footer--dark {
+  background-color: var(--ifm-footer-background-color);
+}
+
+.footer__title {
+  color: var(--ifm-footer-title-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.footer__link-item {
+  color: var(--ifm-footer-link-color);
+  font-weight: 400;
+}
+
+.footer__link-item:hover {
+  color: #00E5E5;
+}
+
+/* ── Code blocks ────────────────────────────────── */
+.prism-code {
+  border-radius: 0.75rem !important;
+}
+
+/* ── Announcement bar accent ────────────────────── */
+div[class*='announcementBar'] {
+  background: linear-gradient(90deg, #00E5E5, #00B4D8);
+  color: #0F1117;
+  font-weight: 600;
+}
+
+/* ── Hero section on homepage ───────────────────── */
+.hero--primary {
+  background: linear-gradient(135deg, #0F1117 0%, #1a1b23 100%);
+  color: #ffffff;
+}
+
+.hero--primary .hero__title {
+  background: linear-gradient(90deg, #00E5E5, #33EBEB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero--primary .hero__subtitle {
+  color: #94a3b8;
+}
+
+/* ── Docs page cards ────────────────────────────── */
+.card {
+  border-radius: 1rem;
+  border-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .card {
+  background-color: #1a1b23;
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+/* ── Selection highlight ────────────────────────── */
+::selection {
+  background-color: rgba(0, 229, 229, 0.2);
+}
+
+[data-theme='dark'] ::selection {
+  background-color: rgba(0, 229, 229, 0.3);
+}
+
+/* ── Scrollbar (subtle) ─────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
