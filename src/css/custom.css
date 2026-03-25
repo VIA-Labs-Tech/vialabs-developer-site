@@ -178,3 +178,68 @@ div[class*='announcementBar'] {
 [data-theme='dark'] ::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.15);
 }
+
+/* ── Mermaid diagrams ──────────────────────────────── */
+.docusaurus-mermaid-container {
+  margin: 2.5rem 0;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: rgba(15, 17, 23, 0.5);
+  border: 1px solid rgba(100, 116, 139, 0.15);
+  border-radius: 1rem;
+}
+
+.docusaurus-mermaid-container svg {
+  max-width: 100%;
+  min-height: 200px;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* ── Table styling ─────────────────────────────────── */
+[data-theme='dark'] table {
+  border-collapse: collapse;
+}
+
+[data-theme='dark'] table th {
+  background-color: rgba(148, 163, 184, 0.08);
+  border-color: rgba(100, 116, 139, 0.3);
+  font-weight: 600;
+}
+
+[data-theme='dark'] table td {
+  border-color: rgba(100, 116, 139, 0.2);
+}
+
+[data-theme='dark'] table tr:hover td {
+  background-color: rgba(148, 163, 184, 0.04);
+}
+
+/* ── Docs page polish ──────────────────────────────── */
+[data-theme='dark'] .theme-doc-markdown h2 {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+  margin-top: 2.5rem;
+}
+
+[data-theme='dark'] .theme-doc-markdown hr {
+  border-color: rgba(100, 116, 139, 0.15);
+  margin: 2rem 0;
+}
+
+[data-theme='dark'] .theme-doc-markdown blockquote {
+  border-left-color: #7c8aff;
+  background: rgba(124, 138, 255, 0.05);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem 1.25rem;
+}
+
+[data-theme='dark'] .theme-doc-markdown code {
+  background: rgba(229, 192, 123, 0.1);
+  border: 1px solid rgba(229, 192, 123, 0.15);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  color: #e5c07b;
+  font-size: 0.875em;
+}

@@ -22,6 +22,9 @@ const sidebars: SidebarsConfig = {
       label: 'Quickstart Examples',
       collapsed: false,
       items: [
+        'examples/hello-world',
+        'examples/burn-mint-token',
+        'examples/lock-release-token',
         'examples/crosschain-token',
         'examples/crosschain-nft',
         'examples/private-oracle',

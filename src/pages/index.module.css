@@ -1,29 +1,437 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* ── Hero Section ──────────────────────────────────── */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+.hero {
   position: relative;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
   overflow: hidden;
+  background: linear-gradient(180deg, #0F1117 0%, #1a1b23 100%);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 229, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 229, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.heroBadge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #00E5E5;
+  background: rgba(0, 229, 229, 0.1);
+  border: 1px solid rgba(0, 229, 229, 0.25);
+  border-radius: 9999px;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: #94a3b8;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0F1117;
+  background: linear-gradient(135deg, #00E5E5, #00CED1);
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(0, 229, 229, 0.25);
+}
+
+.btnPrimary:hover {
+  color: #0F1117;
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(0, 229, 229, 0.4);
+  text-decoration: none;
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: transparent;
+  border: 1px solid rgba(100, 116, 139, 0.4);
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btnOutline:hover {
+  color: #ffffff;
+  border-color: rgba(100, 116, 139, 0.7);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+/* ── Shared Section Layout ─────────────────────────── */
+
+.section {
+  padding: 4rem 1.5rem;
+  border-top: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.sectionSubtitle {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+/* ── Card Grids ────────────────────────────────────── */
+
+.cardGrid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.cardGrid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+/* ── Quickstart Cards ──────────────────────────────── */
+
+.quickstartCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 1.5rem;
+  background: #1a1b23;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  border-top: 2px solid rgba(0, 229, 229, 0.5);
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.quickstartCard:hover {
+  transform: translateY(-3px);
+  border-top-color: #00E5E5;
+  box-shadow: 0 8px 30px rgba(0, 229, 229, 0.08), 0 0 1px rgba(0, 229, 229, 0.3);
+  text-decoration: none;
+}
+
+.quickstartIcon {
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.cardDescription {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #00E5E5;
+  transition: gap 0.2s ease;
+}
+
+.quickstartCard:hover .cardLink {
+  gap: 0.6rem;
+}
+
+/* ── Feature Cards ─────────────────────────────────── */
+
+.featureCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #1a1b23;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 1rem;
+  transition: all 0.25s ease;
+}
+
+.featureCard:hover {
+  border-color: rgba(100, 116, 139, 0.35);
+  background: #1e1f28;
+}
+
+.featureIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.featureTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+}
+
+.featureDescription {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Code Block ────────────────────────────────────── */
+
+.codeBlock {
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 0.875rem;
+  overflow: hidden;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  background: #12131b;
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  background: rgba(100, 116, 139, 0.06);
+  border-bottom: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+.codeDot:nth-child(1) {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.codeDot:nth-child(2) {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffbd2e;
+}
+
+.codeDot:nth-child(3) {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #28c840;
+}
+
+.codeFilename {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.codePre {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: #c9d1d9;
+  background: transparent;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.codePre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.inlineCode {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.9rem;
+  font-family: var(--ifm-font-family-monospace);
+  background: rgba(229, 192, 123, 0.1);
+  border: 1px solid rgba(229, 192, 123, 0.15);
+  border-radius: 0.35rem;
+  color: #e5c07b;
+}
+
+.codeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #00E5E5;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.codeLink:hover {
+  gap: 0.6rem;
+  color: #33EBEB;
+  text-decoration: none;
+}
+
+/* ── Doc Link Cards ────────────────────────────────── */
+
+.docCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: #1a1b23;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 0.875rem;
+  text-decoration: none;
+  color: #64748b;
+  transition: all 0.25s ease;
+}
+
+.docCard:hover {
+  border-color: rgba(0, 229, 229, 0.3);
+  background: #1e1f28;
+  color: #00E5E5;
+  text-decoration: none;
+}
+
+.docCardContent {
+  flex: 1;
+}
+
+.docCardTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.docCardDescription {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.25rem 3.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .heroSubtitle br {
+    display: none;
+  }
+
+  .section {
+    padding: 3rem 1.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .cardGrid4 {
+    grid-template-columns: 1fr;
+  }
+
+  .cardGrid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .codePre {
+    font-size: 0.72rem;
+    padding: 1rem;
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .heroTitle {
+    font-size: 2.75rem;
+  }
 
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  .cardGrid4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cardGrid2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

@@ -24,6 +24,11 @@ const config: Config = {
     locales: ['en'],
   },
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       'classic',
@@ -44,14 +49,15 @@ const config: Config = {
   themeConfig: {
     image: 'img/via-labs-social-card.png',
     colorMode: {
-      defaultMode: 'light',
-      respectPrefersColorScheme: true,
+      defaultMode: 'dark',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'VIA Labs',
       logo: {
         alt: 'VIA Labs',
-        src: 'img/logo-dark.png',
+        src: 'img/logo-light.png',
         srcDark: 'img/logo-light.png',
       },
       items: [
@@ -134,6 +140,9 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['solidity', 'bash', 'json'],
+    },
+    mermaid: {
+      theme: {dark: 'dark', light: 'default'},
     },
   } satisfies Preset.ThemeConfig,
 };
