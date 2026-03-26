@@ -246,6 +246,9 @@ function QuickstartSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <h2 className={styles.sectionTitle}>Start Building</h2>
+        <p className={styles.sectionSubtitle}>
+          Issue cross-chain assets or send data to blockchains.
+        </p>
         <div className={styles.cardGrid4}>
           {quickstarts.map((item) => (
             <Link key={item.title} to={item.link} className={styles.quickstartCard}>

@@ -16,6 +16,8 @@ You'll need testnet tokens to deploy contracts and send cross-chain messages on 
 | BNB Testnet | [testnet.bnbchain.org/faucet-smart](https://testnet.bnbchain.org/faucet-smart) |
 | Polygon Mumbai | [faucet.polygon.technology](https://faucet.polygon.technology) |
 | Arbitrum Sepolia | [faucet.quicknode.com/arbitrum/sepolia](https://faucet.quicknode.com/arbitrum/sepolia) |
+| Cardano Testnet (Preview) | [docs.cardano.org/cardano-testnets](https://docs.cardano.org/cardano-testnets/tools/faucet/) |
+| Midnight Testnet | [docs.midnight.network](https://docs.midnight.network/) |
 
 ## Tips
 

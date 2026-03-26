@@ -5,20 +5,21 @@ slug: /
 
 # Welcome to VIA Labs Developer Docs
 
-VIA Labs provides **bridgeless cross-chain communication infrastructure**, enabling secure, direct smart contract messaging across 200+ public and private networks.
+VIA Labs provides **cross-chain communication infrastructure**, enabling secure, direct smart contract messaging across 140+ public and private networks.
 
 ## What You'll Find Here
 
-- **[Technology Overview](/docs/general/technology-overview)** — How VIA Labs' cross-chain infrastructure works
-- **[SDK Reference](/docs/general/package)** — Solidity SDK for integrating cross-chain messaging
+- **[Technology Overview](/docs/general/technology-overview)** — How VIA Labs cross-chain messaging works
+- **[SDK Reference](/docs/general/package)** — SDK for integrating cross-chain messaging
 - **[Supported Networks](/docs/general/supported-networks)** — Full list of supported mainnets and testnets
 
 ## Quickstart Guides
 
 Get up and running in minutes:
 
-- **[Cross-Chain Token](/docs/examples/crosschain-token)** — Bridge ERC20 tokens across chains
-- **[Cross-Chain NFT](/docs/examples/crosschain-nft)** — Move NFTs seamlessly between networks
+- **[Hello World](/docs/examples/hello-world)** — Send your first cross-chain message
+- **[Burn & Mint Token](/docs/examples/burn-mint-token)** — Deploy a cross-chain ERC20 token
+- **[Lock & Release Token](/docs/examples/lock-release-token)** — Lock tokens on one chain, release on another
 - **[Private Oracle](/docs/examples/private-oracle)** — Connect off-chain data to your smart contracts
 
 ## Need Help?

@@ -22,12 +22,33 @@ const sidebars: SidebarsConfig = {
       label: 'Quickstart Examples',
       collapsed: false,
       items: [
-        'examples/hello-world',
-        'examples/burn-mint-token',
-        'examples/lock-release-token',
-        'examples/crosschain-token',
-        'examples/crosschain-nft',
-        'examples/private-oracle',
+        {
+          type: 'category',
+          label: 'EVM',
+          collapsed: false,
+          items: [
+            'examples/hello-world',
+            'examples/burn-mint-token',
+            'examples/lock-release-token',
+            'examples/private-oracle',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Cardano',
+          collapsed: true,
+          items: [
+            'examples/cardano-coming-soon',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Midnight',
+          collapsed: true,
+          items: [
+            'examples/midnight-coming-soon',
+          ],
+        },
       ],
     },
     {

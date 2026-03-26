@@ -103,12 +103,12 @@ const config: Config = {
           title: 'Quickstarts',
           items: [
             {
-              label: 'Cross-Chain Token',
-              to: '/docs/examples/crosschain-token',
+              label: 'Hello World',
+              to: '/docs/examples/hello-world',
             },
             {
-              label: 'Cross-Chain NFT',
-              to: '/docs/examples/crosschain-nft',
+              label: 'Burn & Mint Token',
+              to: '/docs/examples/burn-mint-token',
             },
             {
               label: 'Private Oracle',
