@@ -12,7 +12,7 @@ Each supported chain has its own SDK package. Install the package for the chain 
 
 ```bash
 # EVM chains (Ethereum, Polygon, Arbitrum, Base, etc.)
-npm install @anthropic-ai/via-contracts
+npm install @vialabs-tech/contracts
 ```
 
 :::note
@@ -68,7 +68,7 @@ function messageProcess(
 - `sender` — Sender contract address on source chain (bytes32, left-padded)
 - `recipient` — This contract's address (bytes32, left-padded)
 - `onChainData` — Message payload that was included in signature validation
-- `offChainData` — Additional data provided by the relayer (not signed)
+- `offChainData` — Additional context provided during message delivery
 - `gasRefundAmount` — Amount of gas refunded to the relayer
 
 ## Configuration
@@ -97,6 +97,43 @@ function setMessageEndpoints(
 **Parameters:**
 - `chains` — Array of remote chain IDs (e.g., `[1, 137, 42161]` for Ethereum, Polygon, Arbitrum)
 - `endpoints` — Array of your contract addresses on those chains (bytes32, left-padded)
+
+### `setMaxFee()`
+
+Sets a safety cap on the maximum fee your contract will pay per message. Reverts the send if the fee exceeds this cap.
+
+```solidity
+function setMaxFee(uint256 amount) external onlyProjectOwner;
+```
+
+**Parameters:**
+- `amount` — Maximum fee in token smallest units. `0` = no cap.
+
+### `setMaxGas()`
+
+Sets a safety cap on the maximum gas refund per message.
+
+```solidity
+function setMaxGas(uint256 amount) external onlyProjectOwner;
+```
+
+**Parameters:**
+- `amount` — Maximum gas refund in wei. `0` = no cap.
+
+### `transferProjectOwnership()`
+
+Transfers project ownership to a new address. The new owner immediately gains all `onlyProjectOwner` permissions. This is a single-step transfer — ensure the address is correct before calling.
+
+```solidity
+function transferProjectOwnership(address newOwner) external onlyProjectOwner;
+```
+
+**Parameters:**
+- `newOwner` — Address of the new project owner (cannot be zero address)
+
+:::info Additional Security Option
+For additional security, a multisig or governance contract can be used as the project owner address.
+:::
 
 ### Constructor
 
@@ -133,7 +170,7 @@ function _bytes32ToAddress(bytes32 addr) internal pure returns (address);
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@anthropic-ai/via-contracts/ViaIntegrationV1.sol";
+import "@vialabs-tech/contracts/ViaIntegrationV1.sol";
 
 contract MyCrossChainContract is ViaIntegrationV1 {
     constructor(address owner) ViaIntegrationV1(owner) {}
@@ -158,35 +195,185 @@ contract MyCrossChainContract is ViaIntegrationV1 {
 }
 ```
 
+## Advanced Configuration
+
+These functions are optional and typically used by enterprise projects that want additional control over their security and relay infrastructure.
+
+### `setSignerWhitelist()`
+
+Add or remove addresses from the project signer whitelist. Whitelisted addresses can register as Project-layer signers, adding a third validation layer on top of VIA and Chain layers.
+
+```solidity
+function setSignerWhitelist(address addr, bool enabled) external onlyProjectOwner;
+```
+
+### `setRequiredProjectSignerCounts()`
+
+Set the number of Project-layer signatures required for your project. Set to `0` to disable project-layer validation (rely on VIA and Chain layers only).
+
+```solidity
+function setRequiredProjectSignerCounts(uint256 amount) external onlyProjectOwner;
+```
+
+### `setRelayerWhitelist()`
+
+Add or remove addresses from the project relayer whitelist.
+
+```solidity
+function setRelayerWhitelist(address addr, bool enabled) external onlyProjectOwner;
+```
+
+### `setIsProjectRelayerRestricted()`
+
+When enabled, only project-specific relayers can deliver messages for your project.
+
+```solidity
+function setIsProjectRelayerRestricted(bool restricted) external onlyProjectOwner;
+```
+
 ## Deployment & Setup
 
 ### Hardhat
 
 #### Configuration
 
-<!-- TODO: Developer to add hardhat.config.ts example -->
+Add the VIA Labs contracts to your `hardhat.config.ts`:
+
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.17",
+  networks: {
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+    },
+    amoy: {
+      url: process.env.AMOY_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+    },
+  },
+};
+
+export default config;
+```
 
 #### Deployment Script
 
-<!-- TODO: Developer to add deployment script -->
+Create `scripts/deploy.ts`:
+
+```typescript
+import { ethers } from "hardhat";
+
+async function main() {
+  const Contract = await ethers.getContractFactory("YourContract");
+  const contract = await Contract.deploy(/* constructor args */);
+  await contract.waitForDeployment();
+  console.log("Deployed to:", await contract.getAddress());
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
 
 #### Post-Deployment Configuration
 
-<!-- TODO: Developer to add setMessageGateway/setMessageEndpoints setup script -->
+After deploying on each chain, run these configuration calls:
+
+```typescript
+import { ethers } from "hardhat";
+
+async function configure() {
+  const contract = await ethers.getContractAt("YourContract", "DEPLOYED_ADDRESS");
+
+  // 1. Connect to VIA Gateway
+  await contract.setMessageGateway("GATEWAY_ADDRESS");
+
+  // 2. Set trusted endpoints on remote chains
+  const chains = [80002];  // e.g., Amoy chain ID
+  const endpoints = [
+    ethers.zeroPadValue("REMOTE_CONTRACT_ADDRESS", 32)
+  ];
+  await contract.setMessageEndpoints(chains, endpoints);
+
+  console.log("Configuration complete");
+}
+
+configure().catch(console.error);
+```
 
 ### Foundry
 
 #### Configuration
 
-<!-- TODO: Developer to add foundry.toml example -->
+Add dependencies to `foundry.toml`:
+
+```toml
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib", "node_modules"]
+solc_version = "0.8.17"
+```
 
 #### Deployment Script
 
-<!-- TODO: Developer to add forge script example -->
+Create `script/Deploy.s.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+import "forge-std/Script.sol";
+import "../src/YourContract.sol";
+
+contract DeployScript is Script {
+    function run() external {
+        vm.startBroadcast();
+        YourContract c = new YourContract(/* constructor args */);
+        console.log("Deployed to:", address(c));
+        vm.stopBroadcast();
+    }
+}
+```
+
+```bash
+forge script script/Deploy.s.sol --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast
+```
 
 #### Post-Deployment Configuration
 
-<!-- TODO: Developer to add post-deployment configuration script -->
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+import "forge-std/Script.sol";
+
+interface IConfigurable {
+    function setMessageGateway(address gateway_) external;
+    function setMessageEndpoints(uint64[] calldata chains, bytes32[] calldata endpoints) external;
+}
+
+contract ConfigureScript is Script {
+    function run() external {
+        vm.startBroadcast();
+        IConfigurable c = IConfigurable(DEPLOYED_ADDRESS);
+        c.setMessageGateway(GATEWAY_ADDRESS);
+
+        uint64[] memory chains = new uint64[](1);
+        bytes32[] memory endpoints = new bytes32[](1);
+        chains[0] = 80002; // Amoy
+        endpoints[0] = bytes32(uint256(uint160(REMOTE_CONTRACT_ADDRESS)));
+        c.setMessageEndpoints(chains, endpoints);
+
+        vm.stopBroadcast();
+    }
+}
+```
 
 :::note
 For complete examples and starter repos, visit the [GitHub organization](https://github.com/VIA-Labs-Tech).

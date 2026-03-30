@@ -3,7 +3,7 @@ sidebar_position: 1
 slug: /
 ---
 
-# Welcome to VIA Labs Developer Docs
+# Get Started
 
 VIA Labs provides **cross-chain communication infrastructure**, enabling secure, direct smart contract messaging across 140+ public and private networks.
 

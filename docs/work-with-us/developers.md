@@ -36,5 +36,6 @@ If you're building a protocol that needs cross-chain infrastructure:
 ## Contact
 
 - **Website:** [vialabs.tech](https://vialabs.tech)
+- **Discord:** [Join our Discord](https://discord.gg/h4rBhukkWz)
 - **X / Twitter:** [@VIALabs_io](https://x.com/VIALabs_io)
 - **GitHub:** [VIA-Labs-Tech](https://github.com/VIA-Labs-Tech)

@@ -54,7 +54,7 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'VIA Labs',
+      title: 'Home',
       logo: {
         alt: 'VIA Labs',
         src: 'img/logo-light.png',

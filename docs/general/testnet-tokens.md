@@ -29,3 +29,7 @@ You'll need testnet tokens to deploy contracts and send cross-chain messages on 
 :::tip
 When testing cross-chain messaging, make sure you have tokens on **both** the source and destination test networks.
 :::
+
+:::info Need help with testnet tokens?
+If any faucets aren't working or you're having trouble getting testnet tokens, [contact us on Discord](https://discord.gg/h4rBhukkWz) and we can help you get some native gas to get started.
+:::

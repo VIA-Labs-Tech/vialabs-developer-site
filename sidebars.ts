@@ -10,11 +10,13 @@ const sidebars: SidebarsConfig = {
       items: [
         'general/technology-overview',
         'general/package',
+        'general/interfaces',
         'general/supported-networks',
         'general/fees-and-gas',
         'general/testnet-tokens',
         'general/faq',
         'general/troubleshooting',
+        'general/error-reference',
       ],
     },
     {
@@ -29,6 +31,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'examples/hello-world',
             'examples/burn-mint-token',
+            'examples/lock-mint-token',
             'examples/lock-release-token',
             'examples/private-oracle',
           ],
@@ -56,6 +59,14 @@ const sidebars: SidebarsConfig = {
       label: 'Work With Us',
       items: [
         'work-with-us/developers',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Legal',
+      collapsed: true,
+      items: [
+        'legal/disclaimers',
       ],
     },
   ],
