@@ -39,7 +39,6 @@ A small amount of native gas included in your transaction to cover the cost of v
 - Covers validation, relay, and destination chain execution — handled entirely by VIA Labs
 - Developers and end users don't need to hold tokens on the destination chain or manage gas there
 
-
 ### Ethereum Exception
 
 For **all chains except Ethereum mainnet**, VIA Labs handles destination gas automatically — projects don't need to fund anything on the destination side.
@@ -63,9 +62,9 @@ WETH Funding Flow (Ethereum Destination Only)
 
    Project Contract (Ethereum)
    ┌──────────────────────────┐
-   │  WETH Balance: 0.5 ETH  │ ← Owner funds this
+   │  WETH Balance: 0.5 ETH   │ ← Owner funds this
    │                          │
-   │  maxGas: 0.05 ETH       │ ← Safety cap per message
+   │  maxGas: 0.05 ETH        │ ← Safety cap per message
    └──────────┬───────────────┘
               │ Relayer delivers message
               ▼
@@ -80,25 +79,25 @@ Monitor your contract's WETH balance on Ethereum. If it runs out, incoming messa
 
 ## What Affects Cost
 
-| Factor | Impact |
-|--------|--------|
-| **Source chain gas price** | High-traffic chains (Ethereum mainnet) cost more than L2s |
-| **Destination chain gas price** | Affects the pre-paid amount required for relay execution |
+| Factor                          | Impact                                                    |
+| ------------------------------- | --------------------------------------------------------- |
+| **Source chain gas price**      | High-traffic chains (Ethereum mainnet) cost more than L2s |
+| **Destination chain gas price** | Affects the pre-paid amount required for relay execution  |
 
 ---
 
 ## No Hidden Fees
 
-| | VIA Labs |
-|---|---|
-| **Protocol fee** | None |
-| **Token requirement** | None |
-| **Payment currency** | Source chain native gas only |
-| **Subscription** | None |
-| **Payload surcharge** | None — same cost regardless of data size |
-| **Value-based fee** | None — sending 1 token or 1 million costs the same |
-| **Complexity surcharge** | None — complex contract logic doesn't increase cost |
-| **Congestion markup** | None — destination chain congestion doesn't affect price |
+|                          | VIA Labs                                                 |
+| ------------------------ | -------------------------------------------------------- |
+| **Protocol fee**         | None                                                     |
+| **Token requirement**    | None                                                     |
+| **Payment currency**     | Source chain native gas only                             |
+| **Subscription**         | None                                                     |
+| **Payload surcharge**    | None — same cost regardless of data size                 |
+| **Value-based fee**      | None — sending 1 token or 1 million costs the same       |
+| **Complexity surcharge** | None — complex contract logic doesn't increase cost      |
+| **Congestion markup**    | None — destination chain congestion doesn't affect price |
 
 ---
 

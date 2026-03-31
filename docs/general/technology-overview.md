@@ -54,11 +54,11 @@ VIA Labs implements a **three-layer security model**. Every cross-chain message 
   <img src="/img/security-model.svg" alt="Three-layer security model: VIA Layer, Chain Layer, Project Layer" />
 </div>
 
-| Layer | Role | What It Validates |
-|-------|------|-------------------|
-| **VIA Layer** | Core protocol validation | Signature authenticity, message integrity, and relay authorization by the VIA network |
-| **Chain Layer** | Native chain verification | Source chain finality, transaction inclusion, and on-chain event confirmation |
-| **Project Layer** | Per-project access control | Whitelisted contracts, allowed chains, and project-specific security policies |
+| Layer             | Role                       | What It Validates                                                                     |
+| ----------------- | -------------------------- | ------------------------------------------------------------------------------------- |
+| **VIA Layer**     | Core protocol validation   | Signature authenticity, message integrity, and relay authorization by the VIA network |
+| **Chain Layer**   | Native chain verification  | Source chain finality, transaction inclusion, and on-chain event confirmation         |
+| **Project Layer** | Per-project access control | Whitelisted contracts, allowed chains, and project-specific security policies         |
 
 All three signatures are verified **on-chain** by the destination Gateway contract before the message is forwarded to the recipient.
 
@@ -74,10 +74,10 @@ Blockchains cannot natively communicate with each other — there is no way for 
 
 VIA Labs operates a network of **relayers** that handle message delivery automatically. Relayers are distinct from validators/signers:
 
-| Role | What they do | Who operates them |
-|------|-------------|-------------------|
-| **Validators/Signers** | Verify message integrity and sign attestations across the three security layers | VIA Labs, chain-specific operators, and optionally the project team |
-| **Relayers** | Deliver validated messages to the destination chain by submitting them to the Gateway contract | VIA Labs (enterprise projects can optionally run their own) |
+| Role                   | What they do                                                                                   | Who operates them                                                   |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Validators/Signers** | Verify message integrity and sign attestations across the three security layers                | VIA Labs, chain-specific operators, and optionally the project team |
+| **Relayers**           | Deliver validated messages to the destination chain by submitting them to the Gateway contract | VIA Labs (enterprise projects can optionally run their own)         |
 
 Relayers cannot forge or alter messages — they can only deliver messages that have been signed by the required validators. If a relayer submits an invalid message, the Gateway contract rejects it on-chain.
 
@@ -87,14 +87,14 @@ Relayers cannot forge or alter messages — they can only deliver messages that 
 
 VIA Labs cross-chain messaging is designed for production-grade, enterprise applications across regulated and institutional environments.
 
-| Category | Use Case | Description |
-|----------|----------|-------------|
-| **Finance** | Tokenized Equities | Issue equity tokens on one chain, enable compliant trading across multiple networks |
-| **Finance** | Cross-Chain Stablecoins | Move stablecoins natively without wrapping, maintaining 1:1 backing |
-| **Finance** | Cross-Border Settlement | Route payment settlement across chain-specific corridors |
-| **RWAs** | Tokenized Real Estate | Fractionalize property ownership and enable secondary trading across chains |
-| **RWAs** | Supply Chain Finance | Track and transfer tokenized invoices and trade finance instruments |
-| **RWAs** | Carbon Credit Markets | Issue, transfer, and retire carbon credits across multiple registries |
-| **Enterprise** | Private Oracles | Connect proprietary data feeds or off-chain computation to smart contracts on any chain |
-| **Enterprise** | Cross-Chain Identity | Propagate KYC/AML attestations across chains without re-verification |
-| **Enterprise** | Multi-Chain Governance | Execute DAO proposals and voting across all chains where token holders reside |
+| Category       | Use Case                | Description                                                                             |
+| -------------- | ----------------------- | --------------------------------------------------------------------------------------- |
+| **Finance**    | Tokenized Equities      | Issue equity tokens on one chain, enable compliant trading across multiple networks     |
+| **Finance**    | Cross-Chain Stablecoins | Move stablecoins natively without wrapping, maintaining 1:1 backing                     |
+| **Finance**    | Cross-Border Settlement | Route payment settlement across chain-specific corridors                                |
+| **RWAs**       | Tokenized Real Estate   | Fractionalize property ownership and enable secondary trading across chains             |
+| **RWAs**       | Supply Chain Finance    | Track and transfer tokenized invoices and trade finance instruments                     |
+| **RWAs**       | Carbon Credit Markets   | Issue, transfer, and retire carbon credits across multiple registries                   |
+| **Enterprise** | Private Oracles         | Connect proprietary data feeds or off-chain computation to smart contracts on any chain |
+| **Enterprise** | Cross-Chain Identity    | Propagate KYC/AML attestations across chains without re-verification                    |
+| **Enterprise** | Multi-Chain Governance  | Execute DAO proposals and voting across all chains where token holders reside           |

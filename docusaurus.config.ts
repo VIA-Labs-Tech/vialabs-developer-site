@@ -26,8 +26,23 @@ const config: Config = {
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
+  plugins: [
+    function tailwindPlugin() {
+      return {
+        name: 'tailwind-plugin',
+        configurePostCss(postcssOptions) {
+          postcssOptions.plugins.push(require('tailwindcss'));
+          postcssOptions.plugins.push(require('autoprefixer'));
+          return postcssOptions;
+        },
+      };
+    },
+  ],
 
   presets: [
     [
@@ -47,7 +62,8 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/via-labs-social-card.png',
+    // TODO: add social card image at static/img/via-labs-social-card.png
+    // image: 'img/via-labs-social-card.png',
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,

@@ -1,14 +1,9 @@
-# Production build (main branch) — full Docusaurus site
+# Production (coming-soon branch) — static landing page
 [build]
-  command = "npm run build"
-  publish = "build"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Coming soon branch — static HTML only
-[context.coming-soon]
   command = "echo 'Static site, no build needed'"
-  publish = "coming-soon"
+  publish = "static/coming-soon"
+
+# Main branch — full Docusaurus site (deploy preview only until launch)
+[context.main]
+  command = "yarn build"
+  publish = "build"

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /**
  * VIA Labs Design System — Docusaurus theme overrides
  * Reference: VIA_LABS_DESIGN_SYSTEM.md
@@ -11,19 +15,20 @@
 /* ── Light Mode ─────────────────────────────────── */
 :root {
   /* Brand: VIA Teal #00E5E5 */
-  --ifm-color-primary: #00C4C4;
-  --ifm-color-primary-dark: #00B0B0;
-  --ifm-color-primary-darker: #00A6A6;
+  --ifm-color-primary: #00c4c4;
+  --ifm-color-primary-dark: #00b0b0;
+  --ifm-color-primary-darker: #00a6a6;
   --ifm-color-primary-darkest: #008989;
-  --ifm-color-primary-light: #00D8D8;
-  --ifm-color-primary-lighter: #00E5E5;
-  --ifm-color-primary-lightest: #33EBEB;
+  --ifm-color-primary-light: #00d8d8;
+  --ifm-color-primary-lighter: #00e5e5;
+  --ifm-color-primary-lightest: #33ebeb;
 
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
-  --ifm-heading-font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: "Inter", system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace:
+    "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 
-  --ifm-background-color: #F5F5F7;
+  --ifm-background-color: #f5f5f7;
   --ifm-background-surface-color: #ffffff;
   --ifm-navbar-background-color: rgba(255, 255, 255, 0.7);
   --ifm-footer-background-color: #1a1b23;
@@ -39,16 +44,16 @@
 }
 
 /* ── Dark Mode ──────────────────────────────────── */
-[data-theme='dark'] {
-  --ifm-color-primary: #00E5E5;
-  --ifm-color-primary-dark: #00CECE;
-  --ifm-color-primary-darker: #00C4C4;
-  --ifm-color-primary-darkest: #00A1A1;
-  --ifm-color-primary-light: #1AE8E8;
-  --ifm-color-primary-lighter: #33EBEB;
-  --ifm-color-primary-lightest: #66F0F0;
+[data-theme="dark"] {
+  --ifm-color-primary: #00e5e5;
+  --ifm-color-primary-dark: #00cece;
+  --ifm-color-primary-darker: #00c4c4;
+  --ifm-color-primary-darkest: #00a1a1;
+  --ifm-color-primary-light: #1ae8e8;
+  --ifm-color-primary-lighter: #33ebeb;
+  --ifm-color-primary-lightest: #66f0f0;
 
-  --ifm-background-color: #0F1117;
+  --ifm-background-color: #0f1117;
   --ifm-background-surface-color: #1a1b23;
   --ifm-navbar-background-color: rgba(15, 17, 23, 0.8);
   --ifm-footer-background-color: #0a0b0f;
@@ -64,7 +69,7 @@
   box-shadow: none;
 }
 
-[data-theme='dark'] .navbar {
+[data-theme="dark"] .navbar {
   border-bottom-color: rgba(100, 116, 139, 0.3);
 }
 
@@ -114,7 +119,7 @@
   background-color: rgba(0, 229, 229, 0.1);
 }
 
-[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+[data-theme="dark"] .menu__link--active:not(.menu__link--sublist) {
   background-color: rgba(0, 229, 229, 0.15);
 }
 
@@ -137,7 +142,7 @@
 }
 
 .footer__link-item:hover {
-  color: #00E5E5;
+  color: #00e5e5;
 }
 
 /* ── Code blocks ────────────────────────────────── */
@@ -145,47 +150,12 @@
   border-radius: 0.75rem !important;
 }
 
-/* ── Announcement bar accent ────────────────────── */
-div[class*='announcementBar'] {
-  background: linear-gradient(90deg, #00E5E5, #00B4D8);
-  color: #0F1117;
-  font-weight: 600;
-}
-
-/* ── Hero section on homepage ───────────────────── */
-.hero--primary {
-  background: linear-gradient(135deg, #0F1117 0%, #1a1b23 100%);
-  color: #ffffff;
-}
-
-.hero--primary .hero__title {
-  background: linear-gradient(90deg, #00E5E5, #33EBEB);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero--primary .hero__subtitle {
-  color: #94a3b8;
-}
-
-/* ── Docs page cards ────────────────────────────── */
-.card {
-  border-radius: 1rem;
-  border-color: var(--ifm-color-emphasis-200);
-}
-
-[data-theme='dark'] .card {
-  background-color: #1a1b23;
-  border-color: rgba(100, 116, 139, 0.3);
-}
-
 /* ── Selection highlight ────────────────────────── */
 ::selection {
   background-color: rgba(0, 229, 229, 0.2);
 }
 
-[data-theme='dark'] ::selection {
+[data-theme="dark"] ::selection {
   background-color: rgba(0, 229, 229, 0.3);
 }
 
@@ -203,7 +173,7 @@ div[class*='announcementBar'] {
   border-radius: 3px;
 }
 
-[data-theme='dark'] ::-webkit-scrollbar-thumb {
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -239,44 +209,44 @@ div[class*='announcementBar'] {
 }
 
 /* ── Table styling ─────────────────────────────────── */
-[data-theme='dark'] table {
+[data-theme="dark"] table {
   border-collapse: collapse;
 }
 
-[data-theme='dark'] table th {
+[data-theme="dark"] table th {
   background-color: rgba(148, 163, 184, 0.08);
   border-color: rgba(100, 116, 139, 0.3);
   font-weight: 600;
 }
 
-[data-theme='dark'] table td {
+[data-theme="dark"] table td {
   border-color: rgba(100, 116, 139, 0.2);
 }
 
-[data-theme='dark'] table tr:hover td {
+[data-theme="dark"] table tr:hover td {
   background-color: rgba(148, 163, 184, 0.04);
 }
 
 /* ── Docs page polish ──────────────────────────────── */
-[data-theme='dark'] .theme-doc-markdown h2 {
+[data-theme="dark"] .theme-doc-markdown h2 {
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(100, 116, 139, 0.2);
   margin-top: 2.5rem;
 }
 
-[data-theme='dark'] .theme-doc-markdown hr {
+[data-theme="dark"] .theme-doc-markdown hr {
   border-color: rgba(100, 116, 139, 0.15);
   margin: 2rem 0;
 }
 
-[data-theme='dark'] .theme-doc-markdown blockquote {
+[data-theme="dark"] .theme-doc-markdown blockquote {
   border-left-color: #7c8aff;
   background: rgba(124, 138, 255, 0.05);
   border-radius: 0 0.5rem 0.5rem 0;
   padding: 1rem 1.25rem;
 }
 
-[data-theme='dark'] .theme-doc-markdown code {
+[data-theme="dark"] .theme-doc-markdown code {
   background: rgba(229, 192, 123, 0.1);
   border: 1px solid rgba(229, 192, 123, 0.15);
   border-radius: 0.25rem;
