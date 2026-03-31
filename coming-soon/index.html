@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIA Labs — Developer Documentation</title>
+  <meta name="description" content="Developer documentation for VIA Labs cross-chain messaging infrastructure. Coming soon.">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0f;
+      color: #ffffff;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+    }
+
+    .logo {
+      width: 200px;
+      margin-bottom: 3rem;
+      opacity: 0.95;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .accent {
+      color: #00E5E5;
+    }
+
+    p {
+      font-size: 1.15rem;
+      color: #888;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      color: #00E5E5;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(0, 229, 229, 0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .links a:hover {
+      background: rgba(0, 229, 229, 0.1);
+      border-color: rgba(0, 229, 229, 0.6);
+    }
+
+    /* Subtle glow behind logo */
+    .glow {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 229, 229, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      .logo { width: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="glow"></div>
+    <img src="img/logo-light.png" alt="VIA Labs" class="logo">
+    <h1>Developer Docs <span class="accent">Coming Soon</span></h1>
+    <p>Cross-chain messaging infrastructure documentation for builders. We're putting the finishing touches on our developer portal.</p>
+    <div class="links">
+      <a href="https://vialabs.tech">Main Site</a>
+      <a href="https://discord.gg/h4rBhukkWz">Discord</a>
+      <a href="https://github.com/VIA-Labs-Tech">GitHub</a>
+    </div>
+  </div>
+</body>
+</html>

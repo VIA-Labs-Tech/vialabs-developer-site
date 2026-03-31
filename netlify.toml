@@ -1,3 +1,4 @@
+# Production build (main branch) — full Docusaurus site
 [build]
   command = "npm run build"
   publish = "build"
@@ -6,3 +7,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Coming soon branch — static HTML only
+[context.coming-soon]
+  command = "echo 'Static site, no build needed'"
+  publish = "coming-soon"
