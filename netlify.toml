@@ -1,9 +1,9 @@
-# Production (coming-soon branch) — static landing page
+# Production — full Docusaurus site
 [build]
-  command = "echo 'Static site, no build needed'"
-  publish = "static/coming-soon"
-
-# Main branch — full Docusaurus site (deploy preview only until launch)
-[context.main]
   command = "yarn build"
   publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
