@@ -6,36 +6,50 @@ description: Send a simple cross-chain message between two EVM contracts using V
 
 # Hello World
 
-Send a simple message from one chain to another using VIA Labs cross-chain messaging. This is the simplest possible integration — a single contract that sends and receives string messages across chains.
+Send a string from one chain to another. One contract, two deployments, under 30 lines of Solidity.
 
 ---
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v16+
-- [MetaMask](https://metamask.io/) or another Web3 wallet
-- Testnet tokens on two chains — see [Testnet Tokens](/docs/general/testnet-tokens)
-- [Hardhat](https://hardhat.org/) or [Foundry](https://book.getfoundry.sh/) installed
+- A wallet with testnet ETH on Sepolia and testnet MATIC on Amoy — see [Testnet Tokens](/docs/general/testnet-tokens)
 
 ---
 
-## Overview
-
-You will deploy **one contract** on two different chains. Each contract can send a string message to its counterpart on the other chain. When a message arrives, it's stored and can be read by anyone.
-
-The entire contract is under 30 lines of Solidity.
-
----
-
-## Step 1: Install the SDK
+## Step 1: Create the Project
 
 ```bash
-npm install @vialabs-tech/contracts
+mkdir hello-via && cd hello-via
+npm init -y
+npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+npm install @openzeppelin/contracts
+npx hardhat init
 ```
+
+Select **Create a TypeScript project** when prompted. Accept the defaults.
 
 ---
 
-## Step 2: Write the Contract
+## Step 2: Add the VIA Contracts
+
+Copy the VIA Labs base contract and interfaces into your project. Create the folder and files:
+
+```bash
+mkdir contracts/via
+```
+
+Copy all 5 files from the [Contract Source](/docs/general/contract-source) page into `contracts/via/`:
+
+- `ViaIntegrationV1.sol`
+- `IViaGatewayV1.sol`
+- `IViaIntegrationV1.sol`
+- `IFeeCollector.sol`
+- `IGasCollector.sol`
+
+---
+
+## Step 3: Write the Contract
 
 Create `contracts/HelloVIA.sol`:
 
@@ -43,7 +57,7 @@ Create `contracts/HelloVIA.sol`:
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@vialabs-tech/contracts/ViaIntegrationV1.sol";
+import "./via/ViaIntegrationV1.sol";
 
 contract HelloVIA is ViaIntegrationV1 {
     string public lastMessage;
@@ -53,24 +67,21 @@ contract HelloVIA is ViaIntegrationV1 {
 
     constructor() ViaIntegrationV1(msg.sender) {}
 
-    /// @notice Send a message to a contract on another chain
     function sendMessage(
         uint64 destChainId,
         string calldata message
     ) external payable returns (uint256) {
-        bytes memory payload = abi.encode(message);
-        return messageSend(destChainId, payload, 1);
+        return messageSend(destChainId, abi.encode(message), 1);
     }
 
-    /// @notice Called automatically when a message arrives from another chain
     function messageProcess(
-        uint256,           // txId
+        uint256,
         uint64 sourceChainId,
-        bytes32,           // sender
-        bytes32,           // recipient
+        bytes32,
+        bytes32,
         bytes memory onChainData,
-        bytes memory,      // offChainData
-        uint256            // gasRefundAmount
+        bytes memory,
+        uint256
     ) internal override {
         string memory message = abi.decode(onChainData, (string));
         lastMessage = message;
@@ -80,117 +91,256 @@ contract HelloVIA is ViaIntegrationV1 {
 }
 ```
 
-**What's happening here:**
-
-1. `HelloVIA` inherits from `ViaIntegrationV1` — this gives it all the cross-chain plumbing
-2. `sendMessage()` encodes a string and calls `messageSend()` to dispatch it through the VIA Gateway
-3. `messageProcess()` is called automatically when a validated message arrives from another chain — it decodes the string and stores it
-
-That's it. Two functions. Everything else — gateway connection, signature validation, endpoint verification — is handled by `ViaIntegrationV1`.
+What this does:
+- `sendMessage()` — encodes a string and sends it to another chain via `messageSend()`
+- `messageProcess()` — receives the message on the destination chain, decodes it, stores it
 
 ---
 
-## Step 3: Deploy to Two Chains
+## Step 4: Configure Hardhat
 
-Deploy `HelloVIA` on two testnet chains (e.g., Sepolia and Amoy). Note the deployed contract address on each chain.
+Replace `hardhat.config.ts` with:
 
-### Using Hardhat
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.17",
+  networks: {
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+    },
+    amoy: {
+      url: process.env.AMOY_RPC_URL || "https://rpc-amoy.polygon.technology",
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+    },
+  },
+};
+
+export default config;
+```
+
+Install dotenv:
 
 ```bash
-npx hardhat run scripts/deploy.js --network sepolia
-npx hardhat run scripts/deploy.js --network amoy
+npm install --save-dev dotenv
 ```
 
-### Using Foundry
+Create `.env`:
 
 ```bash
-forge create HelloVIA --rpc-url $SEPOLIA_RPC --private-key $PRIVATE_KEY
-forge create HelloVIA --rpc-url $AMOY_RPC --private-key $PRIVATE_KEY
+PRIVATE_KEY=your_wallet_private_key_here
+SEPOLIA_RPC_URL=https://rpc.sepolia.org
+AMOY_RPC_URL=https://rpc-amoy.polygon.technology
 ```
 
----
-
-## Step 4: Configure
-
-After deployment, run these two configuration calls **on each chain**. These connect your contract to the VIA Gateway and tell it where its counterpart lives.
-
-### On Sepolia
-
-```solidity
-// Connect to the VIA Gateway on Sepolia
-helloVIA.setMessageGateway(SEPOLIA_GATEWAY_ADDRESS);
-
-// Tell the contract where its peer on Amoy lives
-uint64[] memory chains = new uint64[](1);
-bytes32[] memory endpoints = new bytes32[](1);
-chains[0] = 80002;  // Amoy chain ID
-endpoints[0] = bytes32(uint256(uint160(AMOY_CONTRACT_ADDRESS)));
-helloVIA.setMessageEndpoints(chains, endpoints);
-```
-
-### On Amoy
-
-```solidity
-// Connect to the VIA Gateway on Amoy
-helloVIA.setMessageGateway(AMOY_GATEWAY_ADDRESS);
-
-// Tell the contract where its peer on Sepolia lives
-uint64[] memory chains = new uint64[](1);
-bytes32[] memory endpoints = new bytes32[](1);
-chains[0] = 11155111;  // Sepolia chain ID
-endpoints[0] = bytes32(uint256(uint160(SEPOLIA_CONTRACT_ADDRESS)));
-helloVIA.setMessageEndpoints(chains, endpoints);
-```
-
-:::tip
-Gateway addresses for each chain are available in the [Supported Networks](/docs/general/supported-networks) page.
+:::danger
+Never commit `.env` to git. Add it to `.gitignore`.
 :::
 
 ---
 
-## Step 5: Send a Message
+## Step 5: Write the Deploy Script
 
-Call `sendMessage()` on the Sepolia contract, targeting Amoy:
+Create `scripts/deploy.ts`:
 
-```solidity
-helloVIA.sendMessage{value: 0.001 ether}(
-    80002,                    // Amoy chain ID
-    "Hello from Sepolia!"     // Your message
-);
+```typescript
+import { ethers } from "hardhat";
+
+async function main() {
+  const HelloVIA = await ethers.getContractFactory("HelloVIA");
+  const contract = await HelloVIA.deploy();
+  await contract.waitForDeployment();
+  const address = await contract.getAddress();
+  console.log("HelloVIA deployed to:", address);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
 ```
-
-The `msg.value` covers the destination chain gas cost.
 
 ---
 
-## Step 6: Verify
+## Step 6: Deploy to Both Chains
 
-After a few moments (depending on chain finality), check the Amoy contract:
-
-```solidity
-helloVIA.lastMessage();      // "Hello from Sepolia!"
-helloVIA.lastSourceChain();  // 11155111 (Sepolia)
+```bash
+npx hardhat run scripts/deploy.ts --network sepolia
 ```
 
-Your message traveled from Sepolia → VIA Gateway → Validators → VIA Gateway → Amoy. The three-layer security model validated it, and the gateway delivered it to your contract.
+Save the output address. Then:
+
+```bash
+npx hardhat run scripts/deploy.ts --network amoy
+```
+
+Save that address too. You now have two contract addresses:
+
+```
+SEPOLIA_CONTRACT=0x...   ← from first deploy
+AMOY_CONTRACT=0x...      ← from second deploy
+```
 
 ---
 
-## How It Works
+## Step 7: Configure the Contracts
+
+Create `scripts/configure.ts`:
+
+```typescript
+import { ethers } from "hardhat";
+
+// ---- FILL THESE IN ----
+const CONTRACT_ADDRESS = "";        // deployed HelloVIA address on THIS chain
+const GATEWAY_ADDRESS = "";         // VIA Gateway address on THIS chain
+const REMOTE_CHAIN_ID = 0;          // chain ID of the OTHER chain
+const REMOTE_CONTRACT_ADDRESS = ""; // deployed HelloVIA address on the OTHER chain
+// ------------------------
+
+async function main() {
+  const contract = await ethers.getContractAt("HelloVIA", CONTRACT_ADDRESS);
+
+  // 1. Connect to the VIA Gateway
+  console.log("Setting gateway...");
+  const tx1 = await contract.setMessageGateway(GATEWAY_ADDRESS);
+  await tx1.wait();
+  console.log("Gateway set.");
+
+  // 2. Tell the contract where its peer lives on the other chain
+  console.log("Setting endpoint...");
+  const tx2 = await contract.setMessageEndpoints(
+    [REMOTE_CHAIN_ID],
+    [ethers.zeroPadValue(REMOTE_CONTRACT_ADDRESS, 32)]
+  );
+  await tx2.wait();
+  console.log("Endpoint set. Configuration complete.");
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+Run it on Sepolia (fill in addresses first):
+
+```bash
+npx hardhat run scripts/configure.ts --network sepolia
+```
+
+Then update the constants for the Amoy side and run:
+
+```bash
+npx hardhat run scripts/configure.ts --network amoy
+```
+
+:::caution Gateway Addresses
+VIA Gateway testnet addresses are available on the [Supported Networks](/docs/general/supported-networks) page. Testnet gateways are being deployed — check the page for the latest status.
+:::
+
+---
+
+## Step 8: Send a Message
+
+Create `scripts/send.ts`:
+
+```typescript
+import { ethers } from "hardhat";
+
+const CONTRACT_ADDRESS = ""; // your HelloVIA on Sepolia
+const DEST_CHAIN_ID = 80002; // Amoy
+
+async function main() {
+  const contract = await ethers.getContractAt("HelloVIA", CONTRACT_ADDRESS);
+
+  console.log("Sending message...");
+  const tx = await contract.sendMessage(
+    DEST_CHAIN_ID,
+    "Hello from Sepolia!",
+    { value: ethers.parseEther("0.001") }
+  );
+  await tx.wait();
+  console.log("Message sent! TX:", tx.hash);
+  console.log("Wait 1-5 minutes for cross-chain delivery.");
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+```bash
+npx hardhat run scripts/send.ts --network sepolia
+```
+
+---
+
+## Step 9: Verify on Destination
+
+Create `scripts/read.ts`:
+
+```typescript
+import { ethers } from "hardhat";
+
+const CONTRACT_ADDRESS = ""; // your HelloVIA on Amoy
+
+async function main() {
+  const contract = await ethers.getContractAt("HelloVIA", CONTRACT_ADDRESS);
+  const message = await contract.lastMessage();
+  const sourceChain = await contract.lastSourceChain();
+  console.log("Last message:", message);
+  console.log("From chain:", sourceChain.toString());
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+```bash
+npx hardhat run scripts/read.ts --network amoy
+```
+
+Expected output after delivery:
 
 ```
-Sepolia                                      Amoy
-────────                                     ────
-User calls sendMessage()
-  ↓ abi.encode("Hello from Sepolia!")
-  ↓ messageSend(80002, payload, 1)
-  ↓ ViaGatewayV1.send() → emit SendRequested
-                                              Relayer calls ViaGatewayV1.process()
-                                                ↓ Signature validation (3 layers)
-                                                ↓ messageProcessFromGateway()
-                                                ↓ messageProcess() override
-                                                ↓ lastMessage = "Hello from Sepolia!"
-                                                ↓ emit MessageReceived
+Last message: Hello from Sepolia!
+From chain: 11155111
+```
+
+---
+
+## Project Structure
+
+When you're done, your project looks like:
+
+```
+hello-via/
+├── contracts/
+│   ├── via/
+│   │   ├── ViaIntegrationV1.sol
+│   │   ├── IViaGatewayV1.sol
+│   │   ├── IViaIntegrationV1.sol
+│   │   ├── IFeeCollector.sol
+│   │   └── IGasCollector.sol
+│   └── HelloVIA.sol
+├── scripts/
+│   ├── deploy.ts
+│   ├── configure.ts
+│   ├── send.ts
+│   └── read.ts
+├── .env
+├── hardhat.config.ts
+└── package.json
 ```
 
 ---
@@ -199,4 +349,4 @@ User calls sendMessage()
 
 - [Burn & Mint Token](/docs/examples/burn-mint-token) — deploy a cross-chain ERC20 token
 - [Lock & Release Token](/docs/examples/lock-release-token) — bridge existing tokens like USDC
-- [SDK Reference](/docs/general/package) — full API documentation
+- [Contract Source](/docs/general/contract-source) — ViaIntegrationV1 and reference implementations

@@ -6,7 +6,7 @@ sidebar_position: 3
 
 VIA Labs supports cross-chain communication across **140+ mainnets** and **80+ testnets**, including both public and private networks.
 
-For the complete and always up-to-date list of supported networks and their contract addresses, see the **[@vialabs-tech/contracts npm package](https://www.npmjs.com/package/@vialabs-tech/contracts)**.
+Gateway contract addresses for each supported network will be published here as testnets and mainnets are deployed. Check back for updates, or visit [vialabs.tech](https://vialabs.tech) for the latest status.
 
 ## Adding a New Network
 

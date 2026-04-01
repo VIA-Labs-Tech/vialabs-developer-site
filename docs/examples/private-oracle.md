@@ -15,10 +15,8 @@ Unlike public oracle networks (Chainlink VRF, etc.), Private Oracles give you fu
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) v16+
-- [MetaMask](https://metamask.io/) or another Web3 wallet
+- A working Hardhat project with VIA contracts — complete the [Hello World](/docs/examples/hello-world) guide first
 - Testnet tokens on two chains — see [Testnet Tokens](/docs/general/testnet-tokens)
-- Familiarity with [Hello World](/docs/examples/hello-world) example
 
 ---
 
@@ -52,7 +50,7 @@ Create `contracts/OracleWriter.sol`:
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@vialabs-tech/contracts/ViaIntegrationV1.sol";
+import "./via/ViaIntegrationV1.sol";
 
 /// @title OracleWriter
 /// @notice Receives data from an off-chain oracle driver and sends it cross-chain.
@@ -118,7 +116,7 @@ Create `contracts/OracleReader.sol`:
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@vialabs-tech/contracts/ViaIntegrationV1.sol";
+import "./via/ViaIntegrationV1.sol";
 
 /// @title OracleReader
 /// @notice Receives cross-chain randomness from OracleWriter and makes it
@@ -291,29 +289,7 @@ Call submitRandomness()  →   OracleWriter
 
 ---
 
-## Why Private Oracles?
-
-| Feature | Private Oracle (VIA Labs) | Public Oracle Networks |
-|---------|--------------------------|----------------------|
-| **Data source** | Any — APIs, databases, AI, IoT | Limited to supported feeds |
-| **Control** | You run the oracle node | Third-party operated |
-| **Cost** | Source chain gas only | Oracle fees + gas |
-| **Latency** | Direct — no oracle network queue | Depends on network congestion |
-| **Privacy** | Your data stays private | Data may be public |
-| **Cross-chain** | Built-in via VIA Gateway | Usually single-chain |
-
----
-
-## Use Cases
-
-This pattern works for any off-chain data you want on-chain:
-
-- **Random numbers** — lotteries, gaming, NFT trait generation
-- **Price feeds** — custom pricing data from proprietary sources
-- **AI/ML outputs** — LLM responses, prediction models, sentiment analysis
-- **IoT sensor data** — temperature, location, supply chain tracking
-- **Sports scores** — live game data for prediction markets
-- **Compliance data** — KYC/AML attestations, regulatory checks
+Private Oracles give you full control over your data source and delivery — any API, database, AI model, or IoT device. See [Technology Overview](/docs/general/technology-overview#use-cases) for more patterns.
 
 ---
 
@@ -321,4 +297,4 @@ This pattern works for any off-chain data you want on-chain:
 
 - [Hello World](/docs/examples/hello-world) — simplest cross-chain message
 - [Burn & Mint Token](/docs/examples/burn-mint-token) — cross-chain ERC20
-- [SDK Reference](/docs/general/package) — full API documentation
+- [Contract Source](/docs/general/contract-source) — ViaIntegrationV1 and reference implementations

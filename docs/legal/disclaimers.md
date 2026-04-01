@@ -74,7 +74,7 @@ Access to the VIA Network infrastructure (relayers and RPC endpoints) is provide
 
 This policy applies to both Testnet and Mainnet environments to ensure stability for all network participants. VIA Labs reserves the right to charge or limit usage in the event of malicious spam or abuse.
 
-See [Fees & Gas](/docs/general/fees-and-gas#acceptable-use-policy) for the complete Acceptable Use Policy.
+See [Fees & Gas](/docs/general/fees-and-gas#acceptable-use) for the complete Acceptable Use Policy.
 
 ---
 

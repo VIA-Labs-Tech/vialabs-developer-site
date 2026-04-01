@@ -15,9 +15,9 @@ const docLinks: DocLinkItem[] = [
     link: '/docs/general/technology-overview',
   },
   {
-    title: 'SDK Reference',
-    description: 'Complete API reference for the VIA cross-chain package.',
-    link: '/docs/general/package',
+    title: 'Contract Source',
+    description: 'ViaIntegrationV1 base contract and reference implementations.',
+    link: '/docs/general/contract-source',
   },
   {
     title: 'Supported Networks',

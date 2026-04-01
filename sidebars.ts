@@ -1,74 +1,58 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
 const sidebars: SidebarsConfig = {
   docsSidebar: [
-    'intro',
+    "intro",
     {
-      type: 'category',
-      label: 'General',
+      type: "category",
+      label: "Build",
       collapsed: false,
       items: [
-        'general/technology-overview',
-        'general/package',
-        'general/interfaces',
-        'general/supported-networks',
-        'general/fees-and-gas',
-        'general/testnet-tokens',
-        'general/faq',
-        'general/troubleshooting',
-        'general/error-reference',
+        "examples/hello-world",
+        "examples/burn-mint-token",
+        "examples/lock-mint-token",
+        "examples/lock-release-token",
+        "examples/private-oracle",
+        "examples/cardano-coming-soon",
+        "examples/midnight-coming-soon",
       ],
     },
     {
-      type: 'category',
-      label: 'Quickstart Examples',
+      type: "category",
+      label: "Reference",
       collapsed: false,
       items: [
+        "general/contract-source",
         {
-          type: 'category',
-          label: 'EVM',
-          collapsed: false,
-          items: [
-            'examples/hello-world',
-            'examples/burn-mint-token',
-            'examples/lock-mint-token',
-            'examples/lock-release-token',
-            'examples/private-oracle',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Cardano',
+          type: "category",
+          label: "Contracts",
           collapsed: true,
           items: [
-            'examples/cardano-coming-soon',
+            "general/ref-via-integration",
+            "general/ref-mint-burn",
+            "general/ref-locker-release",
+            "general/ref-fee-collector",
+            "general/ref-gas-refund",
           ],
         },
-        {
-          type: 'category',
-          label: 'Midnight',
-          collapsed: true,
-          items: [
-            'examples/midnight-coming-soon',
-          ],
-        },
+        "general/supported-networks",
+        "general/error-reference",
       ],
     },
     {
-      type: 'category',
-      label: 'Work With Us',
-      items: [
-        'work-with-us/developers',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Legal',
+      type: "category",
+      label: "Learn",
       collapsed: true,
       items: [
-        'legal/disclaimers',
+        "general/technology-overview",
+        "general/fees-and-gas",
+        "general/faq",
+        "general/troubleshooting",
+        "general/testnet-tokens",
       ],
     },
+    "work-with-us/developers",
+    "legal/disclaimers",
   ],
 };
 

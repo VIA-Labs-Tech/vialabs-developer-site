@@ -26,7 +26,7 @@ import Head from '@docusaurus/Head';
           "name": "How do I send a cross-chain message?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Install the VIA Labs SDK, inherit the ViaIntegrationV1 base contract, call messageSend() to send messages to other chains, and implement messageProcess() to handle incoming messages."
+            "text": "Copy the ViaIntegrationV1 base contract into your project, inherit from it, call messageSend() to send messages to other chains, and implement messageProcess() to handle incoming messages."
           }
         },
         {
@@ -92,7 +92,7 @@ VIA Labs provides cross-chain communication infrastructure that enables direct s
 
 ### How do I send a cross-chain message?
 
-1. Install the VIA Labs SDK package for your chain
+1. Copy the VIA Labs base contract into your project (see [Contract Source](/docs/general/contract-source))
 2. Inherit the `ViaIntegrationV1` base contract in your smart contract
 3. Call `messageSend()` to send messages to other chains
 4. Implement `messageProcess()` to handle incoming messages

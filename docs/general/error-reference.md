@@ -103,5 +103,5 @@ Monitor your lock-release contract balances and set up alerts when liquidity dro
 ## Related
 
 - [Troubleshooting](/docs/general/troubleshooting) — common issues and their solutions
-- [SDK Reference](/docs/general/package) — full API documentation
+- [Contract Source](/docs/general/contract-source) — ViaIntegrationV1 and reference implementations
 - [FAQ](/docs/general/faq) — frequently asked questions

@@ -12,7 +12,7 @@ Interested in building with VIA Labs or contributing to the ecosystem? Here's ho
 
 Add cross-chain capabilities to your existing project:
 
-1. Install the VIA Labs SDK
+1. Copy the VIA Labs contracts into your project (see [Contract Source](/docs/general/contract-source))
 2. Follow one of our [quickstart guides](/docs/examples/hello-world)
 3. Deploy to testnets and validate
 4. Go live on mainnets

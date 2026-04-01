@@ -103,11 +103,11 @@ const config: Config = {
           items: [
             {
               label: 'Getting Started',
-              to: '/docs/general/technology-overview',
+              to: '/docs/examples/hello-world',
             },
             {
-              label: 'SDK Reference',
-              to: '/docs/general/package',
+              label: 'Contract Source',
+              to: '/docs/general/contract-source',
             },
             {
               label: 'Supported Networks',

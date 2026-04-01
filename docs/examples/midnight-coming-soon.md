@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Coming Soon"
+sidebar_label: "Midnight (Coming Soon)"
 sidebar_position: 1
 ---
 

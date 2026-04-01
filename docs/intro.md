@@ -5,25 +5,29 @@ slug: /
 
 # Get Started
 
-VIA Labs provides **cross-chain communication infrastructure**, enabling secure, direct smart contract messaging across 140+ public and private networks.
+VIA Labs provides **cross-chain smart contract messaging** across 140+ networks. Inherit one contract, override one function, send messages between chains.
 
-## What You'll Find Here
+## Start Building
 
-- **[Technology Overview](/docs/general/technology-overview)** — How VIA Labs cross-chain messaging works
-- **[SDK Reference](/docs/general/package)** — SDK for integrating cross-chain messaging
-- **[Supported Networks](/docs/general/supported-networks)** — Full list of supported mainnets and testnets
+**[Hello World](/docs/examples/hello-world)** — Send your first cross-chain message in under 30 lines of Solidity. Start here.
 
-## Quickstart Guides
+More patterns:
 
-Get up and running in minutes:
+- **[Burn & Mint Token](/docs/examples/burn-mint-token)** — Cross-chain ERC20 that burns on source, mints on destination
+- **[Lock & Mint Token](/docs/examples/lock-mint-token)** — Lock tokens on source, mint a synthetic on destination
+- **[Lock & Release Token](/docs/examples/lock-release-token)** — Lock tokens on one chain, release from a pool on another
+- **[Private Oracle](/docs/examples/private-oracle)** — Connect any off-chain data source to smart contracts across chains
 
-- **[Hello World](/docs/examples/hello-world)** — Send your first cross-chain message
-- **[Burn & Mint Token](/docs/examples/burn-mint-token)** — Deploy a cross-chain ERC20 token
-- **[Lock & Release Token](/docs/examples/lock-release-token)** — Lock tokens on one chain, release on another
-- **[Private Oracle](/docs/examples/private-oracle)** — Connect off-chain data to your smart contracts
+## How It Works (30 Seconds)
+
+1. Your contract inherits `ViaIntegrationV1` and calls `messageSend()` to send data to another chain
+2. The VIA Gateway + validator network verifies and relays the message
+3. Your contract on the destination chain receives it via `messageProcess()`
+
+That's the entire integration. For the full architecture, see [Technology Overview](/docs/general/technology-overview).
 
 ## Need Help?
 
-- Check the **[FAQ](/docs/general/faq)** for common questions
-- Visit **[Troubleshooting](/docs/general/troubleshooting)** for debugging tips
-- Explore our **[GitHub repositories](https://github.com/VIA-Labs-Tech)** for code examples
+- **[FAQ](/docs/general/faq)** — Common questions
+- **[Troubleshooting](/docs/general/troubleshooting)** — Debugging tips
+- **[GitHub](https://github.com/VIA-Labs-Tech)** — Code examples and starter repos

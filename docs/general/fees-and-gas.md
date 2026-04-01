@@ -4,121 +4,100 @@ sidebar_position: 4
 
 # Fees & Gas
 
-Understanding the cost structure for cross-chain messaging with VIA Labs.
+How cross-chain messaging costs work, and what you need to configure.
 
 ---
 
-## Overview
+## What You Pay to Send a Message
 
-VIA Labs charges **no protocol fee**. There is no fixed USDC charge, no subscription, and no token requirement. The only cost to send a cross-chain message is the **source chain gas**, which covers the operational cost of validating and delivering your message to the destination chain. Destination chain gas is handled by VIA Labs — integrating projects don't need to fund gas on destination chains.
+Every cross-chain message has **two costs**, both paid on the source chain at send time:
 
-<div className="diagram-container">
-  <img src="/img/fees-overview-c.svg" alt="Fee flow overview" />
-</div>
+| Cost | What it is | Paid in | Paid by |
+|------|-----------|---------|---------|
+| **Source chain gas** | Normal transaction gas for calling `messageSend()` | Native token (ETH, MATIC, etc.) | User or calling contract |
+| **Delivery fee** | Covers validation and delivery to the destination chain | Native token, included as `msg.value` | User or calling contract |
+
+That's it for most chains. The `msg.value` you include with `messageSend()` covers everything on the destination side — VIA Labs handles execution there.
 
 ---
 
-## Two-Cost Structure
+## Protocol Fee (ERC-20)
 
-Every cross-chain message incurs exactly **two gas costs**, both paid in the source chain's native token at the time of sending.
+The VIA Gateway has a fee collector (`FeeCollectorV1`) that can charge an ERC-20 token fee per message (e.g., USDC). This is **separate** from the native gas costs above.
 
-### 1. Source Chain Gas
+**Currently this fee is set to zero on all chains.** The mechanism exists but is not active.
 
-The standard gas cost of executing your `messageSend()` transaction on the originating chain.
+If fees are ever enabled:
+- Your contract auto-approves the fee token when you call `setMessageGateway()` — no manual approval needed
+- Use `setMaxFee()` to cap the maximum fee per message — if the fee exceeds your cap, `messageSend()` reverts
+- Setting `setMaxFee(0)` means no cap (accepts any fee amount)
 
-- Paid by the **user or calling contract** as part of the normal transaction
-- Denominated in the **source chain's native token** (ETH, MATIC, AVAX, BNB, etc.)
-- Varies based on source chain gas prices
+---
 
-### 2. Message Delivery Cost
+## Gas Refunds (Destination Side)
 
-A small amount of native gas included in your transaction to cover the cost of validating and delivering the message to the destination chain.
+When a relayer delivers your message on the destination chain, they spend gas. The gas refund system reimburses them from your contract's WETH balance.
 
-- Included as `msg.value` in the `messageSend()` call
-- Denominated in the **source chain's native token**
-- Covers validation, relay, and destination chain execution — handled entirely by VIA Labs
-- Developers and end users don't need to hold tokens on the destination chain or manage gas there
+**For all chains except Ethereum mainnet, VIA Labs handles destination gas automatically — you don't need to do anything.**
 
-### Ethereum Exception
+### Ethereum Mainnet Exception
 
-For **all chains except Ethereum mainnet**, VIA Labs handles destination gas automatically — projects don't need to fund anything on the destination side.
+Ethereum gas is 10-100x more expensive than L2s and spikes unpredictably. If your contract receives messages **on Ethereum mainnet**, you need to:
 
-**Ethereum is different.** Gas on Ethereum mainnet is 10–100x more expensive than Layer 2 chains and can spike unpredictably during periods of network congestion. This makes flat-rate subsidization impractical for Ethereum as a destination chain.
+1. **Fund your contract with WETH** — the relayer is reimbursed from this balance
+2. **Set a `maxGas` cap** — limits how much a relayer can claim per message
 
-If your project receives cross-chain messages **on Ethereum mainnet**, you need to:
-
-1. **Fund your Ethereum contract with WETH** (Wrapped ETH) — this is the balance relayers are reimbursed from
-2. **Set a `maxGas` cap** via `setMaxGas()` — this limits how much WETH a relayer can claim per message
-
-```
-WETH Funding Flow (Ethereum Destination Only)
-──────────────────────────────────────────────
-
-1. Project owner deposits WETH into the project contract on Ethereum
-2. A cross-chain message arrives from another chain
-3. Relayer calls process() on the Ethereum gateway to deliver it
-4. Relayer is reimbursed from the project contract's WETH balance
-5. Project contract's WETH balance decreases
-
-   Project Contract (Ethereum)
-   ┌──────────────────────────┐
-   │  WETH Balance: 0.5 ETH   │ ← Owner funds this
-   │                          │
-   │  maxGas: 0.05 ETH        │ ← Safety cap per message
-   └──────────┬───────────────┘
-              │ Relayer delivers message
-              ▼
-   Relayer receives ≤ 0.05 ETH  ← Capped by maxGas
+```solidity
+// After deployment on Ethereum:
+myContract.setMaxGas(0.05 ether);  // Cap at 0.05 WETH per message
+// Then deposit WETH into your contract
 ```
 
-:::tip
-Monitor your contract's WETH balance on Ethereum. If it runs out, incoming messages will fail until you top it up. See [Interface Reference — IGasCollector](/docs/general/interfaces#igascollector) for details on `setMaxGas()`.
-:::
+### How Gas Refunds Work
+
+The gas refund system is **trust-based**. The relayer self-reports how much gas they spent — there is no on-chain gas metering. The flow:
+
+1. Relayer calls `process()` on the destination gateway with a `gasRefundAmount`
+2. `GasRefundV1` checks the amount against your `maxGas` cap
+3. If within cap, WETH is transferred from your contract to the relayer
+4. If `maxGas` is exceeded, the entire delivery reverts with `GasMaxCap`
+
+**`maxGas` is your only protection.** A typical message delivery costs 0.001–0.01 ETH in gas. Set `maxGas` to 2–5x your expected cost as a safety margin.
+
+| `maxGas` value | Behavior |
+|---------------|----------|
+| `0` (default) | **No cap — dangerous.** Relayer can claim up to your entire WETH balance. |
+| Non-zero | Reverts if claimed amount exceeds cap. |
 
 ---
 
-## What Affects Cost
+## What Developers Need to Configure
 
-| Factor                          | Impact                                                    |
-| ------------------------------- | --------------------------------------------------------- |
-| **Source chain gas price**      | High-traffic chains (Ethereum mainnet) cost more than L2s |
-| **Destination chain gas price** | Affects the pre-paid amount required for relay execution  |
+| Function | When to use | Default |
+|----------|------------|---------|
+| `setMaxFee(amount)` | Cap the ERC-20 protocol fee per message | `0` (no cap) — safe while fees are zero |
+| `setMaxGas(amount)` | Cap the gas refund per message | `0` (no cap) — **set this if receiving on Ethereum** |
 
----
-
-## No Hidden Fees
-
-|                          | VIA Labs                                                 |
-| ------------------------ | -------------------------------------------------------- |
-| **Protocol fee**         | None                                                     |
-| **Token requirement**    | None                                                     |
-| **Payment currency**     | Source chain native gas only                             |
-| **Subscription**         | None                                                     |
-| **Payload surcharge**    | None — same cost regardless of data size                 |
-| **Value-based fee**      | None — sending 1 token or 1 million costs the same       |
-| **Complexity surcharge** | None — complex contract logic doesn't increase cost      |
-| **Congestion markup**    | None — destination chain congestion doesn't affect price |
+Both are called on your contract (inherited from `ViaIntegrationV1`). See the [ViaIntegrationV1 reference](/docs/general/ref-via-integration) for details.
 
 ---
 
-## Fee Estimation
+## Summary
 
-Gas estimates are calculated automatically when you call `messageSend()`. The function will revert if insufficient `msg.value` is provided to cover destination gas.
-
-:::tip
-For testnet development, fees are negligible. Use testnet faucets to get free tokens — see [Testnet Tokens](/docs/general/testnet-tokens).
-:::
-
----
-
-## Testnet Usage
-
-Testnet transactions use testnet tokens and are effectively free. See [Testnet Tokens](/docs/general/testnet-tokens) for faucet links.
+| Scenario | What you pay | What you configure |
+|----------|-------------|-------------------|
+| **Send from any chain** | Source gas + `msg.value` for delivery | Nothing — just include `msg.value` |
+| **Receive on L2/non-Ethereum** | Nothing | Nothing — VIA Labs covers destination gas |
+| **Receive on Ethereum mainnet** | WETH from your contract balance | Fund WETH + `setMaxGas()` |
 
 ---
 
-## Acceptable Use Policy
+## Testnet
 
-Access to the VIA Network infrastructure (relayers and RPC endpoints) is provided subject to acceptable usage limits. VIA Labs reserves the right to throttle or temporarily suspend processing for traffic patterns that are inorganic, malicious (e.g., spam attacks), or that place an excessive burden on the relay infrastructure relative to the gas fees collected. This policy applies to both Testnet and Mainnet environments to ensure stability for all network participants.
+Testnet fees are negligible. See [Testnet Tokens](/docs/general/testnet-tokens) for faucet links.
 
-VIA Labs reserves the right to charge or limit usage in the event of malicious spam or abuse.
+---
+
+## Acceptable Use
+
+VIA Labs reserves the right to throttle or suspend processing for traffic that is inorganic, malicious, or places excessive burden on relay infrastructure. This applies to both testnet and mainnet.
