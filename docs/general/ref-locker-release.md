@@ -26,7 +26,7 @@ constructor(address _token)
 |-----------|------|-------------|
 | `_token` | `address` | The ERC20 token this bridge handles. Immutable after deployment. |
 
-The token address can differ per chain (e.g., USDC has different addresses on Ethereum vs Polygon). Deployer becomes both `owner` and `projectOwner`.
+The token address can differ per chain (e.g., USDC has different addresses on Ethereum vs Avalanche). Deployer becomes both `owner` and `projectOwner`.
 
 ---
 

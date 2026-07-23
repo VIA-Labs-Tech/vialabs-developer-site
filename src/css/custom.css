@@ -123,6 +123,13 @@
   background-color: rgba(0, 229, 229, 0.15);
 }
 
+/* Deeper indent for nested sidebar items */
+.menu__list .menu__list {
+  padding-left: 0.9rem;
+  margin-left: 0.4rem;
+  border-left: 1px solid rgba(100, 116, 139, 0.25);
+}
+
 /* ── Footer ─────────────────────────────────────── */
 .footer--dark {
   background-color: var(--ifm-footer-background-color);

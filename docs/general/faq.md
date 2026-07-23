@@ -119,7 +119,7 @@ When receiving cross-chain messages **on Ethereum**, the developer's deployed co
 
 ### Who pays for destination chain gas?
 
-The sender pre-pays destination chain gas as part of the source chain transaction. The `messageSend()` function automatically estimates the required amount. The protocol handles execution on the destination chain.
+The sender pre-pays destination chain gas as part of the source chain transaction. Behind the scenes, the VIA protocol manages execution on the destination chain.
 
 ### Are there any protocol fees?
 

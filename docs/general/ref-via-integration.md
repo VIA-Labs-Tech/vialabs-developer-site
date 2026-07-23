@@ -6,7 +6,7 @@ description: API reference for the ViaIntegrationV1 base contract — functions,
 
 # ViaIntegrationV1
 
-The abstract base contract your project inherits from. It connects to the VIA Gateway, manages endpoint configuration, and routes cross-chain messages.
+The base contract your project inherits from. It connects to the VIA Gateway, manages endpoint configuration, and routes cross-chain messages.
 
 For the full source code, see [Contract Source](/docs/general/contract-source).
 

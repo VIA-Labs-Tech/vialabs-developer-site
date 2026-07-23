@@ -13,7 +13,7 @@ Send a string from one chain to another. One contract, two deployments, under 30
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v16+
-- A wallet with testnet ETH on Sepolia and testnet MATIC on Amoy — see [Testnet Tokens](/docs/general/testnet-tokens)
+- A wallet with testnet ETH on Sepolia and testnet AVAX on Avalanche Fuji — see [Testnet Tokens](/docs/general/testnet-tokens)
 
 ---
 
@@ -22,12 +22,16 @@ Send a string from one chain to another. One contract, two deployments, under 30
 ```bash
 mkdir hello-via && cd hello-via
 npm init -y
-npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
-npm install @openzeppelin/contracts
+npm install --save-dev hardhat@^2 @nomicfoundation/hardhat-toolbox@^5 typescript@~5.8.0 ts-node @types/node
+npm install @openzeppelin/contracts@^4
 npx hardhat init
 ```
 
 Select **Create a TypeScript project** when prompted. Accept the defaults.
+
+:::info Pinned versions
+The version pins matter. Hardhat 3 changed the config format and requires ESM projects — this guide uses Hardhat 2. OpenZeppelin 5 changed the `Ownable` constructor — the VIA reference contracts use OpenZeppelin 4. TypeScript is pinned to 5.8 because 5.9+ is incompatible with `ts-node`, which Hardhat 2 uses to run TypeScript scripts.
+:::
 
 ---
 
@@ -113,11 +117,11 @@ const config: HardhatUserConfig = {
   solidity: "0.8.17",
   networks: {
     sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
+      url: process.env.SEPOLIA_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com",
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
-    amoy: {
-      url: process.env.AMOY_RPC_URL || "https://rpc-amoy.polygon.technology",
+    fuji: {
+      url: process.env.FUJI_RPC_URL || "https://api.avax-test.network/ext/bc/C/rpc",
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
   },
@@ -136,9 +140,11 @@ Create `.env`:
 
 ```bash
 PRIVATE_KEY=your_wallet_private_key_here
-SEPOLIA_RPC_URL=https://rpc.sepolia.org
-AMOY_RPC_URL=https://rpc-amoy.polygon.technology
+SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
+FUJI_RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
 ```
+
+The defaults above are free public endpoints and work as-is. They are rate-limited — if you hit timeouts, create a free RPC key (Alchemy, Infura, QuickNode) and put your keyed URL in `.env`.
 
 :::danger
 Never commit `.env` to git. Add it to `.gitignore`.
@@ -178,14 +184,14 @@ npx hardhat run scripts/deploy.ts --network sepolia
 Save the output address. Then:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network amoy
+npx hardhat run scripts/deploy.ts --network fuji
 ```
 
 Save that address too. You now have two contract addresses:
 
 ```
 SEPOLIA_CONTRACT=0x...   ← from first deploy
-AMOY_CONTRACT=0x...      ← from second deploy
+FUJI_CONTRACT=0x...      ← from second deploy
 ```
 
 ---
@@ -229,21 +235,23 @@ main().catch((error) => {
 });
 ```
 
+:::tip Gateway address and chain IDs
+The VIA Gateway address on both Sepolia and Fuji is `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` — the full list for every network is on the [Supported Networks](/docs/general/supported-networks) page.
+
+VIA uses standard EVM chain IDs: Sepolia is `11155111`, Fuji is `43113`.
+:::
+
 Run it on Sepolia (fill in addresses first):
 
 ```bash
 npx hardhat run scripts/configure.ts --network sepolia
 ```
 
-Then update the constants for the Amoy side and run:
+Then update the constants for the Fuji side and run:
 
 ```bash
-npx hardhat run scripts/configure.ts --network amoy
+npx hardhat run scripts/configure.ts --network fuji
 ```
-
-:::caution Gateway Addresses
-VIA Gateway testnet addresses are available on the [Supported Networks](/docs/general/supported-networks) page. Testnet gateways are being deployed — check the page for the latest status.
-:::
 
 ---
 
@@ -255,17 +263,13 @@ Create `scripts/send.ts`:
 import { ethers } from "hardhat";
 
 const CONTRACT_ADDRESS = ""; // your HelloVIA on Sepolia
-const DEST_CHAIN_ID = 80002; // Amoy
+const DEST_CHAIN_ID = 43113; // Fuji
 
 async function main() {
   const contract = await ethers.getContractAt("HelloVIA", CONTRACT_ADDRESS);
 
   console.log("Sending message...");
-  const tx = await contract.sendMessage(
-    DEST_CHAIN_ID,
-    "Hello from Sepolia!",
-    { value: ethers.parseEther("0.001") }
-  );
+  const tx = await contract.sendMessage(DEST_CHAIN_ID, "Hello from Sepolia!");
   await tx.wait();
   console.log("Message sent! TX:", tx.hash);
   console.log("Wait 1-5 minutes for cross-chain delivery.");
@@ -281,6 +285,10 @@ main().catch((error) => {
 npx hardhat run scripts/send.ts --network sepolia
 ```
 
+:::info Delivery fees
+On testnets, message delivery is currently free — you don't need to attach any value to the send. On mainnet, delivery fees may apply; see [Fees & Gas](/docs/general/fees-and-gas).
+:::
+
 ---
 
 ## Step 9: Verify on Destination
@@ -290,7 +298,7 @@ Create `scripts/read.ts`:
 ```typescript
 import { ethers } from "hardhat";
 
-const CONTRACT_ADDRESS = ""; // your HelloVIA on Amoy
+const CONTRACT_ADDRESS = ""; // your HelloVIA on Fuji
 
 async function main() {
   const contract = await ethers.getContractAt("HelloVIA", CONTRACT_ADDRESS);
@@ -307,7 +315,7 @@ main().catch((error) => {
 ```
 
 ```bash
-npx hardhat run scripts/read.ts --network amoy
+npx hardhat run scripts/read.ts --network fuji
 ```
 
 Expected output after delivery:

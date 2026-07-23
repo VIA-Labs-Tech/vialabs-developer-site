@@ -213,8 +213,9 @@ async function submitToChain(randomNumber) {
 
   const tx = await oracle.submitRandomness(
     DEST_CHAIN_ID,
-    randomNumber,
-    { value: ethers.parseEther("0.001") } // msg.value for destination gas
+    randomNumber
+    // On testnets delivery is currently free; on mainnet attach msg.value
+    // for delivery fees — see the Fees & Gas page.
   );
 
   console.log(`Submitted randomness: ${randomNumber}`);
@@ -247,7 +248,7 @@ Run with:
 RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY \
 PRIVATE_KEY=your_private_key \
 ORACLE_WRITER_ADDRESS=0x... \
-DEST_CHAIN_ID=80002 \
+DEST_CHAIN_ID=43113 \
 node oracle-driver.js
 ```
 
@@ -268,7 +269,7 @@ node oracle-driver.js
 ## How It Works
 
 ```
-Your Server                  Source Chain (Sepolia)          Destination (Amoy)
+Your Server                  Source Chain (Sepolia)          Destination (Fuji)
 ───────────                  ─────────────────────          ──────────────────
 Fetch random number
 from random.org

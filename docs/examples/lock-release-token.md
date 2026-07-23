@@ -30,7 +30,7 @@ Lock existing tokens on the source chain and release from a pre-funded pool on t
 
 ## Step 1: Copy the Contract
 
-Copy `VIALockerRelease.sol` from the [Contract Source](/docs/general/contract-source) page into your `contracts/` directory. See the [full reference](/docs/general/ref-locker-release) for API details.
+Copy `VIALockerRelease.sol` from the [Contract Source](/docs/general/contract-source#vialockerreleasesol) page into your `contracts/` directory. See the [full reference](/docs/general/ref-locker-release) for API details.
 
 ---
 
@@ -56,11 +56,11 @@ main().catch((error) => {
 });
 ```
 
-Deploy on both chains. The `TOKEN_ADDRESS` can differ per chain (e.g., USDC has different addresses on Ethereum vs Polygon).
+Deploy on both chains. The `TOKEN_ADDRESS` can differ per chain (e.g., USDC has different addresses on Ethereum vs Avalanche).
 
 ```bash
 npx hardhat run scripts/deploy-bridge.ts --network sepolia
-npx hardhat run scripts/deploy-bridge.ts --network amoy
+npx hardhat run scripts/deploy-bridge.ts --network fuji
 ```
 
 ---
@@ -103,7 +103,7 @@ main().catch((error) => {
 ```
 
 ```bash
-npx hardhat run scripts/deposit.ts --network amoy
+npx hardhat run scripts/deposit.ts --network fuji
 ```
 
 ---
@@ -117,7 +117,7 @@ import { ethers } from "hardhat";
 
 const BRIDGE_ADDRESS = ""; // VIALockerRelease on source chain
 const TOKEN_ADDRESS = "";  // ERC20 token on source chain
-const DEST_CHAIN_ID = 80002;
+const DEST_CHAIN_ID = 43113;
 const RECIPIENT = "";
 const AMOUNT = ethers.parseEther("100");
 
@@ -132,12 +132,7 @@ async function main() {
   const recipientBytes32 = ethers.zeroPadValue(RECIPIENT, 32);
 
   console.log("Bridging...");
-  const tx = await bridge.bridge(
-    recipientBytes32,
-    DEST_CHAIN_ID,
-    AMOUNT,
-    { value: ethers.parseEther("0.001") }
-  );
+  const tx = await bridge.bridge(recipientBytes32, DEST_CHAIN_ID, AMOUNT);
   await tx.wait();
   console.log("TX:", tx.hash);
   console.log("Tokens locked. Wait 1-5 minutes for release on destination.");
@@ -152,6 +147,10 @@ main().catch((error) => {
 ```bash
 npx hardhat run scripts/bridge.ts --network sepolia
 ```
+
+:::info Delivery fees
+On testnets, message delivery is currently free — no value needs to be attached to `bridge()`. On mainnet, delivery fees may apply; see [Fees & Gas](/docs/general/fees-and-gas).
+:::
 
 ---
 

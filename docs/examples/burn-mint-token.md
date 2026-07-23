@@ -29,20 +29,26 @@ Deploy a cross-chain ERC20 that burns on the source chain and mints on the desti
 
 ## Step 1: Copy the Contract
 
-Copy `VIAMintBurnTokenMinimal.sol` from the [Contract Source](/docs/general/contract-source) page into your `contracts/` directory. See the [full reference](/docs/general/ref-mint-burn) for API details.
+Copy `VIAMintBurnTokenMinimal.sol` from the [Contract Source](/docs/general/contract-source#viamintburntokenminimalsol) page into your `contracts/` directory. See the [full reference](/docs/general/ref-mint-burn) for API details.
 
 ---
 
 ## Step 2: Deploy
+
+Mint the entire initial supply on **one chain only** — the destination deployment starts at zero and only receives tokens when they're bridged in. This is what keeps total supply constant across chains.
 
 Create `scripts/deploy-token.ts`:
 
 ```typescript
 import { ethers } from "hardhat";
 
+// Mint the full supply on the source chain (Sepolia).
+// Set this to 0 before deploying to the destination chain (Fuji).
+const INITIAL_SUPPLY = 1000000;
+
 async function main() {
   const Token = await ethers.getContractFactory("VIAMintBurnTokenMinimal");
-  const token = await Token.deploy("My Token", "MTK", 1000000);
+  const token = await Token.deploy("My Token", "MTK", INITIAL_SUPPLY);
   await token.waitForDeployment();
   console.log("Deployed to:", await token.getAddress());
 }
@@ -53,9 +59,16 @@ main().catch((error) => {
 });
 ```
 
+Deploy to Sepolia with the full supply:
+
 ```bash
 npx hardhat run scripts/deploy-token.ts --network sepolia
-npx hardhat run scripts/deploy-token.ts --network amoy
+```
+
+Then change `INITIAL_SUPPLY` to `0` and deploy to Fuji:
+
+```bash
+npx hardhat run scripts/deploy-token.ts --network fuji
 ```
 
 Save both addresses.
@@ -76,7 +89,7 @@ Create `scripts/bridge.ts`:
 import { ethers } from "hardhat";
 
 const TOKEN_ADDRESS = "";       // your contract on source chain
-const DEST_CHAIN_ID = 80002;    // Amoy
+const DEST_CHAIN_ID = 43113;    // Fuji
 const RECIPIENT = "";           // recipient address on destination chain
 const AMOUNT = ethers.parseEther("100");
 
@@ -86,12 +99,7 @@ async function main() {
   const recipientBytes32 = ethers.zeroPadValue(RECIPIENT, 32);
 
   console.log("Bridging", ethers.formatEther(AMOUNT), "tokens...");
-  const tx = await token.bridge(
-    recipientBytes32,
-    DEST_CHAIN_ID,
-    AMOUNT,
-    { value: ethers.parseEther("0.001") }
-  );
+  const tx = await token.bridge(recipientBytes32, DEST_CHAIN_ID, AMOUNT);
   await tx.wait();
   console.log("TX:", tx.hash);
   console.log("Tokens burned. Wait 1-5 minutes for mint on destination.");
@@ -106,6 +114,10 @@ main().catch((error) => {
 ```bash
 npx hardhat run scripts/bridge.ts --network sepolia
 ```
+
+:::info Delivery fees
+On testnets, message delivery is currently free — no value needs to be attached to `bridge()`. On mainnet, delivery fees may apply; see [Fees & Gas](/docs/general/fees-and-gas).
+:::
 
 :::caution
 **Burns are irreversible.** If destination `messageProcess()` fails, source tokens are already burned. Recovery requires the owner to manually mint replacement tokens.

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460">
+  <defs>
+    <pattern id="lineGridMD" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <line x1="80" y1="0" x2="80" y2="80" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
+      <line x1="0" y1="80" x2="80" y2="80" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrowMD" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#00E5E5" fill-opacity="0.7"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" rx="12" fill="#0d0d0d"/>
+  <rect width="960" height="460" rx="12" fill="url(#lineGridMD)"/>
+
+  <!-- VIA Network container (off-chain infrastructure) -->
+  <text x="485" y="48" text-anchor="middle" fill="#00E5E5" fill-opacity="0.7" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">VIA Network</text>
+  <rect x="250" y="60" width="470" height="370" rx="10" fill="none" stroke="#00E5E5" stroke-opacity="0.2" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Signer cluster label -->
+  <text x="380" y="92" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="13">Validators / Signers</text>
+
+  <!-- Message In -->
+  <rect x="30" y="190" width="150" height="80" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="105" y="227" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Message</text>
+  <text x="105" y="251" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Source Chain</text>
+
+  <!-- VIA Signers -->
+  <rect x="290" y="104" width="180" height="64" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="380" y="131" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500">VIA Signers</text>
+  <text x="380" y="152" text-anchor="middle" fill="#00E5E5" fill-opacity="0.7" font-family="system-ui, -apple-system, sans-serif" font-size="12">✓ signed</text>
+
+  <!-- Chain Signers -->
+  <rect x="290" y="198" width="180" height="64" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="380" y="225" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500">Chain Signers</text>
+  <text x="380" y="246" text-anchor="middle" fill="#00E5E5" fill-opacity="0.7" font-family="system-ui, -apple-system, sans-serif" font-size="12">✓ signed</text>
+
+  <!-- Project Signers -->
+  <rect x="290" y="292" width="180" height="64" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="380" y="319" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500">Project Signers</text>
+  <text x="380" y="340" text-anchor="middle" fill="#00E5E5" fill-opacity="0.7" font-family="system-ui, -apple-system, sans-serif" font-size="12">✓ signed</text>
+
+  <!-- Relayers -->
+  <rect x="560" y="196" width="130" height="68" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="625" y="225" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500">Relayers</text>
+  <text x="625" y="247" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Deliver to Gateway</text>
+
+  <!-- Message Out -->
+  <rect x="770" y="190" width="160" height="80" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="850" y="222" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500">Message</text>
+  <text x="850" y="242" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500">Forwarded</text>
+  <text x="850" y="260" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Destination</text>
+
+  <!-- Source fans out to all three signer groups -->
+  <line x1="180" y1="210" x2="286" y2="140" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+  <line x1="180" y1="230" x2="286" y2="230" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+  <line x1="180" y1="250" x2="286" y2="324" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+
+  <!-- All three signatures converge on the relayers -->
+  <line x1="470" y1="136" x2="556" y2="216" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+  <line x1="470" y1="230" x2="556" y2="230" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+  <line x1="470" y1="324" x2="556" y2="244" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+
+  <!-- Relayers deliver to destination -->
+  <line x1="690" y1="230" x2="766" y2="230" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowMD)"/>
+</svg>

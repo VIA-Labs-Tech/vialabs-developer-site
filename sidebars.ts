@@ -5,6 +5,18 @@ const sidebars: SidebarsConfig = {
     "intro",
     {
       type: "category",
+      label: "Learn",
+      collapsed: true,
+      items: [
+        "general/technology-overview",
+        "general/fees-and-gas",
+        "general/faq",
+        "general/troubleshooting",
+        "general/testnet-tokens",
+      ],
+    },
+    {
+      type: "category",
       label: "Build",
       collapsed: false,
       items: [
@@ -37,18 +49,7 @@ const sidebars: SidebarsConfig = {
         },
         "general/supported-networks",
         "general/error-reference",
-      ],
-    },
-    {
-      type: "category",
-      label: "Learn",
-      collapsed: true,
-      items: [
-        "general/technology-overview",
-        "general/fees-and-gas",
-        "general/faq",
-        "general/troubleshooting",
-        "general/testnet-tokens",
+        "general/audits",
       ],
     },
     "work-with-us/developers",

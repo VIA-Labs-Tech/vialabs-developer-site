@@ -33,8 +33,8 @@ myContract.setMessageGateway(GATEWAY_ADDRESS);
 ```solidity
 uint64[] memory chains = new uint64[](1);
 bytes32[] memory endpoints = new bytes32[](1);
-chains[0] = 137;  // Polygon
-endpoints[0] = bytes32(uint256(uint160(YOUR_POLYGON_CONTRACT)));
+chains[0] = 43114;  // Avalanche
+endpoints[0] = bytes32(uint256(uint160(YOUR_AVALANCHE_CONTRACT)));
 myContract.setMessageEndpoints(chains, endpoints);
 ```
 

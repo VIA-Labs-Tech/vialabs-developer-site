@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # Technology Overview
 
-VIA Labs enables **direct cross-chain smart contract communication** without traditional bridges. Messages flow securely between chains using a multi-layered validation protocol powered by **VG-1 (VIA Gateway 1)**, our production infrastructure for cross-chain message routing.
+VIA Labs enables **direct cross-chain smart contract communication**. Messages flow securely between chains using a multi-layered validation protocol powered by **VG-1 (VIA Gateway 1)**, our production infrastructure for cross-chain message routing.
 
 ---
 
 ## The Big Picture
 
-At its core, VIA Labs connects smart contracts on any blockchain to smart contracts on any other blockchain. A message sent from Chain A arrives on Chain B — carrying whatever payload your application needs.
+Connect smart contracts on any blockchain to smart contracts on any other blockchain. A message sent from Chain A arrives on Chain B — carrying whatever payload your application needs.
 
 <div className="diagram-container">
   <img src="/img/big-picture-c.svg" alt="Chain A to Chain B via VIA Labs Network" />
@@ -22,7 +22,7 @@ Any data that can be encoded can be sent cross-chain: token transfers, governanc
 
 ## Architecture
 
-VIA Labs deploys and maintains **ViaGatewayV1** contracts on all supported chains. Developers inherit from `ViaIntegrationV1` in their smart contracts and connect to the gateway — there is no need to deploy or manage gateway infrastructure. VIA Labs uses a decentralized network of off-chain validator nodes to relay messages between blockchains. The system is designed for:
+VIA Labs deploys and maintains **ViaGatewayV1** contracts on all supported chains. Developers inherit from a base contract, `ViaIntegrationV1`, to connect their smart contracts to the gateway. There is no need to deploy or manage gateway infrastructure. VIA Labs uses a decentralized network of off-chain validator nodes to relay messages between blockchains. The system is designed for:
 
 - **Security** — Three independent validation layers verify every message before execution
 - **Speed** — Developers choose the number of block confirmations to wait before relay. Set to 0 for fastest delivery, or increase for additional protection against source chain block reorganizations
@@ -80,6 +80,16 @@ VIA Labs operates a network of **relayers** that handle message delivery automat
 | **Relayers**           | Deliver validated messages to the destination chain by submitting them to the Gateway contract | VIA Labs (enterprise projects can optionally run their own)         |
 
 Relayers cannot forge or alter messages — they can only deliver messages that have been signed by the required validators. If a relayer submits an invalid message, the Gateway contract rejects it on-chain.
+
+<div className="diagram-container">
+  <img src="/img/message-delivery.svg" alt="Message delivery: a message from the source chain is signed by VIA, Chain, and Project signers, then delivered by relayers to the destination" />
+</div>
+
+Examples of invalid messages, and where the infrastructure stops each one:
+
+<div className="diagram-container">
+  <img src="/img/invalid-messages.svg" alt="Four scenarios and how they are stopped: a forged message fails the on-chain signature check at the destination Gateway; a stolen signer key can't clear the VIA Layer's 2-of-3 signature floor; a fully compromised VIA Layer is vetoed by the Project Layer's own signer; a source chain reorg is caught by the VIA Layer waiting for confirmations" />
+</div>
 
 ---
 

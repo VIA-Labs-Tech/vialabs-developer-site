@@ -14,7 +14,7 @@ Every cross-chain message has **two costs**, both paid on the source chain at se
 
 | Cost | What it is | Paid in | Paid by |
 |------|-----------|---------|---------|
-| **Source chain gas** | Normal transaction gas for calling `messageSend()` | Native token (ETH, MATIC, etc.) | User or calling contract |
+| **Source chain gas** | Normal transaction gas for calling `messageSend()` | Native token (ETH, AVAX, etc.) | User or calling contract |
 | **Delivery fee** | Covers validation and delivery to the destination chain | Native token, included as `msg.value` | User or calling contract |
 
 That's it for most chains. The `msg.value` you include with `messageSend()` covers everything on the destination side — VIA Labs handles execution there.
@@ -94,7 +94,7 @@ Both are called on your contract (inherited from `ViaIntegrationV1`). See the [V
 
 ## Testnet
 
-Testnet fees are negligible. See [Testnet Tokens](/docs/general/testnet-tokens) for faucet links.
+Testnet message delivery is currently free — you only pay normal source-chain gas, and no value needs to be attached to `messageSend()`. See [Testnet Tokens](/docs/general/testnet-tokens) for faucet links.
 
 ---
 

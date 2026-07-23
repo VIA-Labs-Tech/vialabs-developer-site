@@ -41,7 +41,7 @@ FeeCollectorV1 can collect two independent fees in a single `pay()` call:
 
 ### 2. Native Gas Fee (Optional)
 
-- Collected in native currency (ETH, MATIC, etc.) via `msg.value`
+- Collected in native currency (ETH, AVAX, etc.) via `msg.value`
 - Enabled per-sender via `sourceGasAmountWhitelist[sender] = true`
 - Must be exact — `msg.value` must equal `sourceGasAmount`
 - Sent to `beneficiary` via low-level call

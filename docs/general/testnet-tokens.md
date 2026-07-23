@@ -10,11 +10,10 @@ You'll need testnet tokens to deploy contracts and send cross-chain messages on 
 
 | Network | Faucet |
 |---------|--------|
-| Sepolia (Ethereum) | [sepoliafaucet.com](https://sepoliafaucet.com) |
+| Sepolia (Ethereum) | [alchemy.com/faucets/ethereum-sepolia](https://www.alchemy.com/faucets/ethereum-sepolia) |
 | Avalanche Fuji | [core.app/tools/testnet-faucet](https://core.app/tools/testnet-faucet) |
-| Base Sepolia | [bridge.base.org](https://bridge.base.org) |
+| Base Sepolia | [alchemy.com/faucets/base-sepolia](https://www.alchemy.com/faucets/base-sepolia) |
 | BNB Testnet | [testnet.bnbchain.org/faucet-smart](https://testnet.bnbchain.org/faucet-smart) |
-| Polygon Mumbai | [faucet.polygon.technology](https://faucet.polygon.technology) |
 | Arbitrum Sepolia | [faucet.quicknode.com/arbitrum/sepolia](https://faucet.quicknode.com/arbitrum/sepolia) |
 | Cardano Testnet (Preview) | [docs.cardano.org/cardano-testnets](https://docs.cardano.org/cardano-testnets/tools/faucet/) |
 | Midnight Testnet | [docs.midnight.network](https://docs.midnight.network/) |
