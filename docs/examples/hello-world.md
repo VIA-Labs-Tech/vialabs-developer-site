@@ -12,7 +12,7 @@ Send a string from one chain to another. One contract, two deployments, under 30
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) v16+
+- [Node.js](https://nodejs.org/) v20+ (LTS) — Hardhat 2 officially supports Node 20/22/24
 - A wallet with testnet ETH on Sepolia and testnet AVAX on Avalanche Fuji — see [Testnet Tokens](/docs/general/testnet-tokens)
 
 ---

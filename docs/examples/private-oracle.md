@@ -180,7 +180,7 @@ contract OracleReader is ViaIntegrationV1 {
 
 ## Off-Chain Driver (Node.js)
 
-Create `oracle-driver.js`:
+Create `oracle-driver.js` (uses the global `fetch` API — Node.js 18+):
 
 ```javascript
 const { ethers } = require("ethers");
@@ -245,7 +245,7 @@ run();
 Run with:
 
 ```bash
-RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY \
+RPC_URL=https://ethereum-sepolia-rpc.publicnode.com \
 PRIVATE_KEY=your_private_key \
 ORACLE_WRITER_ADDRESS=0x... \
 DEST_CHAIN_ID=43113 \
@@ -263,6 +263,12 @@ node oracle-driver.js
 | 3 | Source | `setMessageGateway()` + `setMessageEndpoints()` |
 | 4 | Destination | `setMessageGateway()` + `setMessageEndpoints()` |
 | 5 | Your server | Run `oracle-driver.js` |
+
+Deployment and configuration follow the same pattern as [Hello World — Steps 5–7](/docs/examples/hello-world#step-5-write-the-deploy-script); adapt `deploy.ts` and `configure.ts` for the two contract names.
+
+:::caution Operator address
+`OracleWriter`'s constructor argument is the account allowed to call `submitRandomness()` — any other sender reverts with `NotOperator`. For this tutorial that's the wallet whose `PRIVATE_KEY` the driver signs with. It doesn't have to stay that way: the operator is a separate role from the project owner (the deployer), it can be any EOA or contract (e.g., a multisig that calls `submitRandomness()` itself), and the owner can rotate it any time with `setOracleOperator()`.
+:::
 
 ---
 
