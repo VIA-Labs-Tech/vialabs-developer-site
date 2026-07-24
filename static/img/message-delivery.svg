@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410">
   <defs>
     <pattern id="lineGridMD" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
       <line x1="80" y1="0" x2="80" y2="80" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
@@ -10,12 +10,12 @@
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="460" rx="12" fill="#0d0d0d"/>
-  <rect width="960" height="460" rx="12" fill="url(#lineGridMD)"/>
+  <rect width="960" height="410" rx="12" fill="#0d0d0d"/>
+  <rect width="960" height="410" rx="12" fill="url(#lineGridMD)"/>
 
   <!-- VIA Network container (off-chain infrastructure) -->
   <text x="485" y="48" text-anchor="middle" fill="#00E5E5" fill-opacity="0.7" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">VIA Network</text>
-  <rect x="250" y="60" width="470" height="370" rx="10" fill="none" stroke="#00E5E5" stroke-opacity="0.2" stroke-dasharray="4 4" stroke-width="1"/>
+  <rect x="250" y="60" width="470" height="320" rx="10" fill="none" stroke="#00E5E5" stroke-opacity="0.2" stroke-dasharray="4 4" stroke-width="1"/>
 
   <!-- Signer cluster label -->
   <text x="380" y="92" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="13">Validators / Signers</text>
