@@ -74,7 +74,7 @@ import Head from '@docusaurus/Head';
           "name": "How are cross-chain messages validated and secured?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VIA Labs uses a three-layer security model. Every message must be independently validated by the VIA Layer (protocol-level validation), Chain Layer (native chain verification), and Project Layer (per-project access control defined by the developer)."
+            "text": "VIA Labs uses a three-layer security model. All three layers validate messages the same way — each is an independent set of signers run by a different party: the VIA Layer by VIA Labs (enabled by default), the Chain Layer by chain-specific operators, and the Project Layer by the project's own team. Every layer is optional; a message executes only after every configured layer has signed it."
           }
         }
       ]
@@ -143,13 +143,13 @@ You need a contract deployed on each chain you want to send messages to or recei
 
 ### How are cross-chain messages validated and secured?
 
-VIA Labs uses a three-layer security model. Every message must be independently validated by:
+VIA Labs uses a three-layer security model. All three layers validate messages the same way — each is an independent set of signers. What differs is who runs them:
 
-1. **VIA Layer** — Protocol-level validation by the VIA network
-2. **Chain Layer** — Native chain verification using on-chain data
-3. **Project Layer** — Per-project access control defined by the developer
+1. **VIA Layer** — signers run by VIA Labs (enabled by default)
+2. **Chain Layer** — signers run by chain-specific operators
+3. **Project Layer** — signers run by your own team
 
-A message is only executed on the destination chain after passing all three layers. See the [Technology Overview](/docs/general/technology-overview) for details.
+Every layer is optional and configuration-driven. A message executes on the destination chain only after every configured layer has signed it. See the [Technology Overview](/docs/general/technology-overview) for details.
 
 ### Has the protocol been audited?
 

@@ -216,6 +216,18 @@
 }
 
 /* ── Table styling ─────────────────────────────────── */
+.theme-doc-markdown table {
+  display: table;
+  width: 100%;
+}
+
+@media (max-width: 996px) {
+  .theme-doc-markdown table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
 [data-theme="dark"] table {
   border-collapse: collapse;
 }

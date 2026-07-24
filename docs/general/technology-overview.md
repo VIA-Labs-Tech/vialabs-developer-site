@@ -24,7 +24,7 @@ Any data that can be encoded can be sent cross-chain: token transfers, governanc
 
 VIA Labs deploys and maintains **ViaGatewayV1** contracts on all supported chains. Developers inherit from a base contract, `ViaIntegrationV1`, to connect their smart contracts to the gateway. There is no need to deploy or manage gateway infrastructure. VIA Labs uses a decentralized network of off-chain validator nodes to relay messages between blockchains. The system is designed for:
 
-- **Security** — Three independent validation layers verify every message before execution
+- **Security** — Up to three independent validation layers sign off on every message before execution
 - **Speed** — Developers choose the number of block confirmations to wait before relay. Set to 0 for fastest delivery, or increase for additional protection against source chain block reorganizations
 - **Flexibility** — Support for arbitrary message passing, not just token transfers
 - **Universality** — 140+ EVM and non-EVM chains supported from a single integration
@@ -37,7 +37,7 @@ Cross-chain messaging follows four steps:
 
 1. **Your contract calls `messageSend()`** — encodes the payload and sends it to the VIA Gateway on the source chain
 2. **The VIA Gateway emits an event** — picked up by the validator network listening across all configured chains
-3. **Validators verify and sign** — all three security layers independently validate the message
+3. **Validators verify and sign** — every configured security layer independently validates the message
 4. **A relayer delivers the message** — the validated message is submitted to the VIA Gateway on the destination chain, which calls `messageProcess()` on your recipient contract
 
 <div className="diagram-container">
@@ -48,25 +48,27 @@ Cross-chain messaging follows four steps:
 
 ## Security Model
 
-VIA Labs implements a **three-layer security model**. Every cross-chain message must pass through all three independent validation layers before it is executed on the destination chain. No single layer can authorize a message alone.
+VIA Labs supports a **three-layer security model**. The layers are functionally identical — each is an independent set of signers, and every signer validates messages the same way. What separates the layers is who runs the signers and who controls whether they're part of a project's configuration:
 
 <div className="diagram-container">
   <img src="/img/security-model.svg" alt="Three-layer security model: VIA Layer, Chain Layer, Project Layer" />
 </div>
 
-| Layer             | Role                       | What It Validates                                                                     |
-| ----------------- | -------------------------- | ------------------------------------------------------------------------------------- |
-| **VIA Layer**     | Core protocol validation   | Signature authenticity, message integrity, and relay authorization by the VIA network |
-| **Chain Layer**   | Native chain verification  | Source chain finality, transaction inclusion, and on-chain event confirmation         |
-| **Project Layer** | Per-project access control | Whitelisted contracts, allowed chains, and project-specific security policies         |
+| Layer             | Signers run by           |
+| ----------------- | ------------------------ |
+| **VIA Layer**     | VIA Labs                 |
+| **Chain Layer**   | Chain-specific operators |
+| **Project Layer** | Your team                |
 
-All three signatures are verified **on-chain** by the destination Gateway contract before the message is forwarded to the recipient.
+Every layer is optional — which layers validate a project's messages depends entirely on configuration. The VIA Layer is enabled by default, and most projects start there. Projects that want additional, independently operated signatures can be configured for the Chain Layer and/or run their own Project Layer signers.
+
+Signatures from every configured layer are verified **on-chain** by the destination Gateway contract before the message is forwarded to the recipient.
 
 :::note
-The **Chain Layer** and **Project Layer** are optional. The VIA Layer is always active by default. Integrating developers can enable the Chain Layer and/or Project Layer for additional security, but they are not required. Most projects start with just the VIA Layer and add additional layers as needed.
+**Midnight:** layered signature validation is not yet available on Midnight — the chain's current architecture does not support the required on-chain signature verification. It will be enabled once signature support is added to the chain.
 :::
 
-Each configured layer has **veto power** — if two layers approve a message but the third rejects it, the message is rejected. An external attacker must compromise signers from all configured layers simultaneously to forge a message. No single point of failure exists.
+Each configured layer has **veto power** — if any configured layer withholds its signature, the message is rejected. An external attacker must compromise signers from every configured layer simultaneously to forge a message.
 
 ### Message Delivery
 
@@ -76,7 +78,7 @@ VIA Labs operates a network of **relayers** that handle message delivery automat
 
 | Role                   | What they do                                                                                   | Who operates them                                                   |
 | ---------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Validators/Signers** | Verify message integrity and sign attestations across the three security layers                | VIA Labs, chain-specific operators, and optionally the project team |
+| **Validators/Signers** | Verify message integrity and sign attestations across the configured security layers           | VIA Labs, chain-specific operators, and optionally the project team |
 | **Relayers**           | Deliver validated messages to the destination chain by submitting them to the Gateway contract | VIA Labs (enterprise projects can optionally run their own)         |
 
 Relayers cannot forge or alter messages — they can only deliver messages that have been signed by the required validators. If a relayer submits an invalid message, the Gateway contract rejects it on-chain.

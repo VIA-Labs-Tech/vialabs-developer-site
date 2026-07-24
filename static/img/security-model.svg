@@ -29,17 +29,17 @@
   <!-- VIA Layer -->
   <rect x="320" y="40" width="280" height="70" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
   <text x="460" y="72" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">VIA Layer</text>
-  <text x="460" y="96" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Protocol Validation</text>
+  <text x="460" y="96" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Run by VIA Labs</text>
 
   <!-- Chain Layer -->
   <rect x="320" y="135" width="280" height="70" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
   <text x="460" y="167" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Chain Layer</text>
-  <text x="460" y="191" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Native Verification</text>
+  <text x="460" y="191" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Run by Chain Operators</text>
 
   <!-- Project Layer -->
   <rect x="320" y="230" width="280" height="70" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
   <text x="460" y="262" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Project Layer</text>
-  <text x="460" y="286" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Access Control</text>
+  <text x="460" y="286" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Run by Your Team</text>
 
   <!-- Arrows from 3 layers to Message Out -->
   <line x1="600" y1="80" x2="740" y2="145" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.4" marker-end="url(#arrowSMout)"/>
