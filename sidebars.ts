@@ -1,5 +1,7 @@
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
+// NOTE: the mobile drawer menu mirrors this tree by hand — if you change
+// this file, also update src/theme/Navbar/MobileSidebar/PrimaryMenu/index.tsx.
 const sidebars: SidebarsConfig = {
   docsSidebar: [
     "intro",

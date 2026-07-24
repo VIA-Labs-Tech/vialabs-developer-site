@@ -82,16 +82,7 @@ const config: Config = {
           sidebarId: 'docsSidebar',
           position: 'left',
           label: 'Documentation',
-          className: 'navbar-item-desktop-only',
         },
-        // Mobile-only direct links so the drawer shows the docs sections
-        // in one tap instead of routing through "Documentation" first.
-        { to: '/docs/', label: 'Get Started', position: 'left', className: 'navbar-item-mobile-only' },
-        { to: '/docs/general/technology-overview', label: 'Learn', position: 'left', className: 'navbar-item-mobile-only' },
-        { to: '/docs/examples/hello-world', label: 'Build', position: 'left', className: 'navbar-item-mobile-only' },
-        { to: '/docs/general/contract-source', label: 'Reference', position: 'left', className: 'navbar-item-mobile-only' },
-        { to: '/docs/work-with-us/developers', label: 'Work With Us', position: 'left', className: 'navbar-item-mobile-only' },
-        { to: '/docs/legal/disclaimers', label: 'Legal & Disclaimers', position: 'left', className: 'navbar-item-mobile-only' },
         {
           href: 'https://vialabs.tech',
           label: 'Main Site',

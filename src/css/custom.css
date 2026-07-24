@@ -81,17 +81,11 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Mobile drawer shows direct section links instead of the "Documentation"
-   entry (which needed a second tap); desktop navbar keeps only "Documentation". */
+/* The mobile drawer's secondary panel is disabled (see src/theme/DocSidebar/Mobile);
+   hide it so its "Back to main menu" button can't bleed past the drawer edge. */
 @media (max-width: 996px) {
-  .navbar-item-desktop-only {
-    display: none !important;
-  }
-}
-
-@media (min-width: 997px) {
-  .navbar-item-mobile-only {
-    display: none !important;
+  .navbar-sidebar__item + .navbar-sidebar__item {
+    display: none;
   }
 }
 
