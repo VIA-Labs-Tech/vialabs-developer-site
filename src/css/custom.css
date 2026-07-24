@@ -62,11 +62,23 @@
 }
 
 /* ── Navbar glassmorphism ───────────────────────── */
+/* The blur must live on a pseudo-element, not .navbar itself:
+   backdrop-filter creates a CSS containing block, and the mobile
+   sidebar (.navbar-sidebar, position:fixed) renders INSIDE .navbar —
+   putting the filter on .navbar traps the drawer at navbar size and
+   makes the docs menu unopenable on mobile. */
 .navbar {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: none;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 [data-theme="dark"] .navbar {
