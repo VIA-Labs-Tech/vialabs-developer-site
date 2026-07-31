@@ -34,7 +34,9 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 | Network | Chain ID | Gateway Address |
 |---|---|---|
 | Avalanche | `43114` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Base | `8453` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | PandaSea | `7776` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Upside | `61873` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 
 Additional mainnet gateways are being rolled out — this table is updated as each deployment goes live.
 
