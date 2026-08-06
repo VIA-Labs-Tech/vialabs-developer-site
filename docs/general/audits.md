@@ -13,11 +13,8 @@ Independent security reviews of the VIA Labs contract suite, across every stack 
 | Hashlock       | VG1 USDC Bridge Manager                  | June 2026  | [PDF](https://hashlock.com/wp-content/uploads/2025/05/VIA-Labs-Bridge-Audit-Smart-Contract-Audit-Report-Final-Report-v5.pdf)   |
 | Hashlock       | VG1 Stellar contracts                    | May 2026   | [PDF](https://hashlock.com/wp-content/uploads/2025/05/VIA-Labs-Stellar-Smart-Contract-Audit-Report-Final-Report-v3.pdf)        |
 | Hashlock       | Proto-USD / CCTP bridge contracts        | April 2025 | [PDF](https://hashlock.com/wp-content/uploads/2025/05/VIA-Labs-Smart-Contract-Audit-Report-Final-Report-v2.pdf)                |
-| Anastasia Labs | VG1 Cardano contracts                    | —          | Coming soon                                                                                                                    |
+| Anastasia Labs | VG1 Cardano contracts                    | August 2026 | [PDF](pathname:///audits/VIA-Labs-VG1-Cardano-Audit-Anastasia-v1.1.pdf)                                                       |
 | Anastasia Labs | VG1 Midnight contracts                   | August 2026 | [PDF](pathname:///audits/VIA-Labs-VG1-Midnight-Audit-Anastasia-v1.3.pdf)                                                      |
-| OpenZeppelin   | VG1 EVM contracts                        | —          | Coming soon                                                                                                                    |
-| OpenZeppelin   | VG1 Cardano contracts                    | —          | Coming soon                                                                                                                    |
-| OpenZeppelin   | VG1 Midnight contracts                   | —          | Coming soon                                                                                                                    |
 
 The same contract suite runs in production today: 4+ years live, 20M+ cross-chain messages delivered, zero exploits, $0 lost.
 
