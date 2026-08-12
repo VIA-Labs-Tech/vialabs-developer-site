@@ -34,7 +34,7 @@ import Head from '@docusaurus/Head';
           "name": "What programming languages does VIA Labs support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VIA Labs currently supports Solidity for EVM chains. Support for Aiken (Cardano) and Compact (Midnight) is in development."
+            "text": "VIA Labs supports Solidity for EVM chains, Aiken for Cardano, and Compact for Midnight. Cardano and Midnight are on testnet today."
           }
         },
         {
@@ -101,7 +101,7 @@ See the [Hello World quickstart](/docs/examples/hello-world) for a complete walk
 
 ### What programming languages are supported?
 
-VIA Labs currently supports **Solidity** for EVM chains. Support for **Aiken** (Cardano) and **Compact** (Midnight) is in development.
+VIA Labs supports **Solidity** for EVM chains, **Aiken** for Cardano, and **Compact** for Midnight — see [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview). Cardano and Midnight are on testnet today.
 
 ### How many networks are supported?
 

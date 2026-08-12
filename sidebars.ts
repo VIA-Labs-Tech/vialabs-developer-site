@@ -22,13 +22,45 @@ const sidebars: SidebarsConfig = {
       label: "Build",
       collapsed: false,
       items: [
-        "examples/hello-world",
-        "examples/burn-mint-token",
-        "examples/lock-mint-token",
-        "examples/lock-release-token",
-        "examples/private-oracle",
-        "examples/cardano-coming-soon",
-        "examples/midnight-coming-soon",
+        {
+          type: "category",
+          label: "EVM (Solidity)",
+          collapsed: false,
+          items: [
+            "examples/hello-world",
+            "examples/burn-mint-token",
+            "examples/lock-mint-token",
+            "examples/lock-release-token",
+            "examples/private-oracle",
+          ],
+        },
+        {
+          type: "category",
+          label: "Cardano (Aiken)",
+          collapsed: true,
+          items: [
+            "examples/cardano/overview",
+            "examples/cardano/integration-paths",
+            "examples/cardano/mint-burn-client",
+          ],
+        },
+        {
+          type: "category",
+          label: "Midnight (Compact)",
+          collapsed: true,
+          items: ["examples/midnight/overview"],
+        },
+        {
+          type: "doc",
+          id: "examples/stellar-coming-soon",
+          label: "Stellar (Coming Soon)",
+        },
+        {
+          type: "category",
+          label: "Guides",
+          collapsed: false,
+          items: ["examples/guides/usdm-cardano-midnight"],
+        },
       ],
     },
     {

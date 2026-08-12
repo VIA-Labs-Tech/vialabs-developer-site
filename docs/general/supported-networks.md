@@ -40,7 +40,7 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 
 Additional mainnet gateways are being rolled out — this table is updated as each deployment goes live.
 
-Cardano and Midnight integrations are in development and use a different client architecture — see the [Cardano](/docs/examples/cardano-coming-soon) and [Midnight](/docs/examples/midnight-coming-soon) pages.
+Cardano and Midnight use a different client architecture than EVM chains — see [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview).
 
 ## Adding a New Network
 

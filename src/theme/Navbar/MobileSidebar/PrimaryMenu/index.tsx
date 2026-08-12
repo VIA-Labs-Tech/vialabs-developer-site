@@ -30,13 +30,41 @@ const TREE: Item[] = [
     label: 'Build',
     collapsed: false,
     items: [
-      {label: 'Hello World', to: '/docs/examples/hello-world'},
-      {label: 'Burn & Mint Token', to: '/docs/examples/burn-mint-token'},
-      {label: 'Lock & Mint Token', to: '/docs/examples/lock-mint-token'},
-      {label: 'Lock & Release Token', to: '/docs/examples/lock-release-token'},
-      {label: 'Private Oracle', to: '/docs/examples/private-oracle'},
-      {label: 'Cardano (Coming Soon)', to: '/docs/examples/cardano-coming-soon'},
-      {label: 'Midnight (Coming Soon)', to: '/docs/examples/midnight-coming-soon'},
+      {
+        label: 'EVM (Solidity)',
+        collapsed: false,
+        items: [
+          {label: 'Hello World', to: '/docs/examples/hello-world'},
+          {label: 'Burn & Mint Token', to: '/docs/examples/burn-mint-token'},
+          {label: 'Lock & Mint Token', to: '/docs/examples/lock-mint-token'},
+          {label: 'Lock & Release Token', to: '/docs/examples/lock-release-token'},
+          {label: 'Private Oracle', to: '/docs/examples/private-oracle'},
+        ],
+      },
+      {
+        label: 'Cardano (Aiken)',
+        collapsed: true,
+        items: [
+          {label: 'Overview & Concepts', to: '/docs/examples/cardano/overview'},
+          {label: 'Integration Paths', to: '/docs/examples/cardano/integration-paths'},
+          {label: 'Mint & Burn Client', to: '/docs/examples/cardano/mint-burn-client'},
+        ],
+      },
+      {
+        label: 'Midnight (Compact)',
+        collapsed: true,
+        items: [
+          {label: 'Overview & USDM Bridge', to: '/docs/examples/midnight/overview'},
+        ],
+      },
+      {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},
+      {
+        label: 'Guides',
+        collapsed: false,
+        items: [
+          {label: 'Bridge USDM: Cardano ↔ Midnight', to: '/docs/examples/guides/usdm-cardano-midnight'},
+        ],
+      },
     ],
   },
   {
