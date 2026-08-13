@@ -48,7 +48,12 @@ const sidebars: SidebarsConfig = {
           type: "category",
           label: "Midnight",
           collapsed: true,
-          items: ["examples/midnight/overview", "examples/midnight/integration-paths"],
+          items: [
+            "examples/midnight/overview",
+            "examples/midnight/integration-paths",
+            "examples/midnight/burn-mint-token",
+            "examples/midnight/lock-mint-token",
+          ],
         },
         {
           type: "doc",
