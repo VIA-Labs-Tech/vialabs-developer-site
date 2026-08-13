@@ -40,7 +40,16 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 
 Additional mainnet gateways are being rolled out — this table is updated as each deployment goes live.
 
-Cardano and Midnight use a different client architecture than EVM chains — see [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview).
+## Cardano
+
+Cardano uses a different client architecture than EVM chains — the gateway is a validator address, not an EVM contract. See [Building on Cardano](/docs/examples/cardano/overview).
+
+| Network | VIA Chain ID | Gateway Address |
+|---|---|---|
+| Cardano Mainnet | — | Live — address published here shortly |
+| Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
+
+Midnight also uses its own client architecture — see [Building on Midnight](/docs/examples/midnight/overview).
 
 ## Adding a New Network
 

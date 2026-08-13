@@ -24,7 +24,7 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: "category",
-          label: "EVM (Solidity)",
+          label: "EVM",
           collapsed: false,
           items: [
             "examples/hello-world",
@@ -36,7 +36,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "category",
-          label: "Cardano (Aiken)",
+          label: "Cardano",
           collapsed: true,
           items: [
             "examples/cardano/overview",
@@ -46,9 +46,9 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "category",
-          label: "Midnight (Compact)",
+          label: "Midnight",
           collapsed: true,
-          items: ["examples/midnight/overview", "examples/midnight/usdm-bridge"],
+          items: ["examples/midnight/overview"],
         },
         {
           type: "doc",

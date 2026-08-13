@@ -6,13 +6,9 @@ description: How VIA cross-chain messaging works on Midnight — the Compact cli
 
 # Building on Midnight
 
-VIA connects Midnight to its cross-chain network. On testnet today, Midnight Preview reaches Cardano Preprod and EVM testnets. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one.
+VIA connects Midnight to its cross-chain network, and it is live on Midnight mainnet. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one. The examples and addresses on this page use Midnight Preview and Cardano Preprod.
 
-:::info Testnet only
-Everything on this page is testnet: Midnight Preview, Cardano Preprod, and EVM testnets. No mainnet addresses or values appear here.
-:::
-
-The live reference integration is USDM, deployed and bridging both directions between Midnight Preview and Cardano Preprod. It has its own page: [USDM Bridge](/docs/examples/midnight/usdm-bridge). This page covers how a Midnight client works.
+The live reference integration is USDM, deployed and bridging both directions between Midnight and Cardano — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). This page covers how a Midnight client works.
 
 ---
 
@@ -37,7 +33,7 @@ Admin circuits configure the contract:
 Every circuit call needs a zero-knowledge proof. Your machine generates it locally through a proof server (default `http://localhost:6300`). Proving never leaves your environment.
 
 :::info Source access
-The Compact client source is proprietary to VIA Labs LLC (© 2026, all rights reserved). You receive it when we build your integration together. The [USDM bridge package](/docs/examples/midnight/usdm-bridge) is separate — it is public and MIT.
+The Compact client source is proprietary to VIA Labs LLC (© 2026, all rights reserved). You receive it when we build your integration together. The [USDM bridge package](https://www.npmjs.com/package/@via-labs-tech/usdm-bridge) is separate — it is public and MIT.
 :::
 
 ---
@@ -62,7 +58,7 @@ setEndpoint(11155111, <contract address, left-padded to 32 bytes>, true)
 
 The EVM side is a standard VIA integration — the same contracts as [Hello World](/docs/examples/hello-world) and [Burn & Mint Token](/docs/examples/burn-mint-token). On EVM, non-EVM identities travel as `bytes32`, so the Midnight client appears there as its 32-byte contract address.
 
-**Example — the Cardano peer.** The same call with VIA's Cardano Preprod chain ID (`2273266`) authorizes a Cardano contract. The deployed USDM client runs exactly this route today — see [USDM Bridge](/docs/examples/midnight/usdm-bridge).
+**Example — the Cardano peer.** The same call with VIA's Cardano Preprod chain ID (`2273266`) authorizes a Cardano contract. The deployed USDM client runs exactly this route today — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
 
 ---
 
@@ -109,7 +105,6 @@ Two things to know before you plan a Midnight integration.
 
 ## Next Steps
 
-- [USDM Bridge](/docs/examples/midnight/usdm-bridge) — the deployed integration and its public package
 - [USDM Bridge Guide](/docs/examples/guides/usdm-cardano-midnight) — bridge testnet USDM end to end
 - [Building on Cardano](/docs/examples/cardano/overview) — the other half of the Cardano route
 - [Audits](/docs/general/audits) — what has been audited and by whom

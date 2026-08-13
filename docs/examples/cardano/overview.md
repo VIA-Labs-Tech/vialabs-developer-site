@@ -8,8 +8,8 @@ description: How VIA cross-chain messaging works on Cardano — UTxOs, validator
 
 VIA messaging on Cardano is the same protocol you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes is the execution model. This page explains the Cardano-specific concepts before you write any code.
 
-:::info Testnet only
-Everything on this page targets **Cardano Preprod**, with routes to **Midnight Preview** and **EVM testnets**. VIA's chain ID for Cardano Preprod is `2273266`.
+:::info Mainnet and testnet
+VIA is live on Cardano mainnet. The examples and addresses in these pages use **Cardano Preprod** (VIA chain ID `2273266`), with routes to Midnight and EVM testnets. Gateway addresses are on [Supported Networks](/docs/general/supported-networks).
 :::
 
 ---
@@ -18,7 +18,7 @@ Everything on this page targets **Cardano Preprod**, with routes to **Midnight P
 
 Cardano uses the eUTxO model. There are no contracts with storage and no events. Instead, validators approve how UTxOs are spent, and minting policies approve how tokens are created or burned.
 
-This changes how a VIA integration looks:
+This changes how a VIA integration looks. One term first: on these pages, **your client** means your integration — the validator and minting policy you deploy.
 
 | EVM | Cardano |
 |-----|---------|
@@ -35,7 +35,20 @@ The key idea: **a message is a UTxO**. VIA's network watches for these UTxOs the
 
 Sending a message takes two stages.
 
-**Stage 1 — you create the request.** Your transaction produces a send_request UTxO. It carries an inline datum of type `SendRequested` and exactly one auth token. The auth token's asset name is literally `send_request`.
+**Stage 1 — you create the request.** Your transaction produces a send_request UTxO. It carries two things: an inline datum of type `SendRequested`, and exactly one auth token whose asset name is `send_request`.
+
+```mermaid
+flowchart LR
+    TX[Your transaction] --> UTXO
+    subgraph UTXO[The send_request UTxO]
+        direction TB
+        DATUM["SendRequested datum<br/>(the message)"]
+        TOKEN["1 auth token<br/>(asset name: send_request)"]
+    end
+    UTXO --> VIA["VIA picks up the message<br/>and burns the auth token"]
+```
+
+The datum inside the UTxO is the message itself:
 
 ```
 SendRequested {
@@ -124,9 +137,9 @@ Every VIA integration on Cardano registers a node in an on-chain project registr
 - Your client validator and minting policy
 - Your state UTxO configuration — routes, admin keys
 
-Launching your own cross-chain token on Cardano or Midnight is a guided process. You build the client, and VIA reviews it, wires it into the network, and deploys with you. Plan the integration as a joint effort, not a solo weekend. Bridging **USDM** through the already-deployed contracts needs no onboarding at all — that path is permissionless.
+Launching your own cross-chain token on Cardano or Midnight is a guided process. You build the client, and VIA reviews it, wires it into the network, and deploys with you. Bridging **USDM** through the already-deployed contracts needs no onboarding at all — that path is permissionless.
 
-Expect protocol fees of a few ADA per message on each chain, plus normal network fees. The `max_fee` field caps what a transfer will pay.
+Expect protocol fees of a few ADA per message on each chain, plus normal network fees.
 
 ---
 

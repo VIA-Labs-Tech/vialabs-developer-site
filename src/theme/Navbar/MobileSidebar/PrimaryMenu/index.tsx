@@ -31,7 +31,7 @@ const TREE: Item[] = [
     collapsed: false,
     items: [
       {
-        label: 'EVM (Solidity)',
+        label: 'EVM',
         collapsed: false,
         items: [
           {label: 'Hello World', to: '/docs/examples/hello-world'},
@@ -42,7 +42,7 @@ const TREE: Item[] = [
         ],
       },
       {
-        label: 'Cardano (Aiken)',
+        label: 'Cardano',
         collapsed: true,
         items: [
           {label: 'Overview & Concepts', to: '/docs/examples/cardano/overview'},
@@ -51,11 +51,10 @@ const TREE: Item[] = [
         ],
       },
       {
-        label: 'Midnight (Compact)',
+        label: 'Midnight',
         collapsed: true,
         items: [
           {label: 'Overview', to: '/docs/examples/midnight/overview'},
-          {label: 'USDM Bridge', to: '/docs/examples/midnight/usdm-bridge'},
         ],
       },
       {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},

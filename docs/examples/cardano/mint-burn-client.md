@@ -6,9 +6,11 @@ description: A guided read-through of VIA's audited mint-and-burn reference clie
 
 # Mint & Burn Client
 
-Read the source of VIA's mint-and-burn reference client for Cardano. It is the Cardano counterpart of the EVM [Burn & Mint Token](/docs/examples/burn-mint-token) example. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
+This page shows the source of VIA's mint-and-burn reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
 
-This page walks the real Aiken source, top to bottom. Read it to understand how a Cardano integration hangs together before you build one.
+:::info Building on an EVM chain instead?
+This page is about Cardano. For the EVM version of this pattern, see [Burn & Mint Token](/docs/examples/burn-mint-token).
+:::
 
 :::info What this page is
 This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process — you build and deploy it together with VIA. Bridging USDM through the contracts VIA has already deployed is permissionless. See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
@@ -263,9 +265,9 @@ The four VIA policy IDs are compile-time parameters. A build for Cardano Preprod
 
 ## The EVM Side of the Route
 
-This client is deployed on Cardano Preprod and bridges to EVM testnets today. It runs on the same deployment as testnet USDM — there is no separate configuration for Cardano ↔ EVM routes.
+This client is deployed on Cardano Preprod and bridges to EVM testnets today. It runs on the same deployment as testnet USDM. There is no separate configuration for Cardano ↔ EVM routes.
 
-The EVM-side contracts are public in [`vg1-evm-contracts`](https://github.com/VIA-Labs-Tech/vg1-evm-contracts/tree/master/src). `ViaMintBurnTokenCardano.sol` is the counterpart built for Cardano routes. The repo also holds the standard `VIAMintBurnToken.sol`, `VIAMintBurnTokenMinimal.sol`, and `VIALockerRelease.sol`.
+On the EVM side, the counterpart is a standard VIA token contract. `ViaMintBurnTokenCardano.sol` is the version built for Cardano routes — you receive it during onboarding, like the Aiken source on this page. The published EVM contract sources are on the [Contract Source](/docs/general/contract-source) page.
 
 ---
 

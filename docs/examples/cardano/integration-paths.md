@@ -6,11 +6,14 @@ description: How a team gets a token live on Cardano with VIA — the two integr
 
 # Integration Paths
 
-Get your token live on Cardano with VIA. Two paths, one guided process.
+This page covers launching your own token on Cardano. Bridging USDM is different: those contracts are already deployed, and anyone can use them without permission.
 
-Cardano integrations are built together with VIA. The on-chain half is open to inspect, and the reference clients are [audited](/docs/general/audits). Onboarding runs as a guided process — VIA compiles, deploys, and registers the integration with you.
+There are two possible integration paths:
 
-This page covers launching your own token. Bridging USDM is different: those contracts are already deployed, and anyone can use them without permission.
+1. **Use a reference client as shipped** — mint & burn or lock & release, exactly as they are.
+2. **Custom logic** — your own `chain_data` shape or validator logic.
+
+Both paths are built together with VIA. The on-chain half is open to inspect, and the reference clients are [audited](/docs/general/audits).
 
 :::info Why guided?
 A working integration is more than compiled validators. It must register in the on-chain project registry, and VIA's off-chain driver must support it. We handle both parts with you, so your first bridge transaction works.
@@ -60,8 +63,6 @@ Every integration has a sender side and a receiver side. A token that leaves Car
 - **Cardano → destination** — what happens on Cardano, and what happens on arrival
 - **Destination → Cardano** — the reverse
 
-Each side lists the chains and senders it accepts. Configure both, or tokens move in only one direction.
-
 ---
 
 ## What to Prepare
@@ -72,7 +73,7 @@ Bring answers to these before you reach out. They shape the whole integration.
 2. **The chains.** Where should it go? List every route you want, in both directions.
 3. **The pattern.** Mint & burn if you control the token. Lock & release if you do not.
 4. **The admin key.** Decide who holds it and how you protect it. It controls your routes.
-5. **Testnet first.** Plan a full test on Cardano Preprod, and on Midnight Preview for Midnight routes. Testnet and mainnet builds are separate — a Preprod deployment never touches mainnet.
+5. **Testnet first.** Plan a full test on Cardano Preprod. Testnet and mainnet builds are separate — a Preprod deployment never touches mainnet.
 
 :::warning Keys stay with you
 Never share a private key or mnemonic with anyone — including VIA. VIA never asks for your keys.
