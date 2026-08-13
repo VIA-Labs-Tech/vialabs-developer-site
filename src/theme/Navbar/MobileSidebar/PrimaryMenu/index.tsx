@@ -54,7 +54,8 @@ const TREE: Item[] = [
         label: 'Midnight (Compact)',
         collapsed: true,
         items: [
-          {label: 'Overview & USDM Bridge', to: '/docs/examples/midnight/overview'},
+          {label: 'Overview', to: '/docs/examples/midnight/overview'},
+          {label: 'USDM Bridge', to: '/docs/examples/midnight/usdm-bridge'},
         ],
       },
       {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},

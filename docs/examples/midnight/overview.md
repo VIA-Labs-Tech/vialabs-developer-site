@@ -1,43 +1,18 @@
 ---
-sidebar_label: Overview & USDM Bridge
+sidebar_label: Overview
 title: Building on Midnight
-description: Bridge USDM between Cardano Preprod and Midnight Preview, and see how a Midnight client contract is shaped in Compact.
+description: How VIA cross-chain messaging works on Midnight — the Compact client shape, endpoints to any chain, and the tested version set.
 ---
 
 # Building on Midnight
 
-VIA connects Midnight to Cardano. The connection is live on testnet: Midnight Preview bridges to Cardano Preprod today. USDM is the working integration — you can move it in both directions right now.
+VIA connects Midnight to its cross-chain network. On testnet today, Midnight Preview reaches Cardano Preprod and EVM testnets. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one.
 
 :::info Testnet only
-Everything on this page is testnet: Cardano Preprod and Midnight Preview. No mainnet addresses or values appear here.
+Everything on this page is testnet: Midnight Preview, Cardano Preprod, and EVM testnets. No mainnet addresses or values appear here.
 :::
 
----
-
-## The Working Example: USDM Bridge
-
-The [`@via-labs-tech/usdm-bridge`](https://www.npmjs.com/package/@via-labs-tech/usdm-bridge) npm package bridges USDM in both directions. It is public and MIT-licensed. It runs headless in Node.js — use it as a library or run the bundled CLI.
-
-```ts
-import { bridgeUSDM } from '@via-labs-tech/usdm-bridge'
-
-const { txHash } = await bridgeUSDM({
-    direction: 'cardano-to-midnight', // or 'midnight-to-cardano'
-    amount: '5',
-    recipient: 'mn_addr_preview1...', // or addr_test1... for midnight-to-cardano
-})
-```
-
-Bridging through the already-deployed contracts is permissionless. Anyone can move testnet USDM today. The full walkthrough — wallets, environment, CLI commands — is in the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
-
-### Deployed Testnet Contracts
-
-| Network | VIA chain ID | Contract |
-|---------|-------------|----------|
-| Midnight Preview | `64364450` | USDM gateway: `471dfe55c866fdbc085c9011a51f0cd0e9c9bfca6bb985c35f7716b6e73e485c` |
-| Cardano Preprod | `2273266` | Gateway: `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g`<br/>Lock-release policy ID: `76fbe9f6c8761cc6744c34a1f30915037e38c01197d6e7c9d2fcc1d3` |
-
-The chain IDs are VIA protocol IDs — the routing keys for cross-chain messages. USDM uses 6 decimals on every chain. The package exports all of these as `CONTRACTS` and `USDM_DECIMALS`, so you rarely need to copy them by hand.
+The live reference integration is USDM, deployed and bridging both directions between Midnight Preview and Cardano Preprod. It has its own page: [USDM Bridge](/docs/examples/midnight/usdm-bridge). This page covers how a Midnight client works.
 
 ---
 
@@ -47,8 +22,8 @@ Midnight contracts are written in Compact. A VIA client on Midnight is one Compa
 
 The constructor takes the chain ID and seeds a unique transaction-ID base from it. Two core circuits do the bridging:
 
-- **`bridge`** — starts a transfer toward Cardano. It checks that the system is enabled and the destination endpoint is authorized. It collects the configured fee, burns the USDM amount from the caller, assigns a unique tx ID, and stores the outbound message. It returns the tx ID.
-- **`process`** — completes an inbound transfer from Cardano. Only an allowlisted relayer can call it. It checks replay protection, the source endpoint, and that this contract and chain are the intended destination. Then it marks the message processed and mints USDM to the recipient.
+- **`bridge`** — starts an outbound transfer. It checks that the system is enabled and the destination endpoint is authorized. It collects the configured fee, burns the token amount from the caller, assigns a unique tx ID, and stores the outbound message. It returns the tx ID.
+- **`process`** — completes an inbound transfer. Only an allowlisted relayer can call it. It checks replay protection, the source endpoint, and that this contract and chain are the intended destination. Then it marks the message processed and mints to the recipient.
 
 Admin circuits configure the contract:
 
@@ -62,8 +37,32 @@ Admin circuits configure the contract:
 Every circuit call needs a zero-knowledge proof. Your machine generates it locally through a proof server (default `http://localhost:6300`). Proving never leaves your environment.
 
 :::info Source access
-The Compact client source is proprietary to VIA Labs LLC (© 2026, all rights reserved). You receive it when we build your integration together. The USDM bridge package above is separate — it is public and MIT.
+The Compact client source is proprietary to VIA Labs LLC (© 2026, all rights reserved). You receive it when we build your integration together. The [USDM bridge package](/docs/examples/midnight/usdm-bridge) is separate — it is public and MIT.
 :::
+
+---
+
+## Endpoints: Any Chain Can Be a Peer
+
+The client's endpoint registry is keyed by chain ID. It is not specific to any one chain:
+
+```compact
+export ledger endpoints: Map<Uint<64>, Map<Bytes<32>, Boolean>>;
+
+export circuit setEndpoint(_chainId: Uint<64>, _address: Bytes<32>, _enabled: Boolean): []
+```
+
+A message passes only if its source pair — chain ID plus 32-byte contract identity — is enabled in this map. The owner configures it, one call per peer.
+
+**Example — an EVM peer.** VIA chain IDs on EVM chains equal the EVM chain IDs. To accept messages from a contract on Sepolia, the owner enables it:
+
+```
+setEndpoint(11155111, <contract address, left-padded to 32 bytes>, true)
+```
+
+The EVM side is a standard VIA integration — the same contracts as [Hello World](/docs/examples/hello-world) and [Burn & Mint Token](/docs/examples/burn-mint-token). On EVM, non-EVM identities travel as `bytes32`, so the Midnight client appears there as its 32-byte contract address.
+
+**Example — the Cardano peer.** The same call with VIA's Cardano Preprod chain ID (`2273266`) authorizes a Cardano contract. The deployed USDM client runs exactly this route today — see [USDM Bridge](/docs/examples/midnight/usdm-bridge).
 
 ---
 
@@ -110,6 +109,7 @@ Two things to know before you plan a Midnight integration.
 
 ## Next Steps
 
+- [USDM Bridge](/docs/examples/midnight/usdm-bridge) — the deployed integration and its public package
 - [USDM Bridge Guide](/docs/examples/guides/usdm-cardano-midnight) — bridge testnet USDM end to end
-- [Building on Cardano](/docs/examples/cardano/overview) — the other half of the route
+- [Building on Cardano](/docs/examples/cardano/overview) — the other half of the Cardano route
 - [Audits](/docs/general/audits) — what has been audited and by whom

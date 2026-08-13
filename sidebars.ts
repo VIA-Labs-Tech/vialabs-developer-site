@@ -48,7 +48,7 @@ const sidebars: SidebarsConfig = {
           type: "category",
           label: "Midnight (Compact)",
           collapsed: true,
-          items: ["examples/midnight/overview"],
+          items: ["examples/midnight/overview", "examples/midnight/usdm-bridge"],
         },
         {
           type: "doc",
