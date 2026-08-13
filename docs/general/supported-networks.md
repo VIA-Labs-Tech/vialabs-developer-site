@@ -46,7 +46,7 @@ Cardano uses a different client architecture than EVM chains — the gateway is 
 
 | Network | VIA Chain ID | Gateway Address |
 |---|---|---|
-| Cardano Mainnet | — | Live — address published here shortly |
+| Cardano Mainnet | `2273265` | `addr1w8jacv9c2a0qs55rnx9y37up9fgkf44yqrylcp05mta5tygf67l6y` |
 | Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
 
 Midnight also uses its own client architecture — see [Building on Midnight](/docs/examples/midnight/overview).

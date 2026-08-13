@@ -55,6 +55,7 @@ const TREE: Item[] = [
         collapsed: true,
         items: [
           {label: 'Overview', to: '/docs/examples/midnight/overview'},
+          {label: 'Integration Paths', to: '/docs/examples/midnight/integration-paths'},
         ],
       },
       {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},

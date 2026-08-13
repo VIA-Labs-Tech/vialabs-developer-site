@@ -13,7 +13,7 @@ This page is about Cardano. For the EVM version of this pattern, see [Burn & Min
 :::
 
 :::info What this page is
-This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process — you build and deploy it together with VIA. Bridging USDM through the contracts VIA has already deployed is permissionless. See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
+This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process — you build and deploy it together with VIA. Bridging tokens that are already deployed, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 ---
@@ -128,7 +128,7 @@ when single_policy_delta(mint, policy_id) is {
       False
 ```
 
-Four rules carry the weight:
+The policy checks four rules:
 
 - **Burn exactly the bridged amount.** The policy's own mint delta must equal `-amount`. Nothing more, nothing less.
 - **The token identity must match.** VIA identifies a Cardano token by a 32-byte hash:
@@ -275,9 +275,9 @@ On the EVM side, the counterpart is a standard VIA token contract. `ViaMintBurnT
 
 The client imports VIA's on-chain library modules: `deposit_intent`, `send_request`, `mint_burn_state`, `project_registry_authority`, and shared types. Those modules, the Preprod policy IDs, and registration all come from VIA during onboarding.
 
-Launching your own token on Cardano or Midnight is a guided process. You and the VIA team do it together: VIA reviews the client, registers it, and connects it to the message layer. The registry and the delivery witness both live on VIA's side of the pair, so this is how the design works — not a waitlist.
+Launching your own token on Cardano or Midnight is a guided process. You and the VIA team do it together: VIA reviews the client, registers it, and connects it to the message layer. The delivery witness appears in the Cardano transaction, and VIA's driver produces it. That is why every integration is set up together with VIA.
 
-Bridging USDM through the contracts VIA has already deployed needs no sign-off from anyone. That path is permissionless.
+Bridging tokens that are already deployed, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
 
 - [Integration Paths](/docs/examples/cardano/integration-paths) — choose your route onto Cardano and Midnight
 - [Burn & Mint Token](/docs/examples/burn-mint-token) — the EVM counterpart of this client
