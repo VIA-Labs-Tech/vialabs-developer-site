@@ -25,7 +25,7 @@ A working integration is more than compiled validators. It must register in the 
 
 The fastest path. Pick one of the two audited reference clients and use it exactly as it is:
 
-- **Mint & burn** — for tokens you control. Supply burns on one side and mints on the other.
+- **Burn & mint** — for tokens you control. Supply burns on one side and mints on the other.
 - **Lock & release** — for tokens you do not control. Tokens lock on one side and release on the other.
 
 You choose:
@@ -71,7 +71,7 @@ Bring answers to these before you reach out. They shape the whole integration.
 
 1. **The token.** Which token, and on which chain does it live today?
 2. **The chains.** Where should it go? List every route you want, in both directions.
-3. **The pattern.** Mint & burn if you control the token. Lock & release if you do not.
+3. **The pattern.** Burn & mint if you control the token. Lock & release if you do not.
 4. **The admin key.** Decide who holds it and how you protect it. It controls your routes.
 5. **Testnet first.** Plan a full test on Cardano Preprod. Testnet and mainnet builds are separate — a Preprod deployment never touches mainnet.
 
@@ -83,5 +83,5 @@ Never share a private key or mnemonic with anyone — including VIA. VIA never a
 
 ## Next Steps
 
-- Study the reference client: [Mint & Burn Client](/docs/examples/cardano/mint-burn-client)
+- Study the reference client: [Burn & Mint Client](/docs/examples/cardano/mint-burn-client)
 - Ready to talk? [Work With Us — For Developers](/docs/work-with-us/developers)

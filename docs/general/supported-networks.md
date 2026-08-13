@@ -10,6 +10,8 @@ The tables below list the VIA Gateway contract address for each network with a l
 
 :::info Chain IDs
 VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on each network. Use these as the `destChainId` in `messageSend()` and in `setMessageEndpoints()`.
+
+Cardano and Midnight use VIA-assigned chain IDs and their own client architecture — the Cardano gateway is a validator address, not an EVM contract. See [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview).
 :::
 
 ## Testnets
@@ -28,6 +30,7 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 | Robinhood Testnet | `46630` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
 | Upside Testnet | `61872` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
 | PandaSea Testnet | `7770` | `0x4d0e6355875485480c43f2d6e94fbf4bf287921c` |
+| Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
 
 ## Mainnets
 
@@ -35,21 +38,11 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 |---|---|---|
 | Avalanche | `43114` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Base | `8453` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Cardano | `2273265` | `addr1w8jacv9c2a0qs55rnx9y37up9fgkf44yqrylcp05mta5tygf67l6y` |
 | PandaSea | `7776` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Upside | `61873` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 
 Additional mainnet gateways are being rolled out — this table is updated as each deployment goes live.
-
-## Cardano
-
-Cardano uses a different client architecture than EVM chains — the gateway is a validator address, not an EVM contract. See [Building on Cardano](/docs/examples/cardano/overview).
-
-| Network | VIA Chain ID | Gateway Address |
-|---|---|---|
-| Cardano Mainnet | `2273265` | `addr1w8jacv9c2a0qs55rnx9y37up9fgkf44yqrylcp05mta5tygf67l6y` |
-| Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
-
-Midnight also uses its own client architecture — see [Building on Midnight](/docs/examples/midnight/overview).
 
 ## Adding a New Network
 

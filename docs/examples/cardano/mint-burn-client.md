@@ -1,12 +1,12 @@
 ---
-sidebar_label: Mint & Burn Client
-title: Mint & Burn Client
-description: A guided read-through of VIA's audited mint-and-burn reference client for Cardano, written in Aiken.
+sidebar_label: Burn & Mint Client
+title: Burn & Mint Client
+description: A guided read-through of VIA's audited burn-and-mint reference client for Cardano, written in Aiken.
 ---
 
-# Mint & Burn Client
+# Burn & Mint Client
 
-This page shows the source of VIA's mint-and-burn reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
+This page shows the source of VIA's burn-and-mint reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
 
 :::info Building on an EVM chain instead?
 This page is about Cardano. For the EVM version of this pattern, see [Burn & Mint Token](/docs/examples/burn-mint-token).
@@ -142,7 +142,7 @@ fn token_hash(policy_id: PolicyId, token_name: AssetName) -> ByteArray {
   This hash is what the destination chain sees as the source token.
 
 - **The depositor signs.** `source_depositor` must appear in the transaction's signatories. Nobody can burn your tokens for you.
-- **Exactly one `send_request` auth token is minted.** The asset name is literally `send_request` (hex `73656e645f72657175657374`).
+- **Exactly one `send_request` auth token is minted.** The asset name is `send_request` (hex `73656e645f72657175657374`).
 
 The send request must live at VIA's send-request spending script. The client does not hardcode that script hash. It reads it from an authenticated reference input, so VIA can publish it once on chain. The output's inline datum is a `SendRequested`:
 

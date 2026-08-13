@@ -47,7 +47,7 @@ const TREE: Item[] = [
         items: [
           {label: 'Overview & Concepts', to: '/docs/examples/cardano/overview'},
           {label: 'Integration Paths', to: '/docs/examples/cardano/integration-paths'},
-          {label: 'Mint & Burn Client', to: '/docs/examples/cardano/mint-burn-client'},
+          {label: 'Burn & Mint Client', to: '/docs/examples/cardano/mint-burn-client'},
         ],
       },
       {
