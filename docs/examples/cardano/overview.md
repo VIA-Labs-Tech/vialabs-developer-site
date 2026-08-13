@@ -55,7 +55,7 @@ SendRequested {
   sender: ScriptHash,      // your client validator
   recipient: ByteArray,    // the receiving contract on the destination chain
   dest_chain: Int,         // VIA chain ID of the destination
-  chain_data: ByteArray,   // the VILR-encoded payload (next section)
+  chain_data: ByteArray,   // your payload — VILR for token transfers (next section)
   confirmations: Int,      // block confirmations to wait before relay
 }
 ```
@@ -68,7 +68,7 @@ All five fields are mandatory. A send_request UTxO without a valid `SendRequeste
 
 ## The chain_data Format (VILR)
 
-The `chain_data` field carries the token-transfer payload. It uses a fixed byte layout that starts with the ASCII magic `VILR`. Fields are packed in order with no padding.
+The `chain_data` field carries your payload. A custom shape is possible — see [Integration Paths](/docs/examples/cardano/integration-paths) — but VILR is the layout VIA is ready to handle today, and it is the standard for token transfers. It is a fixed byte layout that starts with the ASCII magic `VILR`. Fields are packed in order with no padding.
 
 | Offset | Width (bytes) | Field | Description |
 |--------|---------------|-------|-------------|
@@ -100,7 +100,7 @@ keccak256(policyId ++ assetName)
 
 This 32-byte hash is what the EVM side sees as the Cardano token. It is also what you put in the `source_token` and `destination_token` fields.
 
-`source_token`, `destination_token`, and `destination_recipient` are each **exactly 32 bytes**. No shorter, no longer. Addresses and identities smaller than 32 bytes are padded to fit.
+`source_token`, `destination_token`, and `destination_recipient` are each **exactly 32 bytes**. No shorter, no longer. Addresses and identities smaller than 32 bytes are **left-padded** to fit.
 
 ---
 
@@ -120,24 +120,25 @@ The list lives in an admin-updatable **state UTxO**, marked by a singleton NFT a
 
 ## The Project Registry
 
-Every VIA integration on Cardano registers a node in an on-chain project registry, and your client registers itself in the same transaction. Registration happens together with VIA during onboarding — the details are on the [Integration Paths](/docs/examples/cardano/integration-paths) page.
+Every VIA integration on Cardano must register a node in the on-chain project registry. When you register is your design choice — the reference burn & mint client does it at init, and a custom design can do it at any time. Details are on the [Integration Paths](/docs/examples/cardano/integration-paths) page.
 
 ---
 
-## What VIA Supplies, What You Build
+## What You Build, What VIA Provides
 
-**VIA supplies:**
+VIA's protocol validators are deployed on-chain, and the off-chain network watches send_request UTxOs around the clock. You do not deploy or run any of that.
 
-- The protocol validators, already deployed on Cardano Preprod
-- The network policy IDs your client takes as compile-time parameters (so a Preprod build and a mainnet build are different builds)
-- The off-chain driver that watches send_request UTxOs and delivers messages
-
-**You build:**
+**You build, deploy, and register:**
 
 - Your client validator and minting policy
 - Your state UTxO configuration — routes, admin keys
 
-Launching your own cross-chain token on Cardano or Midnight is a guided process. You build the client, and VIA reviews it, wires it into the network, and deploys with you. Bridging **USDM** through the already-deployed contracts needs no onboarding at all — that path is permissionless.
+**VIA provides:**
+
+- The network data values your client needs, like the protocol policy IDs
+- Message-layer support for your integration, so your messages get processed
+
+Launching your own cross-chain token on Cardano or Midnight is a guided process: you build and deploy, and VIA wires your integration into the message layer. Bridging tokens VIA already supports, like **USDM**, needs no onboarding at all — that path is permissionless.
 
 Expect protocol fees of a few ADA per message on each chain, plus normal network fees.
 

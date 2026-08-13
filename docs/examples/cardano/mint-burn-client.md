@@ -13,16 +13,16 @@ This page is about Cardano. For the EVM version of this pattern, see [Burn & Min
 :::
 
 :::info What this page is
-This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process — you build and deploy it together with VIA. Bridging tokens that are already deployed, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
+This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 ---
 
 ## The Two Validators
 
-The integration is two Aiken validators that work as a pair.
+The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or twenty — the pairing is a choice, not a rule.
 
-**The state script** is small — 43 lines. Its mint branch bootstraps a singleton state NFT. The NFT sits in a UTxO at the script's own address and holds the client's config as an inline datum.
+**The state script** is small. Its mint branch bootstraps a singleton state NFT. The NFT sits in a UTxO at the script's own address and holds the client's config as an inline datum.
 
 ```aiken
 validator mint_burn_state_script(
@@ -40,7 +40,7 @@ validator mint_burn_state_script(
 
 The datum is a `MintBurnStateDatum`. Its key field is `supported_routes` — a list of `{source_chain, sender}` pairs. This is the allowlist of remote contracts that may mint on Cardano through your client.
 
-Only the admin can change it. The spend branch checks the admin signature, then lets the datum change while the NFT stays where it is:
+Only the admin can change it — and `admin` is a compile-time parameter, so it cannot be swapped later. The spend branch checks the admin signature, then lets the datum change while the NFT stays where it is:
 
 ```aiken
 spend(
@@ -100,7 +100,7 @@ The same transaction must:
 
 1. **Mint the initial supply.** The mint must be positive, under your token name only, and every minted token must appear in the outputs.
 2. **Create the state UTxO.** The `else` branch checks for exactly one output that carries the state NFT. Its inline datum must be a well-formed `MintBurnStateDatum` at the current version.
-3. **Register with the project registry.** The init redeemer itself carries the registry-authority shape. VIA's registry insert runs in the same transaction, so the client is known to the network from the moment it exists.
+3. **Register with the project registry.** This reference client registers at init. Registration is required for every integration; the timing is a design choice.
 
 ---
 
@@ -138,8 +138,6 @@ fn token_hash(policy_id: PolicyId, token_name: AssetName) -> ByteArray {
   keccak_256(bytearray.concat(policy_id, token_name))
 }
 ```
-
-  This hash is what the destination chain sees as the source token.
 
 - **The depositor signs.** `source_depositor` must appear in the transaction's signatories. Nobody can burn your tokens for you.
 - **Exactly one `send_request` auth token is minted.** The asset name is `send_request` (hex `73656e645f72657175657374`).
@@ -199,8 +197,6 @@ when redeemer is {
 }
 ```
 
-The witness must target this client and carry the exact encoded deposit. VIA's processed-transactions policy keeps the record of delivered messages, so a client only mints when the network has proven a matching delivery.
-
 ---
 
 ## hook_data: Delivery With a Datum
@@ -224,6 +220,10 @@ fn destination_hook_data_matches(output: Output, hook_data: ByteArray) -> Bool {
 ```
 
 This lets a sender on another chain deliver tokens straight into a Cardano script, with the exact datum that script expects. For a plain wallet payout, leave it empty.
+
+:::warning USDM
+Do NOT use `hook_data` with USDM. Leave it empty.
+:::
 
 ---
 
@@ -273,11 +273,11 @@ On the EVM side, the counterpart is a standard VIA token contract. `ViaMintBurnT
 
 ## Where the Rest Lives
 
-The client imports VIA's on-chain library modules: `deposit_intent`, `send_request`, `mint_burn_state`, `project_registry_authority`, and shared types. Those modules, the Preprod policy IDs, and registration all come from VIA during onboarding.
+The client builds on VIA's on-chain library modules. You receive the full package, with the network values for your target network, when you start an integration.
 
-Launching your own token on Cardano or Midnight is a guided process. You and the VIA team do it together: VIA reviews the client, registers it, and connects it to the message layer. The delivery witness appears in the Cardano transaction, and VIA's driver produces it. That is why every integration is set up together with VIA.
+Launching your own token on Cardano or Midnight is a guided process: you build, deploy, and register your client, and VIA wires your integration into the message layer.
 
-Bridging tokens that are already deployed, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+Bridging tokens VIA already supports, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
 
 - [Integration Paths](/docs/examples/cardano/integration-paths) — choose your route onto Cardano and Midnight
 - [Burn & Mint Token](/docs/examples/burn-mint-token) — the EVM counterpart of this client

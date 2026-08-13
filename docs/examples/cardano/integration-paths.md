@@ -15,8 +15,10 @@ There are two possible integration paths:
 
 Both paths are built together with VIA. The on-chain half is open to inspect, and the reference clients are [audited](/docs/general/audits).
 
+Integrations are not limited to tokens. The same message layer carries news, sports results, numbers, text — any data.
+
 :::info Why guided?
-A working integration is more than compiled validators. It must register in the on-chain project registry, and VIA's off-chain driver must support it. We handle both parts with you, so your first bridge transaction works.
+A working integration is more than compiled validators. Your integration must register in the on-chain project registry, and VIA's message layer must support your messages. You handle the on-chain side; VIA wires up the message layer with you.
 :::
 
 ---
@@ -26,7 +28,7 @@ A working integration is more than compiled validators. It must register in the 
 The fastest path. Pick one of the two audited reference clients and use it exactly as it is:
 
 - **Burn & mint** — for tokens you control. Supply burns on one side and mints on the other.
-- **Lock & release** — for tokens you do not control. Tokens lock on one side and release on the other.
+- **Lock & release** — for pre-existing or non-upgradable tokens, yours or not. Tokens lock on one side and release on the other.
 
 You choose:
 
@@ -34,7 +36,7 @@ You choose:
 - the routes — which chains it moves between, in both directions
 - the admin key that controls the integration
 
-VIA compiles the validators, deploys them, and registers the integration in the on-chain project registry. You are part of every step.
+You compile, deploy, and register the integration yourself. Registration is authorized by your own credentials — the deployer's seed UTxO for burn & mint, or the admin key for lock & release. The admin key is a compile-time parameter: set it carefully, it cannot be changed later.
 
 Routes are not fixed at compile time. The route allowlist lives in state your admin key controls. You can add or remove routes later without recompiling.
 
@@ -71,7 +73,7 @@ Bring answers to these before you reach out. They shape the whole integration.
 
 1. **The token.** Which token, and on which chain does it live today?
 2. **The chains.** Where should it go? List every route you want, in both directions.
-3. **The pattern.** Burn & mint if you control the token. Lock & release if you do not.
+3. **The pattern.** Burn & mint if you control the token and its supply. Lock & release if the token is pre-existing or not upgradable — yours or not.
 4. **The admin key.** Decide who holds it and how you protect it. It controls your routes.
 5. **Testnet first.** Plan a full test on Cardano Preprod. Testnet and mainnet builds are separate — a Preprod deployment never touches mainnet.
 

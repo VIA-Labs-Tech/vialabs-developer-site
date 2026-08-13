@@ -18,10 +18,10 @@ The USDM contracts are live on both testnets. Anyone can bridge through them, an
 
 - [Node.js](https://nodejs.org/) v22+
 - A Cardano Preprod wallet (mnemonic) holding **tUSDM and ADA**
-- A Midnight Preview wallet (mnemonic) holding **USDM and tDUST**
-- For Midnight → Cardano only: a local Midnight proof server
+- A Midnight Preview wallet (mnemonic) holding **tDUST** — you do not need USDM there; bridging from Cardano mints it to you
+- For Midnight → Cardano only: a Midnight proof server (local by default; remote works too)
 
-Faucets for ADA and tDUST are on the [Testnet Tokens](/docs/general/testnet-tokens) page. Use the **Preprod** network in the Cardano faucet. For testnet USDM, [ask us on Discord](https://discord.gg/h4rBhukkWz) — we'll send you some.
+Faucets for ADA and tDUST are on the [Testnet Tokens](/docs/general/testnet-tokens) page. Use the **Preprod** network in the Cardano faucet. For tUSDM on Preprod, use the [tUSDM faucet](https://tusdm.moneta.global).
 
 Chain reads need no API key. The CLI uses Koios' free public Preprod tier by default. If you prefer Blockfrost, set `BLOCKFROST_PROJECT_ID` in `.env` and the CLI switches over.
 
@@ -119,7 +119,7 @@ Run `node balance.mjs` again to see the USDM arrive on Midnight.
 
 ## Step 5: Midnight → Cardano
 
-This direction proves a ZK circuit, so it needs a local Midnight proof server on port `6300` (the default `PROOF_SERVER_URL`). Proving happens on your machine. Midnight's own documentation at [docs.midnight.network](https://docs.midnight.network/) covers proof-server setup. Start it before you bridge.
+This direction proves a ZK circuit, so it needs a Midnight proof server — local on port `6300` by default, or remote if you point `PROOF_SERVER_URL` at one. Midnight's own documentation at [docs.midnight.network](https://docs.midnight.network/) covers proof-server setup. Start it before you bridge.
 
 Then:
 

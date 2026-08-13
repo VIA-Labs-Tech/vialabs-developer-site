@@ -14,23 +14,16 @@ The live reference integration is USDM, deployed and bridging both directions be
 
 ## How a Midnight Client Is Shaped
 
-Midnight contracts are written in Compact. A VIA client on Midnight is one Compact contract. The USDM client (`ClientContractCardano.compact`) is the reference shape.
+Midnight contracts are written in Compact. A VIA client on Midnight is one Compact contract. The deployed USDM client is the reference shape.
 
 The constructor takes the chain ID and seeds a unique transaction-ID base from it. Two core circuits do the bridging:
 
 - **`bridge`** — starts an outbound transfer. It checks that the system is enabled and the destination endpoint is authorized. It collects the configured fee, burns the token amount from the caller, assigns a unique tx ID, and stores the outbound message. It returns the tx ID.
 - **`process`** — completes an inbound transfer. Only an allowlisted relayer can call it. It checks replay protection, the source endpoint, and that this contract and chain are the intended destination. Then it marks the message processed and mints to the recipient.
 
-Admin circuits configure the contract:
+Admin circuits configure the contract — endpoints, relayers, fees, and pause.
 
-- **`setEndpoint`** — enable or disable a peer contract on another chain
-- **`setRelayer`** — enable or disable a relayer's permission to call `process`
-- **`setFee`** — set the fee token type and amount
-- **`collectFees`** — send accumulated fees to a recipient
-- **`setSystemEnabled`** — pause or resume the whole contract
-- **`transferOwnership`** / **`setViaSupport`** — rotate the two admin roles (owner and VIA support)
-
-Every circuit call needs a zero-knowledge proof. Your machine generates it locally through a proof server (default `http://localhost:6300`). Proving never leaves your environment.
+Every circuit call needs a zero-knowledge proof. A proof server generates it — local by default (`http://localhost:6300`), or remote.
 
 :::info Source access
 The Compact client source is proprietary to VIA Labs LLC (© 2026, all rights reserved). You receive it when we build your integration together. The [USDM bridge package](https://www.npmjs.com/package/@via-labs-tech/usdm-bridge) is separate — it is public and MIT.
