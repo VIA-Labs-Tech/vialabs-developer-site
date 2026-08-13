@@ -261,6 +261,14 @@ The four VIA policy IDs are compile-time parameters. A build for Cardano Preprod
 
 ---
 
+## The EVM Side of the Route
+
+This client is deployed on Cardano Preprod and bridges to EVM testnets today. It runs on the same deployment as testnet USDM — there is no separate configuration for Cardano ↔ EVM routes.
+
+The EVM-side contracts are public in [`vg1-evm-contracts`](https://github.com/VIA-Labs-Tech/vg1-evm-contracts/tree/master/src). `ViaMintBurnTokenCardano.sol` is the counterpart built for Cardano routes. The repo also holds the standard `VIAMintBurnToken.sol`, `VIAMintBurnTokenMinimal.sol`, and `VIALockerRelease.sol`.
+
+---
+
 ## Where the Rest Lives
 
 The client imports VIA's on-chain library modules: `deposit_intent`, `send_request`, `mint_burn_state`, `project_registry_authority`, and shared types. Those modules, the Preprod policy IDs, and registration all come from VIA during onboarding.

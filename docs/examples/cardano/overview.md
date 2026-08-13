@@ -9,7 +9,7 @@ description: How VIA cross-chain messaging works on Cardano — UTxOs, validator
 VIA messaging on Cardano is the same protocol you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes is the execution model. This page explains the Cardano-specific concepts before you write any code.
 
 :::info Testnet only
-Everything on this page targets **Cardano Preprod** and **Midnight Preview**. VIA's chain ID for Cardano Preprod is `2273266`.
+Everything on this page targets **Cardano Preprod**, with routes to **Midnight Preview** and **EVM testnets**. VIA's chain ID for Cardano Preprod is `2273266`.
 :::
 
 ---
