@@ -38,7 +38,7 @@ You choose:
 - the routes — which chains it moves between, in both directions
 - the admin key that controls the integration
 
-You compile, deploy, and register the integration yourself. Registration is authorized by your own credentials — the deployer's seed UTxO for burn & mint, or the admin key for lock & release. The admin key is a compile-time parameter: set it carefully, it cannot be changed later or code your own change so that it can.
+You compile, deploy, and register the integration yourself. Registration is authorized by your own credentials — the deployer's seed UTxO for burn & mint, or the admin key for lock & release. The admin key is a compile-time parameter: set it carefully. The reference client cannot change it later; a custom design can add its own key-rotation logic.
 
 Routes are not fixed at compile time. The route allowlist lives in state your admin key controls. You can add or remove routes later without recompiling.
 
