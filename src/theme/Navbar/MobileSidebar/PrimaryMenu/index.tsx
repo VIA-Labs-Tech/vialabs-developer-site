@@ -57,8 +57,8 @@ const TREE: Item[] = [
         items: [
           {label: 'Overview', to: '/docs/examples/midnight/overview'},
           {label: 'Integration Paths', to: '/docs/examples/midnight/integration-paths'},
-          {label: 'Burn & Mint Token (Coming Soon)', to: '/docs/examples/midnight/burn-mint-token'},
-          {label: 'Lock & Mint Token (Coming Soon)', to: '/docs/examples/midnight/lock-mint-token'},
+          {label: 'Burn & Mint Client', to: '/docs/examples/midnight/mint-burn-client'},
+          {label: 'Lock & Release Client', to: '/docs/examples/midnight/lock-release-client'},
         ],
       },
       {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},

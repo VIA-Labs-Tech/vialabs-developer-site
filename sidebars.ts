@@ -52,8 +52,8 @@ const sidebars: SidebarsConfig = {
           items: [
             "examples/midnight/overview",
             "examples/midnight/integration-paths",
-            "examples/midnight/burn-mint-token",
-            "examples/midnight/lock-mint-token",
+            "examples/midnight/mint-burn-client",
+            "examples/midnight/lock-release-client",
           ],
         },
         {

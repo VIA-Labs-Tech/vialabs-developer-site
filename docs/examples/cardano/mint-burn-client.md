@@ -16,7 +16,7 @@ This is a read-through, not a deploy tutorial. The code comes from VIA's audited
 
 ## Inside the Reference Client
 
-The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or twenty — the pairing is a choice, not a rule.
+The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or many — the pairing is a choice, not a rule.
 
 **The state script** is small. Its mint branch bootstraps a singleton state NFT. The NFT sits in a UTxO at the script's own address and holds the client's config as an inline datum.
 

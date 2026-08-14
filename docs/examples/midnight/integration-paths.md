@@ -12,8 +12,8 @@ Like [Cardano](/docs/examples/cardano/integration-paths), Midnight integrations 
 
 There are two token patterns:
 
-1. **[Burn & Mint Token](/docs/examples/midnight/burn-mint-token)** — for a Midnight-native token. Sending burns it on Midnight. The destination chain mints it.
-2. **[Lock & Mint Token](/docs/examples/midnight/lock-mint-token)** — for a token that lives on another chain. It locks there, and your contract mints it on Midnight. USDM runs this pattern today.
+1. **[Burn & Mint Client](/docs/examples/midnight/mint-burn-client)** — for a token your contract issues on Midnight. Sending burns it on Midnight. The destination chain mints it. This is also the client for Lock & Mint, where the token locks on another chain and your contract mints it on Midnight — the pattern USDM runs today.
+2. **[Lock & Release Client](/docs/examples/midnight/lock-release-client)** — for a token that already exists on Midnight and that your contract does not issue. Sending locks it in the contract. Receiving releases it from the locked pool.
 
 VIA supplies your VIA chain ID, the relayer key your contract allowlists, and the endpoint configuration on the far side.
 

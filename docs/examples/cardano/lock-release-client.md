@@ -18,7 +18,7 @@ This is a read-through, not a deploy tutorial. The code comes from VIA's audited
 
 ## Inside the Reference Client
 
-The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or twenty — the pairing is a choice, not a rule.
+The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or many — the pairing is a choice, not a rule.
 
 **The state script** has the same shape as the Burn & Mint Client's. Its mint branch bootstraps a singleton state NFT. The NFT holds a datum whose key field is `supported_routes` — the allowlist of remote contracts that may release from your vault.
 
