@@ -42,6 +42,7 @@ const sidebars: SidebarsConfig = {
             "examples/cardano/overview",
             "examples/cardano/integration-paths",
             "examples/cardano/mint-burn-client",
+            "examples/cardano/lock-release-client",
           ],
         },
         {

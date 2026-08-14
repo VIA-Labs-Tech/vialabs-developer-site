@@ -6,7 +6,7 @@ description: How a team gets a token live on Cardano with VIA — the two integr
 
 # Integration Paths
 
-This page covers launching your own token on Cardano. Bridging USDM is different: those contracts are already deployed, and anyone can use them without permission.
+This page covers launching your own token on Cardano. Bridging USDM is different: those contracts are already deployed, and using them is permissionless.
 
 There are two possible integration paths:
 
@@ -27,8 +27,10 @@ A working integration is more than compiled validators. Your integration must re
 
 The fastest path. Pick one of the two audited reference clients and use it exactly as it is:
 
-- **Burn & mint** — for tokens you control. Supply burns on one side and mints on the other.
-- **Lock & release** — for pre-existing or non-upgradable tokens, yours or not. Tokens lock on one side and release on the other.
+- **[Burn & mint](/docs/examples/cardano/mint-burn-client)** — for tokens you control. Supply burns on one side and mints on the other.
+- **[Lock & release](/docs/examples/cardano/lock-release-client)** — for pre-existing or non-upgradable tokens, yours or not. Tokens lock in a vault on Cardano and release when they return.
+
+These are the two audited Cardano contracts. Paired with the far side of a route, they form the three patterns from the EVM docs: burn here and mint there is **Burn & Mint**; lock here and mint there is **Lock & Mint**; lock here and release there is **Lock & Release**.
 
 You choose:
 

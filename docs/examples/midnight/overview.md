@@ -6,7 +6,11 @@ description: How VIA cross-chain messaging works on Midnight — the Compact cli
 
 # Building on Midnight
 
-VIA connects Midnight to its cross-chain network, and it is live on Midnight mainnet. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one. The examples and addresses on this page use Midnight Preview and Cardano Preprod.
+VIA connects Midnight to its cross-chain network. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one.
+
+:::info Mainnet and testnet
+VIA is live on Midnight mainnet. The examples and addresses on this page use **Midnight Preview** and **Cardano Preprod**.
+:::
 
 The live reference integration is USDM, deployed and bridging both directions between Midnight and Cardano — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). This page covers how a Midnight client works.
 
@@ -14,7 +18,7 @@ The live reference integration is USDM, deployed and bridging both directions be
 
 ## How a Midnight Client Is Shaped
 
-Midnight contracts are written in Compact. A VIA client on Midnight is one Compact contract. The deployed USDM client is the reference shape.
+Midnight contracts are written in Compact. A VIA client on Midnight is one Compact contract. The examples below use the shape of the deployed USDM token client.
 
 The constructor takes the chain ID and seeds a unique transaction-ID base from it. Two core circuits do the bridging:
 
@@ -90,7 +94,7 @@ The pins matter. The Midnight SDK packages version independently, and this combi
 
 Two things to know before you plan a Midnight integration.
 
-**Launching your own integration is a guided process.** You build it together with VIA — the same model as [Cardano](/docs/examples/cardano/overview). Bridging USDM through the deployed contracts needs no permission; deploying a new client does.
+**Launching your own integration is a guided process.** You build it together with VIA — the same model as [Cardano](/docs/examples/cardano/overview). Bridging USDM through the deployed contracts is permissionless; deploying a new client is not.
 
 **Relayers on Midnight run from an allowlist.** The contract checks the caller against relayers the owner has enabled — there is no on-chain signature verification on Midnight yet.
 

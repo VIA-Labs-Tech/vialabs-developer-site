@@ -6,7 +6,9 @@ description: How VIA cross-chain messaging works on Cardano — UTxOs, validator
 
 # Building on Cardano
 
-VIA messaging on Cardano is the same protocol you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes is the execution model. This page explains the Cardano-specific concepts before you write any code.
+This page covers building cross-chain dapps on Cardano. The VIA messaging layer moves data or value (tokens) between chains — and data means anything: news, sports results, numbers, text. Tokens are the most common case, not the only one.
+
+The protocol is the same one you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes on Cardano is the execution model. This page explains the Cardano-specific concepts before you write any code.
 
 :::info Mainnet and testnet
 VIA is live on Cardano mainnet. The examples and addresses in these pages use **Cardano Preprod** (VIA chain ID `2273266`), with routes to Midnight and EVM testnets. Gateway addresses are on [Supported Networks](/docs/general/supported-networks).
@@ -148,4 +150,5 @@ Expect protocol fees of a few ADA per message on each chain, plus normal network
 
 - [Integration Paths](/docs/examples/cardano/integration-paths) — out-of-box vs custom, and how onboarding works
 - [Burn & Mint Client](/docs/examples/cardano/mint-burn-client) — the reference client validator, piece by piece
+- [Lock & Release Client](/docs/examples/cardano/lock-release-client) — the vault client for pre-existing tokens
 - [USDM: Cardano ↔ Midnight](/docs/examples/guides/usdm-cardano-midnight) — bridge USDM today, no onboarding required

@@ -8,17 +8,13 @@ description: A guided read-through of VIA's audited burn-and-mint reference clie
 
 This page shows the source of VIA's burn-and-mint reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
 
-:::info Building on an EVM chain instead?
-This page is about Cardano. For the EVM version of this pattern, see [Burn & Mint Token](/docs/examples/burn-mint-token).
-:::
-
 :::info What this page is
 This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 ---
 
-## The Two Validators
+## Inside the Reference Client
 
 The reference integration uses two Aiken validators that work as a pair. Your own design can use one validator or twenty — the pairing is a choice, not a rule.
 
