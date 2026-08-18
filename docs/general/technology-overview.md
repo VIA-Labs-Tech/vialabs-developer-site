@@ -27,7 +27,7 @@ VIA Labs deploys and maintains **ViaGatewayV1** contracts on all supported chain
 - **Security** — Up to three independent validation layers sign off on every message before execution
 - **Speed** — Developers choose the number of block confirmations to wait before relay. Set to 0 for fastest delivery, or increase for additional protection against source chain block reorganizations
 - **Flexibility** — Support for arbitrary message passing, not just token transfers
-- **Universality** — 140+ EVM and non-EVM chains supported from a single integration
+- **Universality** — 150+ EVM and non-EVM chains supported from a single integration
 
 ---
 

@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Supported Networks
 
-VIA Labs supports cross-chain communication across **140+ mainnets** and **80+ testnets**, including both public and private networks.
+VIA Labs supports cross-chain communication across **150+ mainnets** and **80+ testnets**, including both public and private networks.
 
 The tables below list the VIA Gateway contract address for each network with a live VG-1 deployment. Pass the gateway address for your network to `setMessageGateway()` when configuring your contract.
 

@@ -5,7 +5,7 @@ slug: /
 
 # Get Started
 
-VIA Labs provides **cross-chain smart contract messaging** across 140+ networks. Inherit one contract, override one function, send messages between chains.
+VIA Labs provides **cross-chain smart contract messaging** across 150+ networks. Inherit one contract, override one function, send messages between chains.
 
 ## Start Building
 

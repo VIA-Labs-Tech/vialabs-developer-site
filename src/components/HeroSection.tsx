@@ -23,7 +23,7 @@ export default function HeroSection() {
           Build Across<br />Every Chain
         </h1>
         <p className="text-[#94a3b8] text-[1.125rem] max-md:text-base leading-[1.7] mb-10">
-          Secure, direct smart contract messaging across 140+ networks.<br className="max-md:hidden" />
+          Secure, direct smart contract messaging across 150+ networks.<br className="max-md:hidden" />
           Ship cross-chain dApps in minutes, not months.
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
