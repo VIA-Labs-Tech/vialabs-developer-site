@@ -59,7 +59,7 @@ pub type LockReleaseSpendRedeemer {
 
 **The vault is not one UTxO.** Liquidity splits across *lanes* — separate UTxOs, each marked by a lane NFT. Parallel lanes let several transfers run at once without contending for a single UTxO. You choose the lane count at compile time, up to `max_lane_count` of 16.
 
-Init consumes a seed UTxO, so it runs exactly once. It mints one NFT per lane, creates the state UTxO, and requires the admin signature. The init redeemer follows VIA's project-registry authority shape: the admin key authorizes this client's registration in the registry. Registration is required for every integration; the timing is a design choice.
+Init consumes a seed UTxO, so it runs exactly once. It mints one NFT per lane, creates the state UTxO, and requires the admin signature. The init redeemer follows VIA's project-registry authority shape: the admin key authorizes this client's registration in the registry. Registration is required for every integration.
 
 ---
 
