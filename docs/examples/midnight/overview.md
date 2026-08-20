@@ -9,7 +9,7 @@ description: How VIA cross-chain messaging works on Midnight — the Compact cli
 VIA connects Midnight to its cross-chain network. Midnight is not a single-route chain — a client authorizes peers per chain, and any VIA-connected chain can be one.
 
 :::info Mainnet and testnet
-VIA is live on Midnight mainnet. The examples and addresses on this page use **Midnight Preview** and **Cardano Preprod**.
+VIA is live on **Midnight mainnet** (VIA chain ID `64364449`) and **Midnight Preview** (`64364450`). The examples and addresses on this page use Midnight Preview and Cardano Preprod; [Networks and Contract Identity](#networks-and-contract-identity) below lists what differs on mainnet.
 :::
 
 The live reference integration is USDM, deployed and bridging both directions between Midnight and Cardano — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). This page covers how a Midnight client works.
@@ -55,7 +55,35 @@ setEndpoint(11155111, <contract address, left-padded to 32 bytes>, true)
 
 The EVM side is a standard VIA integration — the same contracts as [Hello World](/docs/examples/hello-world) and [Burn & Mint Token](/docs/examples/burn-mint-token). On EVM, non-EVM identities travel as `bytes32`, so the Midnight client appears there as its 32-byte contract address.
 
-**Example — the Cardano peer.** The same call with VIA's Cardano Preprod chain ID (`2273266`) authorizes a Cardano contract. The deployed USDM client runs exactly this route today — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+**Example — the Cardano peer.** The same call with VIA's Cardano chain ID (`2273266` Preprod, `2273265` Mainnet) authorizes a Cardano contract. The deployed USDM client runs exactly this route today, on both network pairs — see the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+
+---
+
+## Networks and Contract Identity
+
+Midnight has no contract-to-contract calls, so on mainnet the USDM **gateway and the token are one contract**, deployed once for all routes — which is why mainnet runs a single VIA chain ID (`64364449`). Testnet predates that consolidation: it registered one ID per bridging direction, and `64364450` is the Cardano-route (bridge-only) contract the examples use.
+
+| | Preview | Mainnet |
+|---|---------|---------|
+| VIA chain ID | `64364450` (per-route) | `64364449` (single) |
+| USDM contract | `471dfe55c866fdbc…` | `65023744190a4fc7…` |
+| USDM token color | `003bacd9a361ba0d…` | `8c2c22bc0c37fa99…` |
+
+Two identity facts to internalize:
+
+- **Tokens are identified by color.** An unshielded Midnight token's identity is its 32-byte *token color*, minted into existence by its contract. The color is what wallets match balances on, and it is what a cross-chain transfer's `destination_token` field must carry when Midnight is the destination — not the contract address.
+- **ZK artifacts belong to a deployment.** A deployed contract carries its verifier keys on-chain; proofs are checked against them. Prover keys from one deployment do not prove against another — the Preview contract and the mainnet contract each have their own artifact set, and a client must load the set matching the network it targets.
+
+---
+
+## Fees: DUST
+
+Every Midnight transaction pays fees in **DUST** — including the `bridge` circuit call that starts a Midnight → anywhere transfer. DUST is not a token you acquire; it cannot be bought or transferred:
+
+- On **testnet**, tDUST comes from the [faucet](/docs/general/testnet-tokens).
+- On **mainnet**, DUST accrues to a wallet's **dust key** from **NIGHT held on Cardano** that has been registered for generation. The registration is a Cardano-side action, signed by the NIGHT-holding wallet's stake key, and it names a Midnight dust address (`mn_dust1...`) as the beneficiary. Capacity fills over hours, proportional to the registered NIGHT.
+
+The dust key is derived from the wallet seed separately from the receive address (`mn_addr1...`) — a registration pointed at another wallet's dust key generates DUST your wallet can never spend, so verify the dust address in the registration is the one your wallet derives. Generation status for a Cardano stake address is queryable from the public indexer (`dustGenerationStatus`).
 
 ---
 
@@ -102,6 +130,6 @@ Two things to know before you plan a Midnight integration.
 
 ## Next Steps
 
-- [USDM Bridge Guide](/docs/examples/guides/usdm-cardano-midnight) — bridge testnet USDM end to end
+- [USDM Bridge Guide](/docs/examples/guides/usdm-cardano-midnight) — bridge USDM end to end, mainnet or testnet
 - [Building on Cardano](/docs/examples/cardano/overview) — the other half of the Cardano route
 - [Audits](/docs/general/audits) — what has been audited and by whom

@@ -9,7 +9,7 @@ description: A guided read-through of VIA's audited lock-and-release reference c
 This page shows the source of VIA's lock-and-release reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. This is the vault client. Use it for a token that already exists on Cardano, or one you cannot upgrade — yours or not. Sending locks the token in the vault. Receiving releases it from the vault. The deployed USDM bridge runs this client on Cardano.
 
 :::info What this page is
-This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Bridging your own token from Cardano is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
+This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources; the excerpts target Cardano Preprod, and the same client runs USDM on **Cardano Mainnet** (as its own per-network build — see the warning under [Parameters](#parameters)). Bridging your own token from Cardano is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 **Two clients, three patterns.** VIA has two audited reference clients on Cardano: this one and the [Burn & Mint Client](/docs/examples/cardano/mint-burn-client). Pair either one with the far side of a route and the familiar patterns appear. Burn here plus mint there is Burn & Mint. Lock here plus mint there is Lock & Mint. Lock here plus release there is Lock & Release.
@@ -156,7 +156,7 @@ The eighth client parameter, `lock_release_state_policy_id`, is derived. Paramet
 2. Pass that hash to the client as `lock_release_state_policy_id`, together with the other seven parameters.
 
 :::warning Builds are network-specific
-The two VIA policy IDs are compile-time parameters. A build for Cardano Preprod is valid only on Cardano Preprod. Never reuse a compiled script on another network.
+The two VIA policy IDs — like every parameter above — are applied at compile time, so a build for Cardano Preprod is valid only on Cardano Preprod. Never reuse a compiled script on another network: applied parameters change the script bytes, so each network's build has a different hash, address, and policy id. The deployed USDM client shows it — policy `76fbe9f6…` on Preprod, `f8fe0d08…` on Mainnet. [One Deployment Per Network](/docs/examples/cardano/overview#one-deployment-per-network) covers the full picture.
 :::
 
 ---

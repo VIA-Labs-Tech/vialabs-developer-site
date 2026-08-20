@@ -254,7 +254,7 @@ The seventh client parameter, `mint_burn_state_policy_id`, is derived. Parameter
 2. Pass that hash to the client as `mint_burn_state_policy_id`, together with the other six parameters.
 
 :::warning Builds are network-specific
-The four VIA policy IDs are compile-time parameters. A build for Cardano Preprod is valid only on Cardano Preprod. Never reuse a compiled script on another network.
+The four VIA policy IDs — like every parameter above — are applied at compile time, so a build for Cardano Preprod is valid only on Cardano Preprod. Never reuse a compiled script on another network: applied parameters change the script bytes, so each network's build has a different hash, address, and policy id. [One Deployment Per Network](/docs/examples/cardano/overview#one-deployment-per-network) covers the full picture.
 :::
 
 ---

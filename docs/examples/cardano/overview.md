@@ -11,7 +11,7 @@ This page covers building cross-chain dapps on Cardano. The VIA messaging layer 
 The protocol is the same one you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes on Cardano is the execution model. This page explains the Cardano-specific concepts before you write any code.
 
 :::info Mainnet and testnet
-VIA is live on Cardano mainnet. The examples and addresses in these pages use **Cardano Preprod** (VIA chain ID `2273266`), with routes to Midnight and EVM testnets. Gateway addresses are on [Supported Networks](/docs/general/supported-networks).
+VIA is live on **Cardano Mainnet** (VIA chain ID `2273265`) and **Cardano Preprod** (`2273266`), with routes to Midnight and EVM networks. The examples on these pages use Preprod addresses; every deployed value differs per network — see [One Deployment Per Network](#one-deployment-per-network) below. Addresses are on [Supported Networks](/docs/general/supported-networks).
 :::
 
 ---
@@ -123,6 +123,24 @@ The list lives in an admin-updatable **state UTxO**, marked by a singleton NFT a
 ## The Project Registry
 
 Every VIA integration on Cardano must register a node in the on-chain project registry. When you register is your design choice — the reference burn & mint client does it at init, and a custom design can do it at any time. Details are on the [Integration Paths](/docs/examples/cardano/integration-paths) page.
+
+---
+
+## One Deployment Per Network
+
+On EVM chains, the same contract bytecode can run on any network and read its configuration from storage. Cardano works the other way: a validator's parameters — the token it handles, the local chain id, the policy ids it trusts — are **applied at compile time and baked into the script bytes**. Change a parameter and you have a different script, with a different hash, and therefore a different address and policy id.
+
+So "the same contract on mainnet and testnet" still means **different bytes, different hashes, different addresses** — and since hashes are how everything on Cardano references everything (lane tokens, routing targets, reference-script lookups), no value from one network resolves on the other. The USDM lock-release client illustrates it:
+
+| | Preprod | Mainnet |
+|---|---------|---------|
+| VIA chain id (baked in) | `2273266` | `2273265` |
+| Locked asset (baked in) | tUSDM `e675b46e…` | USDM `c48cbb3d…` |
+| Resulting client policy id | `76fbe9f6…` | `f8fe0d08…` |
+
+Deployments ship as a per-network manifest that carries each protocol script's final compiled form **plus the UTxO where it is published as a reference script**, so transactions reference the on-chain copy instead of attaching kilobytes of script — and consumers never hunt for references through an indexer.
+
+One more per-network value: the confirmations validators wait for before attesting a message — **1 block on Preprod, 150 on Mainnet**.
 
 ---
 
