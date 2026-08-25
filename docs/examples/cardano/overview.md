@@ -169,4 +169,4 @@ Expect protocol fees of a few ADA per message on each chain, plus normal network
 - [Integration Paths](/docs/examples/cardano/integration-paths) — out-of-box vs custom, and how onboarding works
 - [Burn & Mint Client](/docs/examples/cardano/mint-burn-client) — the reference client validator, piece by piece
 - [Lock & Release Client](/docs/examples/cardano/lock-release-client) — the vault client for pre-existing tokens
-- [USDM: Cardano ↔ Midnight](/docs/examples/guides/usdm-cardano-midnight) — bridge USDM today, no onboarding required
+- [USDM: Cardano ↔ Midnight](/docs/examples/guides/usdm-cardano-midnight) — transfer USDM today, no onboarding required

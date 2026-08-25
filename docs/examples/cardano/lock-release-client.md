@@ -6,10 +6,10 @@ description: A guided read-through of VIA's audited lock-and-release reference c
 
 # Lock & Release Client
 
-This page shows the source of VIA's lock-and-release reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. This is the vault client. Use it for a token that already exists on Cardano, or one you cannot upgrade — yours or not. Sending locks the token in the vault. Receiving releases it from the vault. The deployed USDM bridge runs this client on Cardano.
+This page shows the source of VIA's lock-and-release reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. This is the vault client. Use it for a token that already exists on Cardano, or one you cannot upgrade — yours or not. Sending locks the token in the vault. Receiving releases it from the vault. The deployed USDM integration runs this client on Cardano.
 
 :::info What this page is
-This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources; the excerpts target Cardano Preprod, and the same client runs USDM on **Cardano Mainnet** (as its own per-network build — see the warning under [Parameters](#parameters)). Bridging your own token from Cardano is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
+This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources; the excerpts target Cardano Preprod, and the same client runs USDM on **Cardano Mainnet** (as its own per-network build — see the warning under [Parameters](#parameters)). Launching your own token on Cardano is a guided process with VIA. Transferring tokens VIA already supports, for example USDM, is permissionless: follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 **Two clients, three patterns.** VIA has two audited reference clients on Cardano: this one and the [Burn & Mint Client](/docs/examples/cardano/mint-burn-client). Pair either one with the far side of a route and the familiar patterns appear. Burn here plus mint there is Burn & Mint. Lock here plus mint there is Lock & Mint. Lock here plus release there is Lock & Release.
@@ -181,7 +181,7 @@ The client builds on VIA's on-chain library modules. You receive the full packag
 
 Putting your own token behind a vault is a guided process: you build, deploy, and register your client, and VIA wires your integration into the message layer.
 
-Bridging tokens VIA already supports, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+Transferring tokens VIA already supports, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight).
 
 - [Integration Paths](/docs/examples/cardano/integration-paths) — choose your route onto Cardano and Midnight
 - [Lock & Release Token](/docs/examples/lock-release-token) — the EVM vault counterpart of this client

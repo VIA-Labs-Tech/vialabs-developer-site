@@ -45,7 +45,7 @@ const quickstarts: QuickstartItem[] = [
 
 export default function QuickstartSection() {
   return (
-    <Section title="Start Building" subtitle="Issue cross-chain assets or send data to blockchains.">
+    <Section title="Start Building" subtitle="EVM quickstarts — issue cross-chain assets or send data to blockchains." tone="surface">
       <div className="grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-[1.25rem] mt-8">
         {quickstarts.map((item) => (
           <Link

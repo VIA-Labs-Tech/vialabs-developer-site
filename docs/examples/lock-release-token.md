@@ -11,6 +11,8 @@ Lock existing tokens on the source chain and release from a pre-funded pool on t
 **Use this when you don't control the token** and can manage liquidity on each destination chain.
 
 :::tip Choosing a Bridge Pattern
+These patterns are for the token bridge **you** build on top of VIA messaging — VIA itself is the messaging network underneath.
+
 | Pattern | Token control | Liquidity needed | Destination token |
 |---------|--------------|-----------------|-------------------|
 | [Burn & Mint](/docs/examples/burn-mint-token) | You control it | No | Same token (minted) |

@@ -6,10 +6,10 @@ description: An overview of VIA's lock-and-release reference client for Midnight
 
 # Lock & Release Client
 
-This page describes VIA's lock-and-release reference client for Midnight. The source is not published — you receive the complete package during onboarding. This is the vault client. It does **not** issue the token it bridges. Use it for a token that already exists on Midnight, or one you cannot upgrade — yours or not. Sending locks the token in the contract. Receiving releases it.
+This page describes VIA's lock-and-release reference client for Midnight. The source is not published — you receive the complete package during onboarding. This is the vault client. It does **not** issue the token it transfers. Use it for a token that already exists on Midnight, or one you cannot upgrade — yours or not. Sending locks the token in the contract. Receiving releases it.
 
 :::info What this page is
-This is an overview, not a deploy tutorial. Launching your own token on Midnight is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/midnight/integration-paths) for both routes.
+This is an overview, not a deploy tutorial. Launching your own token on Midnight is a guided process with VIA. Transferring tokens VIA already supports, for example USDM, is permissionless: follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/midnight/integration-paths) for both routes.
 :::
 
 **Two clients, three patterns.** VIA has two reference clients on Midnight: this one and the [Burn & Mint Client](/docs/examples/midnight/mint-burn-client). Lock here plus mint there is Lock & Mint. Lock here plus release there is Lock & Release. Burn here plus mint there is Burn & Mint.
@@ -24,7 +24,7 @@ Every token movement in this client is unshielded, over a `Bytes<32>` token colo
 
 The client is one Compact contract, built from VIA's module set. The modules cover message state and replay tracking, the endpoint and relayer allowlists, role-based access control, fee configuration and accounting, and payload encoding.
 
-Two circuits do the bridging — `bridge` outbound and `process` inbound — and the rest is configuration.
+Two circuits are required to send a cross-chain message — `bridge` outbound and `process` inbound — and the rest is configuration.
 
 ---
 
@@ -78,9 +78,9 @@ The circuit collects the fee, assigns a unique transaction ID, locks the transfe
 
 The same receive-into-contract move that means *burn* on the issuing client means *lock* here. Nothing is destroyed: the tokens sit in the contract, and the destination mints or releases against them. Which of the two it is depends on the far side of the route, not on this contract.
 
-**The bridged amount passes through untouched.** The fee is charged as its own transfer in its own token, so nothing is deducted from what the caller sent. The caller must hold the fee token in addition to the tokens being locked.
+**The transfer amount passes through untouched.** The fee is charged separately, in its own token, so nothing is deducted from what the caller sent. The caller must hold the fee token in addition to the tokens being locked.
 
-**There is no `burn()` circuit on this side.** The burn-and-mint client exposes one, because it issues the token and receiving it into the contract genuinely takes it out of circulation. Here the same call would only move tokens into the release pool — a permanent, un-bridged deposit rather than a burn.
+**There is no `burn()` circuit on this side.** The burn-and-mint client exposes one, because it issues the token and receiving it into the contract genuinely takes it out of circulation. Here, the same call would only deposit tokens into the release pool. Nothing is burned, no cross-chain transfer starts, and the deposit cannot be recovered.
 
 ---
 
@@ -134,7 +134,7 @@ export circuit setFee(_color: Bytes<32>, _amount: Uint<64>): []
 
 Two constraints apply:
 
-- **The fee token must differ from the locked token**, which keeps fee balances out of the release pool.
+- **The fee token must differ from the token being transferred cross-chain**, which keeps fee balances out of the release pool.
 - **The amount is capped at 65535**, which the accumulator's width requires.
 
 `_amount` is in units of 1000 base units — `_amount = 1` charges 1000. Charge and payout run through the same accumulator, so collection is bounded by what was actually charged. Setting `_amount` to 0 disables the fee.

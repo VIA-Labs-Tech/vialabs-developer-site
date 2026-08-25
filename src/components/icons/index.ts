@@ -8,3 +8,6 @@ export { default as DirectIcon } from './DirectIcon';
 export { default as ShieldIcon } from './ShieldIcon';
 export { default as CodeIcon } from './CodeIcon';
 export { default as ArrowIcon } from './ArrowIcon';
+export { default as EvmIcon } from './EvmIcon';
+export { default as CardanoIcon } from './CardanoIcon';
+export { default as MidnightIcon } from './MidnightIcon';

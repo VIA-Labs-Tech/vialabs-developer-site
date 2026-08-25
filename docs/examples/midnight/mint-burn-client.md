@@ -6,10 +6,10 @@ description: An overview of VIA's burn-and-mint reference client for Midnight, w
 
 # Burn & Mint Client
 
-This page describes VIA's burn-and-mint reference client for Midnight. The source is not published — you receive the complete package during onboarding. This client **issues** the token it bridges. Sending burns it on Midnight. Receiving mints it. Total supply across chains stays constant.
+This page describes VIA's burn-and-mint reference client for Midnight. The source is not published — you receive the complete package during onboarding. This client **issues** the token it transfers. Sending burns it on Midnight. Receiving mints it. Total supply across chains stays constant.
 
 :::info What this page is
-This is an overview, not a deploy tutorial. Launching your own token on Midnight is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/midnight/integration-paths) for both routes.
+This is an overview, not a deploy tutorial. Launching your own token on Midnight is a guided process with VIA. Transferring tokens VIA already supports, for example USDM, is permissionless: follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/midnight/integration-paths) for both routes.
 :::
 
 **Two clients, three patterns.** VIA has two reference clients on Midnight: this one and the [Lock & Release Client](/docs/examples/midnight/lock-release-client). Pair either with the far side of a route and the familiar patterns appear. Burn here plus mint there is Burn & Mint. Lock there plus mint here is Lock & Mint — the pattern USDM runs today.
@@ -24,7 +24,7 @@ Every token movement in this client is unshielded, over a `Bytes<32>` token colo
 
 The client is one Compact contract, built from VIA's module set. The modules cover message state and replay tracking, the endpoint and relayer allowlists, role-based access control, fee configuration and accounting, and payload encoding.
 
-Two circuits do the bridging — `bridge` outbound and `process` inbound — and the rest is configuration.
+Two circuits are required to send a cross-chain message — `bridge` outbound and `process` inbound — and the rest is configuration.
 
 ---
 
@@ -86,7 +86,7 @@ The circuit collects the fee, assigns a unique transaction ID, burns the transfe
 
 **There is no `burnUnshielded` circuit in Compact.** Receiving the tokens into the contract is the burn: they leave the caller and sit in the contract, and the destination mints against them. A standalone `burn(_amount)` circuit exposes the same move for anyone holding the token.
 
-**The bridged amount passes through untouched.** The fee is charged as its own transfer in its own token, so nothing is deducted from what the caller sent and the destination mints exactly that amount. The caller must hold the fee token in addition to the tokens being bridged.
+**The transfer amount passes through untouched.** The fee is charged separately, in its own token, so nothing is deducted from what the caller sent and the destination mints exactly that amount. The caller must hold the fee token in addition to the tokens being sent.
 
 ---
 
@@ -136,7 +136,7 @@ export circuit setFee(_color: Bytes<32>, _amount: Uint<64>): []
 
 Two constraints apply:
 
-- **The fee token must differ from the bridged token**, so fee balances stay separate from bridged ones.
+- **The fee token must differ from the token being transferred cross-chain**, so fee balances stay separate from token balances.
 - **The amount is capped at 65535**, which the accumulator's width requires.
 
 `_amount` is in units of 1000 base units — `_amount = 1` charges 1000. Charge and payout run through the same accumulator, so collection is bounded by what was actually charged. Setting `_amount` to 0 disables the fee.

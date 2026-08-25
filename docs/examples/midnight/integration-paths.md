@@ -6,7 +6,7 @@ description: How a team gets a token live on Midnight with VIA — the two token
 
 # Integration Paths
 
-This page covers launching your own token on Midnight. Bridging tokens VIA already supports, for example USDM, is permissionless — follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+This page covers launching your own cross-chain native token on Midnight. Transferring tokens VIA already supports, for example USDM, is permissionless — follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight).
 
 Like [Cardano](/docs/examples/cardano/integration-paths), Midnight integrations are built together with VIA. The setup is simpler. Your integration is one Compact contract, deployed from compiled artifacts. Its configuration lives inside it — endpoints, relayers, and fees are a few admin circuit calls. There is no separate registry step.
 
@@ -35,5 +35,5 @@ Never share a private key or mnemonic with anyone — including VIA. VIA never a
 ## Next Steps
 
 - [Building on Midnight](/docs/examples/midnight/overview) — the client shape and version pins
-- [USDM Bridge Guide](/docs/examples/guides/usdm-cardano-midnight) — the live pattern, end to end
+- [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight) — the live pattern, end to end
 - Ready to talk? [Work With Us — For Developers](/docs/work-with-us/developers)

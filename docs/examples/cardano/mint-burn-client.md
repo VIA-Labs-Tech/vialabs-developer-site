@@ -9,7 +9,7 @@ description: A guided read-through of VIA's audited burn-and-mint reference clie
 This page shows the source of VIA's burn-and-mint reference client for Cardano, piece by piece. The full source is not published — the excerpts here come from it, and you receive the complete package during onboarding. Sending burns the token on Cardano. Receiving mints it. Total supply across chains stays constant.
 
 :::info What this page is
-This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process with VIA. Bridging tokens VIA already supports, for example USDM, is permissionless: follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
+This is a read-through, not a deploy tutorial. The code comes from VIA's audited reference sources and targets testnet: Cardano Preprod, with routes to Midnight Preview or EVM testnets. Launching your own token on Cardano or Midnight is a guided process with VIA. Transferring tokens VIA already supports, for example USDM, is permissionless: follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight). See [Integration Paths](/docs/examples/cardano/integration-paths) for both routes.
 :::
 
 ---
@@ -273,7 +273,7 @@ The client builds on VIA's on-chain library modules. You receive the full packag
 
 Launching your own token on Cardano or Midnight is a guided process: you build, deploy, and register your client, and VIA wires your integration into the message layer.
 
-Bridging tokens VIA already supports, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [USDM bridge guide](/docs/examples/guides/usdm-cardano-midnight).
+Transferring tokens VIA already supports, for example USDM, needs no sign-off from anyone. That path is permissionless. Follow the [Transfer USDM guide](/docs/examples/guides/usdm-cardano-midnight).
 
 - [Integration Paths](/docs/examples/cardano/integration-paths) — choose your route onto Cardano and Midnight
 - [Burn & Mint Token](/docs/examples/burn-mint-token) — the EVM counterpart of this client

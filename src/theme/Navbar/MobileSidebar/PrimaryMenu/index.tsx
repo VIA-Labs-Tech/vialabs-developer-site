@@ -66,7 +66,7 @@ const TREE: Item[] = [
         label: 'Guides',
         collapsed: false,
         items: [
-          {label: 'Bridge USDM: Cardano ↔ Midnight', to: '/docs/examples/guides/usdm-cardano-midnight'},
+          {label: 'Transfer USDM: Cardano ↔ Midnight', to: '/docs/examples/guides/usdm-cardano-midnight'},
         ],
       },
     ],

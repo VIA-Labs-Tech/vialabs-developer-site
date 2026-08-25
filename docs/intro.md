@@ -9,6 +9,10 @@ VIA Labs provides **cross-chain smart contract messaging** across 150+ networks.
 
 ## Start Building
 
+Pick your VM. Each has its own integration model.
+
+### EVM
+
 **[Hello World](/docs/examples/hello-world)** — Send your first cross-chain message in under 30 lines of Solidity. Start here.
 
 More patterns:
@@ -18,13 +22,27 @@ More patterns:
 - **[Lock & Release Token](/docs/examples/lock-release-token)** — Lock tokens on one chain, release from a pool on another
 - **[Private Oracle](/docs/examples/private-oracle)** — Connect any off-chain data source to smart contracts across chains
 
+### Cardano
+
+- **[Building on Cardano](/docs/examples/cardano/overview)** — How messaging works on Cardano: UTxOs, validators, and the VILR message format
+- **[Integration Paths](/docs/examples/cardano/integration-paths)** — How a team gets a token live on Cardano with VIA
+
+### Midnight
+
+- **[Building on Midnight](/docs/examples/midnight/overview)** — The Compact client shape, endpoints, and the tested version set
+- **[Integration Paths](/docs/examples/midnight/integration-paths)** — The two token patterns and what to prepare
+
+### Transfer USDM
+
+- **[Transfer USDM: Cardano ↔ Midnight](/docs/examples/guides/usdm-cardano-midnight)** — Transfer native USDM with one CLI, both directions, mainnet or testnet
+
 ## How It Works (30 Seconds)
 
 1. Your contract inherits `ViaIntegrationV1` and calls `messageSend()` to send data to another chain
 2. The VIA Gateway + validator network verifies and relays the message
 3. Your contract on the destination chain receives it via `messageProcess()`
 
-That's the entire integration. For the full architecture, see [Technology Overview](/docs/general/technology-overview).
+That's the entire integration on EVM. Cardano and Midnight follow the same message flow with their own mechanics — see [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview). For the full architecture, see [Technology Overview](/docs/general/technology-overview).
 
 ## Need Help?
 

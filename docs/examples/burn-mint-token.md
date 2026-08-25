@@ -11,6 +11,8 @@ Deploy a cross-chain ERC20 that burns on the source chain and mints on the desti
 **Use this when you control the token.** If you need to bridge a token you don't control (like USDC), see [Lock & Release](/docs/examples/lock-release-token).
 
 :::tip Choosing a Bridge Pattern
+These patterns are for the token bridge **you** build on top of VIA messaging — VIA itself is the messaging network underneath.
+
 | Pattern | Token control | Liquidity needed | Destination token |
 |---------|--------------|-----------------|-------------------|
 | **Burn & Mint** | You control it | No | Same token (minted) |

@@ -23,6 +23,7 @@ export default function CodeSection() {
     <Section
       title="It's This Simple"
       subtitle="Inherit ViaIntegrationV1, send a message, handle it on the other side. That's it."
+      tone="surface"
     >
       <div className="max-w-[700px] mx-auto rounded-[0.875rem] overflow-hidden border border-[rgba(100,116,139,0.25)] bg-[#12131b] [&_div[class^='codeBlockContainer']]:m-0 [&_div[class^='codeBlockContainer']]:rounded-none [&_div[class^='codeBlockContainer']]:border-none [&_div[class^='codeBlockContainer']]:shadow-none [&_div[class^='codeBlockContainer']]:bg-transparent [&_pre]:m-0 [&_pre]:rounded-none [&_pre]:text-[0.8rem] [&_pre]:leading-[1.7] [&_pre]:!bg-transparent [&_div[class^='buttonGroup']]:hidden">
         <div className="flex items-center gap-[0.4rem] py-3 px-4 bg-[rgba(100,116,139,0.06)] border-b border-[rgba(100,116,139,0.15)]">

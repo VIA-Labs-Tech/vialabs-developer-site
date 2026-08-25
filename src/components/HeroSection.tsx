@@ -16,9 +16,6 @@ export default function HeroSection() {
         }}
       />
       <div className="relative max-w-[720px] mx-auto">
-        <span className="inline-block rounded-full uppercase text-[#00E5E5] font-semibold py-[0.35rem] px-4 mb-6 text-[0.75rem] tracking-[0.05em] bg-[rgba(0,229,229,0.1)] border border-[rgba(0,229,229,0.25)]">
-          Cross-Chain Infrastructure
-        </span>
         <h1 className="text-white font-black text-[3rem] max-lg:text-[2.75rem] max-md:text-[2.25rem] leading-[1.1] mb-5">
           Build Across<br />Every Chain
         </h1>
