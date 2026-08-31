@@ -205,6 +205,64 @@ The package also exports the building blocks: `getLucid`, `getSpendableUtxos`, `
 
 ---
 
+## Use It in a Browser
+
+Same call, plus the connected wallet. No mnemonics and no proof server anywhere — the user's wallet extension signs (Cardano, CIP-30) and proves (Midnight, connector API v4):
+
+```ts
+import { bridgeUSDM } from '@via-labs-tech/usdm-bridge'
+
+// Cardano -> Midnight: any CIP-30 wallet
+await bridgeUSDM({
+    direction: 'cardano-to-midnight',
+    amount: '5',
+    recipient: 'mn_addr1...',
+    wallet: 'eternl', // just the name — the package finds it on window.cardano
+})
+
+// Midnight -> Cardano: a connector-v4 Midnight wallet.
+// Proving happens INSIDE the extension.
+await bridgeUSDM({
+    direction: 'midnight-to-cardano',
+    amount: '5',
+    recipient: 'addr1...',
+    wallet: '1am', // just the name — the package finds it on window.midnight
+})
+```
+
+Optional `onStatus: (step) => ...` streams every phase (`building → completing → signing → submitting → confirming` / `joining → proving → confirming`) for progress UIs. Your frontend owns wallet discovery, connect, and balances — the wallet apis provide all of it.
+
+### The Vite setup
+
+The dependency stack (Cardano's CML, Midnight's ledger runtime) is wasm + legacy-CJS heavy, and the required workarounds are not guessable. The essentials:
+
+- **`vite-plugin-wasm`** — the Cardano and Midnight wasm modules fail to load without it. No `vite-plugin-top-level-await` (it breaks on Vite 7; `build.target: 'esnext'` handles TLA natively).
+- **`vite-plugin-node-polyfills`** with `include: ['buffer', 'events', 'process', 'util', 'stream', 'string_decoder']` and `globals: { Buffer: true, process: true }` — missing any of these fails at runtime, not build time.
+- **`define`**: `'process.env.NODE_ENV'`, `global: 'globalThis'`, your baked-in env vars (below), and `'process.version': '"v22.0.0"'` — the last one in **both** `define` and `optimizeDeps.esbuildOptions.define`, or the page dies in dev. Never set `process.versions.node` instead.
+- **`resolve.alias`**: `'@midnight-ntwrk/ledger' → '@midnight-ntwrk/ledger-v8'`.
+- **`optimizeDeps.exclude`**: the package plus `@midnight-ntwrk/onchain-runtime-v2`, `ledger-v8`, `midnight-js-network-id`, `dapp-connector-api` — pre-bundling breaks the wasm modules.
+- **`build`**: `{ target: 'esnext', commonjsOptions: { transformMixedEsModules: true } }`.
+- **https dev server** (`@vitejs/plugin-basic-ssl`) — wallet extensions require a secure context.
+
+Configuration is the same env vars as on a server, baked in at build time:
+
+```ts
+define: {
+    'process.env': JSON.stringify({
+        NETWORK: 'testnet',
+        // BLOCKFROST_PROJECT_ID: '...' — set it for Blockfrost (CORS-open);
+        // unset, chain reads go through a same-origin /koios proxy, because
+        // public Koios cannot be called cross-origin.
+    }),
+}
+```
+
+Two more pieces: serve the package's ZK assets at `/artifacts/midnight` (symlink or copy `node_modules/@via-labs-tech/usdm-bridge/artifacts/midnight/<network>` into `public/`), and never bake a real API key into a production bundle — anything in `define` is readable in devtools.
+
+A complete working app — wallet discovery, both directions, progress UI, the full `vite.config.ts` — is at [cct-demo](https://github.com/VIA-Labs-Tech/cct-demo), and the package's `FRONTEND.md` explains every config line, the pitfalls, and a troubleshooting checklist.
+
+---
+
 ## What's Happening Under the Hood
 
 Both directions use VIA's standard Cardano/Midnight message flow. The [Cardano overview](/docs/examples/cardano/overview) covers the concepts in full. Here is how this guide maps onto them:
