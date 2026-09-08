@@ -61,7 +61,15 @@ const TREE: Item[] = [
           {label: 'Lock & Release Client', to: '/docs/examples/midnight/lock-release-client'},
         ],
       },
-      {label: 'Stellar (Coming Soon)', to: '/docs/examples/stellar-coming-soon'},
+      {
+        label: 'Stellar',
+        collapsed: true,
+        items: [
+          {label: 'Overview & Concepts', to: '/docs/examples/stellar/overview'},
+          {label: 'Integration Paths', to: '/docs/examples/stellar/integration-paths'},
+          {label: 'Burn & Mint Client', to: '/docs/examples/stellar/mint-burn-client'},
+        ],
+      },
       {
         label: 'Guides',
         collapsed: false,

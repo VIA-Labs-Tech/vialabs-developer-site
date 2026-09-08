@@ -92,12 +92,13 @@ Both are called on your contract (inherited from `ViaIntegrationV1`). See the [V
 
 ---
 
-## Cardano and Midnight
+## Cardano, Midnight, and Stellar
 
 The non-EVM chains follow the same model — you pay on the source side — with their native fee mechanics:
 
 - **Cardano** — expect protocol fees of a few ADA per message on each chain, plus normal network fees. Both are paid in ADA by the transaction that creates the send request.
 - **Midnight** — every transaction, including the `bridge` circuit call, pays fees in **DUST**. On testnet, tDUST comes from the faucet. On mainnet, DUST cannot be bought or transferred — it accrues to your wallet's dust key from NIGHT held on Cardano and registered for generation. See [Building on Midnight → Fees: DUST](/docs/examples/midnight/overview#fees-dust) before planning a mainnet integration.
+- **Stellar** — every transaction pays network fees in XLM, including the call that starts a transfer. No VIA protocol fee is charged on Stellar routes during the launch period. See [Building on Stellar → Fees](/docs/examples/stellar/overview#fees).
 
 ---
 

@@ -18,6 +18,7 @@ You'll need testnet tokens to deploy contracts and send cross-chain messages on 
 | Cardano Preprod (ADA) | [docs.cardano.org/cardano-testnets](https://docs.cardano.org/cardano-testnets/tools/faucet/) — select **Preprod** |
 | Cardano Preprod (tUSDM) | [tusdm.moneta.global](https://tusdm.moneta.global) |
 | Midnight Preview (tDUST) | [docs.midnight.network](https://docs.midnight.network/) |
+| Stellar testnet (XLM) | [friendbot.stellar.org](https://friendbot.stellar.org) — add `?addr=` and your `G...` address |
 
 The VIA Cardano route runs on **Preprod** (not Preview) — pick the Preprod network in the Cardano faucet. Its Midnight counterpart is **Midnight Preview**, where tDUST pays transaction fees.
 

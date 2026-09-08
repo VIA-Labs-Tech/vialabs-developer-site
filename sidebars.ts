@@ -57,9 +57,14 @@ const sidebars: SidebarsConfig = {
           ],
         },
         {
-          type: "doc",
-          id: "examples/stellar-coming-soon",
-          label: "Stellar (Coming Soon)",
+          type: "category",
+          label: "Stellar",
+          collapsed: true,
+          items: [
+            "examples/stellar/overview",
+            "examples/stellar/integration-paths",
+            "examples/stellar/mint-burn-client",
+          ],
         },
         {
           type: "category",

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
-import { EvmIcon, CardanoIcon, MidnightIcon, ArrowIcon } from './icons';
+import { EvmIcon, CardanoIcon, MidnightIcon, StellarIcon, ArrowIcon } from './icons';
 import Section from './Section';
 
 type VMItem = {
@@ -33,12 +33,19 @@ const vms: VMItem[] = [
     link: '/docs/examples/midnight/overview',
     cta: 'View overview',
   },
+  {
+    icon: <StellarIcon />,
+    title: 'Stellar',
+    description: 'Soroban contracts in Rust — the message client crate, endpoints, and the reference token client.',
+    link: '/docs/examples/stellar/overview',
+    cta: 'View overview',
+  },
 ];
 
 export default function VMSection() {
   return (
-    <Section title="Choose Your VM" subtitle="VIA connects EVM, Cardano, and Midnight. Pick where you build.">
-      <div className="grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-[1.25rem] mt-8">
+    <Section title="Choose Your VM" subtitle="VIA connects EVM, Cardano, Midnight, and Stellar. Pick where you build.">
+      <div className="grid grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1 gap-[1.25rem] mt-8">
         {vms.map((item) => (
           <Link
             key={item.title}

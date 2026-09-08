@@ -32,6 +32,11 @@ More patterns:
 - **[Building on Midnight](/docs/examples/midnight/overview)** — The Compact client shape, endpoints, and the tested version set
 - **[Integration Paths](/docs/examples/midnight/integration-paths)** — The two token patterns and what to prepare
 
+### Stellar
+
+- **[Building on Stellar](/docs/examples/stellar/overview)** — How messaging works on Stellar: Soroban contracts, the message client crate, endpoints, and payloads
+- **[Integration Paths](/docs/examples/stellar/integration-paths)** — How a team gets a token live on Stellar with VIA
+
 ### Transfer USDM
 
 - **[Transfer USDM: Cardano ↔ Midnight](/docs/examples/guides/usdm-cardano-midnight)** — Transfer native USDM with one CLI, both directions, mainnet or testnet
@@ -42,7 +47,7 @@ More patterns:
 2. The VIA Gateway + validator network verifies and relays the message
 3. Your contract on the destination chain receives it via `messageProcess()`
 
-That's the entire integration on EVM. Cardano and Midnight follow the same message flow with their own mechanics — see [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview). For the full architecture, see [Technology Overview](/docs/general/technology-overview).
+That's the entire integration on EVM. Cardano, Midnight, and Stellar follow the same message flow with their own mechanics — see [Building on Cardano](/docs/examples/cardano/overview), [Building on Midnight](/docs/examples/midnight/overview), and [Building on Stellar](/docs/examples/stellar/overview). For the full architecture, see [Technology Overview](/docs/general/technology-overview).
 
 ## Need Help?
 

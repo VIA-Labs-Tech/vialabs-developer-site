@@ -11,3 +11,4 @@ export { default as ArrowIcon } from './ArrowIcon';
 export { default as EvmIcon } from './EvmIcon';
 export { default as CardanoIcon } from './CardanoIcon';
 export { default as MidnightIcon } from './MidnightIcon';
+export { default as StellarIcon } from './StellarIcon';

@@ -12,6 +12,8 @@ The tables below list the VIA Gateway contract address for each network with a l
 VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on each network. Use these as the `destChainId` in `messageSend()` and in `setMessageEndpoints()`.
 
 Cardano and Midnight use VIA-assigned chain IDs and their own client architecture — the Cardano gateway is a validator address, and the Midnight entry is a Compact contract address (on Midnight mainnet the gateway and the USDM token are one contract, serving all routes under a single chain ID; Preview registered one ID per route). See [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview).
+
+Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract. Stellar routes, and the Ethereum-side gateways that serve them, are listed on [Building on Stellar](/docs/examples/stellar/overview#deployed-contracts).
 :::
 
 ## Testnets
@@ -32,6 +34,7 @@ Cardano and Midnight use VIA-assigned chain IDs and their own client architectur
 | PandaSea Testnet | `7770` | `0x4d0e6355875485480c43f2d6e94fbf4bf287921c` |
 | Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
 | Midnight Preview | `64364450` | `471dfe55c866fdbc085c9011a51f0cd0e9c9bfca6bb985c35f7716b6e73e485c` |
+| Stellar Testnet | `5555555555555555` | `CDCMBYICTWZS3CYNPOCIATFK4JRX36KTLQUERWRBOQDZWLKH2YDGP32N` |
 
 ## Mainnets
 
@@ -42,6 +45,7 @@ Cardano and Midnight use VIA-assigned chain IDs and their own client architectur
 | Cardano | `2273265` | `addr1w8jacv9c2a0qs55rnx9y37up9fgkf44yqrylcp05mta5tygf67l6y` |
 | Midnight | `64364449` | `65023744190a4fc7c8ac9a3dfbc8cfc28f63d2aaa431ceda1d88fdb9a096a6a1` |
 | PandaSea | `7776` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Stellar | `5731147` | `CB4TJPBTN6L72FGJLL2ZQHMKUZVSETA4N7HO6KFM4I27MMVOJ2UUEEWL` |
 | Upside | `61873` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 
 Additional mainnet gateways are being rolled out — this table is updated as each deployment goes live.
