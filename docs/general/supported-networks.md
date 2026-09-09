@@ -34,7 +34,7 @@ Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract
 | PandaSea Testnet | `7770` | `0x4d0e6355875485480c43f2d6e94fbf4bf287921c` |
 | Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
 | Midnight Preview | `64364450` | `471dfe55c866fdbc085c9011a51f0cd0e9c9bfca6bb985c35f7716b6e73e485c` |
-| Stellar Testnet | `5555555555555555` | `CDCMBYICTWZS3CYNPOCIATFK4JRX36KTLQUERWRBOQDZWLKH2YDGP32N` |
+| Stellar Testnet | `5555555555` | `CAMRA4FFQUG3XBVNPE2NZGDX5MGOX4OWODMNOXD3WODOQLPBQG4RPMAQ` |
 
 ## Mainnets
 
