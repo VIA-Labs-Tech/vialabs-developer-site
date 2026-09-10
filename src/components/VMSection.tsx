@@ -36,7 +36,7 @@ const vms: VMItem[] = [
   {
     icon: <StellarIcon />,
     title: 'Stellar',
-    description: 'Soroban contracts in Rust — the message client crate, endpoints, and the reference token client.',
+    description: 'Soroban contracts on Stellar — what is live, how a transfer works, and the reference token client.',
     link: '/docs/examples/stellar/overview',
     cta: 'View overview',
   },

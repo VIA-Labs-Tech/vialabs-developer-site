@@ -18,7 +18,7 @@ This page is everything you need to **use and understand** the deployment. Build
 2. **Sign** — VIA's validators watch the source gateway and sign the message (ed25519 on the Stellar side).
 3. **Deliver** — a relayer submits the signed message to the destination gateway, which verifies the signatures and calls the token, which mints to the recipient.
 
-Replays are rejected on chain, total supply across chains stays constant, and transfers complete in one to three minutes. Only the token contract is yours to touch — gateways, validators, and relayers are infrastructure.
+Replays are rejected on chain, total supply across chains stays constant, and transfers complete in one to three minutes. When you use VIAT, the token contract is the only contract you call. The gateway, the validators, and the relayers run behind it, and VIA operates them.
 
 ---
 
@@ -48,11 +48,11 @@ Gateway addresses for every VIA network are on [Supported Networks](/docs/genera
 
 1. **Chain IDs are VIA routing identifiers, not Stellar concepts.** Every message ID is `source chain ID × 10²³ + counter` — an ID starting `5731147…` came from Stellar mainnet, `11155111…` from Sepolia. Follow any message by its ID on [VIA Scan](https://scan.vialabs.tech).
 
-2. **Decimals: 7 on Stellar, 18 on EVM, always 18 on the wire.** The Stellar client scales by 10¹¹ in each direction, so 5 tokens on Stellar arrive as 5 tokens on Ethereum — `5·10⁷` there, `5·10¹⁸` here, same 5 tokens.
+2. **Decimals differ, the count does not.** Stellar tokens use 7 decimal places and Ethereum tokens use 18. The Stellar client converts on the way out and on the way in. Send 5 VIAT from Stellar and 5 VIAT arrive on Ethereum. The same holds coming back.
 
-3. **Addresses cross chains as raw bytes.** Stellar → Ethereum carries the 20-byte hex address. Ethereum → Stellar carries the 32-byte Stellar public key (the `G...` string is that value, base32-encoded).
+3. **Addresses travel as raw bytes.** A transfer to Ethereum carries the 20-byte Ethereum address. A transfer to Stellar carries the 32-byte ID behind the Stellar address. A Stellar address, `G...` for an account or `C...` for a contract, is that ID written out in letters and numbers with a checksum.
 
-4. **A Stellar recipient must already exist on the ledger** — funded with the minimum XLM balance at least once. Tokens sent to a never-created account are delivered to an unusable contract-typed twin and are **not recoverable**. Fund first, bridge second.
+4. **A Stellar recipient must already exist on the ledger** — funded with the minimum XLM balance at least once. Tokens sent to a never-created account are delivered to an unusable contract-typed twin and are **not recoverable**. Fund first, transfer second.
 
 5. **Only a contract can send a message.** The gateway rejects calls straight from a wallet — users interact with the token client, and the client calls the gateway. That's why the sender you see on the far side is always the token contract, never a wallet.
 

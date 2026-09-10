@@ -13,7 +13,7 @@ VIA uses standard EVM chain IDs — the same value returned by `eth_chainId` on 
 
 Cardano and Midnight use VIA-assigned chain IDs and their own client architecture — the Cardano gateway is a validator address, and the Midnight entry is a Compact contract address (on Midnight mainnet the gateway and the USDM token are one contract, serving all routes under a single chain ID; Preview registered one ID per route). See [Building on Cardano](/docs/examples/cardano/overview) and [Building on Midnight](/docs/examples/midnight/overview).
 
-Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract. Stellar routes, and the Ethereum-side gateways that serve them, are listed on [Building on Stellar](/docs/examples/stellar/overview#deployed-contracts).
+Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract. Stellar routes, and the Ethereum-side gateways that serve them, are listed on [VIA on Stellar](/docs/examples/stellar/overview#deployed-contracts).
 :::
 
 ## Testnets

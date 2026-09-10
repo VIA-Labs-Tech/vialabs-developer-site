@@ -101,7 +101,7 @@ See the [Hello World quickstart](/docs/examples/hello-world) for a complete walk
 
 ### What programming languages are supported?
 
-VIA Labs supports **Solidity** for EVM chains, **Aiken** for Cardano, **Compact** for Midnight, and **Rust** (Soroban) for Stellar — see [Building on Cardano](/docs/examples/cardano/overview), [Building on Midnight](/docs/examples/midnight/overview), and [Building on Stellar](/docs/examples/stellar/overview).
+VIA Labs supports **Solidity** for EVM chains, **Aiken** for Cardano, **Compact** for Midnight, and **Rust** (Soroban) for Stellar — see [Building on Cardano](/docs/examples/cardano/overview), [Building on Midnight](/docs/examples/midnight/overview), and [VIA on Stellar](/docs/examples/stellar/overview).
 
 ### How many networks are supported?
 

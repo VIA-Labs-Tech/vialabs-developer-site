@@ -13,7 +13,7 @@ There are two possible integration paths:
 1. **Use the reference client as shipped** — the burn & mint token client, exactly as it is.
 2. **Custom logic** — your own Soroban contract built on the `message-client` crate, with your own payload shape.
 
-Both paths are built together with VIA. The on-chain half is open to inspect, and the reference client and the gateway are [audited](/docs/general/audits).
+Both paths are built together with VIA. The reference client and the gateway are [audited](/docs/general/audits).
 
 Integrations are not limited to tokens. The same message layer carries prices, results, numbers, text — any data.
 
