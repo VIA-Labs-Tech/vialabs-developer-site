@@ -26,6 +26,14 @@ const config: Config = {
 
   markdown: {
     mermaid: true,
+    // Docusaurus 3.10 made `future.v4: true` disable the MDX v1 compat layer,
+    // which turns every `:::type Title` admonition into raw text. Keep it on
+    // until the docs are migrated to the `:::type[Title]` syntax.
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
