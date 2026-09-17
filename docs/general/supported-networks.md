@@ -40,11 +40,22 @@ Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract
 
 | Network | Chain ID | Gateway Address |
 |---|---|---|
+| Arbitrum One | `42161` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Arc | `5042` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Avalanche | `43114` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Base | `8453` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| BSC | `56` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Cardano | `2273265` | `addr1w8jacv9c2a0qs55rnx9y37up9fgkf44yqrylcp05mta5tygf67l6y` |
+| Cronos | `25` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Ethereum | `1` | `0xf77d64586538339e8ed6ef9a3154ad939ef5a79a` |
 | Midnight | `64364449` | `65023744190a4fc7c8ac9a3dfbc8cfc28f63d2aaa431ceda1d88fdb9a096a6a1` |
+| Monad | `143` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| OP BNB | `204` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Optimism | `10` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | PandaSea | `7776` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Polygon | `137` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| PulseChain | `369` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Sonic | `146` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Stellar | `5731147` | `CB4TJPBTN6L72FGJLL2ZQHMKUZVSETA4N7HO6KFM4I27MMVOJ2UUEEWL` |
 | Upside | `61873` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 
