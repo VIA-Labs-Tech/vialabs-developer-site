@@ -10,6 +10,10 @@ A cross-chain ERC20 token that burns on the source chain and mints on the destin
 
 **Use when you control the token** — you have mint/burn authority on every chain.
 
+:::info Building a route to Cardano?
+Use [VIAMintBurnTokenCardano](/docs/general/ref-mint-burn-cardano) instead. This contract encodes its message with `abi.encode`, and a Cardano client cannot decode that format.
+:::
+
 For the full source code, see [Contract Source](/docs/general/contract-source). For the deployment walkthrough, see [Burn & Mint Token](/docs/examples/burn-mint-token).
 
 **Inherits:** ERC20, ERC20Burnable, Ownable, [ViaIntegrationV1](/docs/general/ref-via-integration)

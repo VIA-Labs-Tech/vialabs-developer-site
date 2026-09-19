@@ -325,6 +325,7 @@ Tested contracts from the VIA Labs contract suite. Copy into `contracts/` and us
 |----------|---------|----------------|
 | **VIAMintBurnTokenMinimal.sol** | Burn on source, mint on destination | [Reference](/docs/general/ref-mint-burn) \| [Build Guide](/docs/examples/burn-mint-token) |
 | **VIALockerRelease.sol** | Lock on source, release from pool on destination | [Reference](/docs/general/ref-locker-release) \| [Build Guide](/docs/examples/lock-release-token) |
+| **VIAMintBurnTokenCardano.sol** | Burn and mint on routes that include Cardano | [Reference](/docs/general/ref-mint-burn-cardano) \| [Cardano Client](/docs/examples/cardano/mint-burn-client) |
 
 ### VIAMintBurnTokenMinimal.sol
 
@@ -557,6 +558,181 @@ contract VIALockerRelease is Ownable, ViaIntegrationV1 {
         if (amount > bal) revert InsufficientBalance(amount, bal);
 
         SafeERC20.safeTransfer(tokenAddress, msg.sender, amount);
+    }
+}
+```
+
+</details>
+
+### VIAMintBurnTokenCardano.sol
+
+The EVM side of a burn and mint route with Cardano. It packs messages in VILR, the format that VIA's Cardano clients read. Use it instead of `VIAMintBurnTokenMinimal.sol` on every EVM chain in a route that includes Cardano.
+
+<details>
+<summary>Expand to copy — contracts/VIAMintBurnTokenCardano.sol</summary>
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.17;
+
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+import {ViaIntegrationV1} from "./via/ViaIntegrationV1.sol";
+
+contract VIAMintBurnTokenCardano is
+    ERC20,
+    ERC20Burnable,
+    Ownable,
+    ViaIntegrationV1
+{
+    error ZeroAmount();
+    error InvalidMessage();
+
+    bytes32 private immutable CARDANO_TOKEN;
+
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
+
+    /// @dev Encode a VILR (Via Lock/Release) packed message.
+    ///      Layout (fixed prefix = 204 bytes):
+    ///        offset  size  field
+    ///        0       4     magic         "VILR" = 0x56494c52
+    ///        4       4     version       = 1
+    ///        8       32    amount
+    ///        40      32    source_token  (hardcoded CARDANO_TOKEN)
+    ///        72      4     src_dep_pfx   = 0 (reserved)
+    ///        76      28    src_dep       (hardcoded zeros)
+    ///        104     32    dest_token    (hardcoded CARDANO_TOKEN)
+    ///        136     32    dest_recip
+    ///        168     32    max_fee       = 0
+    ///        200     4     hook_data_len
+    ///        204     N     hook_data
+    function _encodeVilrMessage(
+        uint256 amount,
+        bytes32 tokenRecipient
+    ) internal view returns (bytes memory) {
+        return
+            abi.encodePacked(
+                bytes4(0x56494c52),
+                uint32(1),
+                amount,
+                CARDANO_TOKEN,
+                uint32(0),
+                bytes28(0),
+                CARDANO_TOKEN,
+                tokenRecipient,
+                uint256(0),
+                uint32(0)
+            );
+    }
+
+    /// @notice Deploy a cross-chain mintable/burnable token with ViaGateway integration
+    /// @dev This is a REFERENCE IMPLEMENTATION demonstrating the burn-on-source, mint-on-destination pattern.
+    ///      Combines ERC20, ERC20Burnable, Ownable, and ViaIntegrationV1 for full cross-chain functionality.
+    ///      The deployer becomes both the ERC20 owner and the ViaIntegrationV1 projectOwner.
+    /// @param name Token name (e.g., "Via Token")
+    /// @param symbol Token symbol (e.g., "VIA")
+    /// @param initialSupply Initial supply in whole tokens (will be multiplied by decimals)
+    /// @param cardanoToken Cardano token identifier used as source/dest token in VILR messages
+    constructor(
+        string memory name,
+        string memory symbol,
+        uint256 initialSupply,
+        bytes32 cardanoToken
+    ) ERC20(name, symbol) Ownable() ViaIntegrationV1(msg.sender) {
+        if (cardanoToken == bytes32(0)) revert InvalidMessage();
+        CARDANO_TOKEN = cardanoToken;
+        _mint(msg.sender, initialSupply * 10 ** decimals());
+    }
+
+    /// @notice Mint new tokens to a specified address
+    /// @dev Standard ERC20 minting function restricted to owner.
+    ///      Used for initial distribution or minting on destination chain after bridge.
+    /// @param to Address to receive the minted tokens
+    /// @param amount Amount of tokens to mint (in wei, including decimals)
+    /// @custom:requires Only callable by contract owner
+    function mint(address to, uint256 amount) external onlyOwner {
+        _mint(to, amount);
+    }
+
+    /// @notice Bridge tokens to another blockchain using ViaGateway
+    /// @dev REFERENCE IMPLEMENTATION of cross-chain token transfer:
+    ///      1. Burns tokens from msg.sender on source chain
+    ///      2. Encodes (recipient, amount, text) as cross-chain message
+    ///      3. Calls messageSend() to initiate cross-chain transfer via ViaGateway
+    ///      4. On destination chain, messageProcess() mints tokens to recipient
+    ///
+    ///      PREREQUISITES (see ViaIntegrationV1 configuration):
+    ///      - Gateway must be configured via setMessageGateway()
+    ///      - Destination endpoint must be set via setMessageEndpoints()
+    ///      - Fee token must be approved to feeCollector (done automatically by setMessageGateway)
+    ///      - Include msg.value if fees are required
+    /// @param tokenRecipient Recipient address on destination chain (bytes32, left-padded)
+    /// @param destChainId Destination blockchain's chain ID (e.g., 1 for Ethereum, 137 for Polygon)
+    /// @param amount Amount of tokens to bridge (in wei, including decimals)
+    /// @param text Optional message/memo attached to the bridge transaction
+    /// @return txId Unique transaction identifier for tracking this cross-chain transfer
+    /// @custom:security Tokens are burned immediately. Ensure gateway and endpoints are correctly configured.
+    function bridge(
+        bytes32 tokenRecipient,
+        uint64 destChainId,
+        uint256 amount,
+        string calldata text
+    ) external payable returns (uint256) {
+        if (amount == 0) revert ZeroAmount();
+
+        _burn(msg.sender, amount);
+
+        bytes memory chainData = _encodeVilrMessage(amount, tokenRecipient);
+
+        uint256 txId = messageSend(destChainId, chainData, 1);
+
+        return txId;
+    }
+
+    /// @notice Process incoming cross-chain messages from ViaGateway (internal override)
+    /// @dev REFERENCE IMPLEMENTATION of message processing:
+    ///      Called by ViaIntegrationV1.messageProcessFromGateway() after validation.
+    ///      Decodes the bridge message and mints tokens to the recipient on destination chain.
+    ///
+    ///      This demonstrates the receive-side of the burn-on-source, mint-on-destination pattern.
+    ///      Projects should override this function to implement their custom cross-chain logic.
+    /// @param txId Transaction identifier from source chain
+    /// @param sourceChainId Chain ID where tokens were burned
+    /// @param sender Source contract address (should match configured endpoint)
+    /// @param recipient This contract's address on destination chain
+    /// @param onChainData Encoded (tokenRecipient, amount, text) from bridge()
+    /// @param offChainData Additional relayer-provided data (unused in this implementation)
+    /// @param gasRefundAmount Gas refund paid to relayer (unused in this implementation)
+    function messageProcess(
+        uint256 txId,
+        uint64 sourceChainId,
+        // @note Contract "endpoint" sending this message that we are receiving
+        bytes32 sender,
+        // @note Contract "endpoint" receiving this message, us, address(this)
+        bytes32 recipient,
+        bytes memory onChainData,
+        bytes memory offChainData,
+        uint256 gasRefundAmount
+    ) internal override {
+        uint256 amount;
+        bytes32 tokenRecipient;
+
+        assembly {
+            // 32 length ++ another 8 to skip over magic, then we load 32 with mload
+            amount := mload(add(onChainData, 40))
+            tokenRecipient := mload(add(onChainData, 168))
+        }
+
+        address recipientAddress = _bytes32ToAddress(tokenRecipient);
+
+        if (amount < 1 || recipientAddress == address(0))
+            revert InvalidMessage();
+
+        _mint(recipientAddress, amount);
     }
 }
 ```

@@ -263,7 +263,16 @@ The four VIA policy IDs — like every parameter above — are applied at compil
 
 This client is deployed on Cardano Preprod and bridges to EVM testnets today. It runs on the same deployment as testnet USDM. There is no separate configuration for Cardano ↔ EVM routes.
 
-On the EVM side, the counterpart is a standard VIA token contract. `ViaMintBurnTokenCardano.sol` is the version built for Cardano routes — you receive it during onboarding, like the Aiken source on this page. The published EVM contract sources are on the [Contract Source](/docs/general/contract-source) page.
+On the EVM side, the counterpart is [VIAMintBurnTokenCardano](/docs/general/ref-mint-burn-cardano). It is an ERC20 token that burns on send and mints on receive. It packs every message in the same VILR layout that `deposit_info` encodes on Cardano. The full source is on the [Contract Source](/docs/general/contract-source#viamintburntokencardanosol) page.
+
+Use it when your token lives on Cardano and on one or more EVM chains:
+
+- **Deploy it on every EVM chain in the route.** Do not use `VIAMintBurnTokenMinimal` for a Cardano route. That contract encodes its message with `abi.encode`, and this client cannot decode that format.
+- **Set `cardanoToken` at deployment.** The value is your [token identity](/docs/examples/cardano/overview#token-identity): `keccak256(policyId ++ assetName)`. On a transfer to Cardano, this client requires `destination_token` to equal that value. A wrong `cardanoToken` makes every mint on Cardano fail.
+- **Match the decimals.** Amounts cross chains as raw integers. The EVM contract returns 6 decimals. Change it if your Cardano token uses another value.
+- **Wire both directions.** On the EVM contract, set this client's policy ID, left-padded with zeros to 32 bytes, as the endpoint for the Cardano chain ID. On Cardano, add the EVM contract to `supported_routes`. The `source_chain` is the EVM chain ID. The `sender` is the contract address, left-padded with zeros to 32 bytes.
+
+The same EVM contract also transfers between EVM chains. A token on Cardano and several EVM chains moves directly between any two of them. Only transfers to or from Cardano pass through this client.
 
 ---
 

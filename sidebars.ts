@@ -87,6 +87,7 @@ const sidebars: SidebarsConfig = {
           items: [
             "general/ref-via-integration",
             "general/ref-mint-burn",
+            "general/ref-mint-burn-cardano",
             "general/ref-locker-release",
             "general/ref-fee-collector",
             "general/ref-gas-refund",
