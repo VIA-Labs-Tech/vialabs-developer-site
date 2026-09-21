@@ -1,4 +1,5 @@
 ---
+title: "Frequently Asked Questions (FAQ)"
 sidebar_position: 6
 sidebar_label: "FAQ"
 description: "Frequently asked questions about VIA Labs cross-chain messaging — getting started, gas fees, security, configuration, and troubleshooting."

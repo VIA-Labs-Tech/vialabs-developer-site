@@ -10,7 +10,6 @@ import ExploreSection from '../components/ExploreSection';
 export default function Home(): ReactNode {
   return (
     <Layout
-      title="Developer Documentation"
       description="VIA Labs cross-chain infrastructure documentation for developers"
     >
       <main className="relative">
