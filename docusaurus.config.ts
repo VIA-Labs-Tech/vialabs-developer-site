@@ -73,7 +73,7 @@ const config: Config = {
     // Social card for X / Slack / Discord link previews (og:image + twitter:image).
     image: 'img/via-labs-social-card.png',
     metadata: [
-      {name: 'twitter:site', content: '@VIALabs_io'},
+      {name: 'twitter:site', content: '@VIA_Labs'},
       {name: 'twitter:image:alt', content: 'VIA Labs Developer Docs'},
       {property: 'og:image:width', content: '1200'},
       {property: 'og:image:height', content: '630'},
@@ -160,7 +160,7 @@ const config: Config = {
             },
             {
               label: 'X / Twitter',
-              href: 'https://x.com/VIALabs_io',
+              href: 'https://x.com/VIA_Labs',
             },
           ],
         },
