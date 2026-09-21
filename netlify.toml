@@ -6,8 +6,3 @@
 [build.environment]
   # Docusaurus 3.10 requires Node >= 20
   NODE_VERSION = "22"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
