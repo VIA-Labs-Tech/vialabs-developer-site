@@ -1,7 +1,7 @@
 ---
 sidebar_label: VIAMintBurnTokenCardano
 title: VIAMintBurnTokenCardano Reference
-description: API reference for the VIAMintBurnTokenCardano token contract, the EVM side of a burn and mint route with Cardano.
+description: Reference for the VIAMintBurnTokenCardano token contract, the EVM side of a burn and mint route with Cardano.
 ---
 
 # VIAMintBurnTokenCardano
@@ -10,7 +10,7 @@ A cross-chain ERC20 token for routes that include Cardano. It burns on the sourc
 
 **Use when your token lives on Cardano and on one or more EVM chains.** Deploy this contract on every EVM chain in the route. `VIAMintBurnTokenMinimal` encodes its message with `abi.encode`, and a Cardano client cannot decode that format.
 
-The contract also sends to and receives from other EVM chains, because both sides pack and read the same layout. Transfers between two EVM chains go direct. They do not pass through Cardano.
+The VILR format is specific to Cardano. Copies of this contract on two EVM chains can still send messages to each other.
 
 For the full source code, see [Contract Source](/docs/general/contract-source#viamintburntokencardanosol). For the Cardano side of the route, see [Burn & Mint Client](/docs/examples/cardano/mint-burn-client).
 
@@ -18,82 +18,32 @@ For the full source code, see [Contract Source](/docs/general/contract-source#vi
 
 ---
 
-## Constructor
+## What You Can and Cannot Change
 
-```solidity
-constructor(
-    string memory name,
-    string memory symbol,
-    uint256 initialSupply,
-    bytes32 cardanoToken
-)
-```
+This contract is a reference implementation. Copy it, then change it to fit your token. The protocol fixes one function. The rest is your design choice.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `name` | `string` | Token name (e.g., "My Token") |
-| `symbol` | `string` | Token symbol (e.g., "MTK") |
-| `initialSupply` | `uint256` | Supply in whole tokens — multiplied by `10 ** decimals()` |
-| `cardanoToken` | `bytes32` | Cross-chain identity of the token on Cardano: `keccak256(policyId ++ assetName)`. See [Token Identity](/docs/examples/cardano/overview#token-identity). |
+### Cannot Change: messageProcess
 
-The contract stores `cardanoToken` as an immutable value. You cannot change it after deployment. The constructor reverts with `InvalidMessage` if the value is zero.
+The gateway delivers every incoming message through `messageProcess`. [ViaIntegrationV1](/docs/general/ref-via-integration#messageprocess) sets the name and the parameters of this function. **You cannot change them.** Declare the function exactly as the source does.
 
-The total supply across all chains is the sum of the initial supplies. If the full supply mints on Cardano at init, pass `0` for `initialSupply`.
+The function reads `amount` and `destination_recipient` from the VILR payload in `onChainData`. It converts the recipient to an address and mints to it. It does not read the other payload fields. The VILR layout fixes the positions of the two fields, so keep both reads as they are. For the layout, see [Message Encoding](#message-encoding).
 
-Deployer becomes both the ERC20 `owner` and the ViaIntegrationV1 `projectOwner`.
+### Can Change: Everything Else
+
+Nothing in the protocol calls the other functions. Their names and their arguments are your design choice.
+
+- **Constructor.** `name`, `symbol`, and `initialSupply` are ordinary ERC20 inputs. The total supply across all chains is the sum of the initial supplies. If the full supply mints on Cardano at init, pass `0` for `initialSupply`. The deployer becomes both the ERC20 `owner` and the ViaIntegrationV1 `projectOwner`.
+- **`mint`.** Restricted to the owner. No burn on another chain matches these tokens, so each call raises the total supply across chains.
+- **`bridge`.** Your users call this function to start a transfer. It burns from `msg.sender`, packs the VILR payload, and calls `messageSend()`. Keep those three steps. The first argument, `tokenRecipient`, follows the [Recipient Format](#recipient-format). The `text` argument is not used, because the VILR payload has no text field. Include `msg.value` if the gateway requires fees.
 
 ---
 
-## Functions
+## Values That Must Match Cardano
 
-### decimals
+Two values tie this contract to your token on Cardano.
 
-```solidity
-function decimals() public pure override returns (uint8);
-```
-
-Returns `6`. Amounts cross chains as raw integers, with no scaling. The value must equal the decimals of the token on Cardano. If your Cardano token uses another value, change this function before you deploy.
-
-### mint
-
-```solidity
-function mint(address to, uint256 amount) external onlyOwner;
-```
-
-Mint tokens to any address. Restricted to owner. No burn on another chain matches these tokens, so they raise the total supply across chains.
-
-### bridge
-
-```solidity
-function bridge(
-    bytes32 tokenRecipient,
-    uint64 destChainId,
-    uint256 amount,
-    string calldata text
-) external payable returns (uint256 txId);
-```
-
-Burn tokens from `msg.sender` on this chain and send a VILR message to mint on the destination.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `tokenRecipient` | `bytes32` | Recipient on the destination chain. The format depends on the destination. See [Recipient Format](#recipient-format). |
-| `destChainId` | `uint64` | Destination chain ID. For Cardano, use the VIA chain ID: `2273265` for Mainnet, `2273266` for Preprod. |
-| `amount` | `uint256` | Amount to transfer, in base units |
-| `text` | `string` | Not used. The VILR payload has no text field. |
-
-Include `msg.value` if the gateway requires fees. Returns a `txId` for tracking.
-
-### messageProcess
-
-```solidity
-function messageProcess(
-    uint256 txId, uint64 sourceChainId, bytes32 sender, bytes32 recipient,
-    bytes memory onChainData, bytes memory offChainData, uint256 gasRefundAmount
-) internal override;
-```
-
-Called automatically by the gateway. Reads `amount` and `destination_recipient` from the VILR payload in `onChainData`, converts the recipient to an address, and mints to it. It does not read the other payload fields.
+- **`cardanoToken`.** The cross-chain identity of the token on Cardano: `keccak256(policyId ++ assetName)`. See [Token Identity](/docs/examples/cardano/overview#token-identity). The contract writes this value into every message as the source token and the destination token. A wrong value makes every mint on Cardano fail. The contract stores the value as immutable, so you cannot change it after deployment. The constructor reverts with `InvalidMessage` if the value is zero.
+- **Decimals.** Amounts cross chains as raw integers, with no scaling. `decimals()` returns `6`. The value must equal the decimals of the token on Cardano. If your Cardano token uses another value, change this function before you deploy.
 
 ---
 
@@ -116,7 +66,7 @@ A Cardano recipient with a payment key looks like this:
 
 ## Endpoints
 
-Set one endpoint for each chain in the route, in both directions.
+Set one endpoint for each chain in the route, in both directions. For Cardano, the chain ID is the VIA chain ID: `2273265` for Mainnet, `2273266` for Preprod. `bridge()` takes the same ID as the destination.
 
 - **On this contract:** call `setMessageEndpoints()`. For Cardano, the endpoint is the policy ID of your Cardano client, left-padded with zeros to 32 bytes. For another EVM chain, the endpoint is the address of this contract on that chain, left-padded the same way.
 - **On Cardano:** add this contract to the [route list](/docs/examples/cardano/overview#routes-which-senders-you-accept) of your client. The `source_chain` is the EVM chain ID. The `sender` is this contract's address, left-padded with zeros to 32 bytes.
