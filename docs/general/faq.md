@@ -43,7 +43,7 @@ import Head from '@docusaurus/Head';
           "name": "How many blockchain networks does VIA Labs support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VIA Labs supports 150+ public and private networks."
+            "text": "VIA Labs supports 150+ public and private chains."
           }
         },
         {
@@ -106,7 +106,7 @@ VIA Labs supports **Solidity** for EVM chains, **Aiken** for Cardano, **Compact*
 
 ### How many networks are supported?
 
-VIA Labs supports **150+ public and private networks**. See the [Supported Networks](/docs/general/supported-networks) page for the full list.
+VIA Labs supports **150+ public and private chains**. See the [Supported Networks](/docs/general/supported-networks) page for the full list.
 
 ## Gas & Pricing
 

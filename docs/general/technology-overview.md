@@ -103,7 +103,7 @@ VIA Labs cross-chain messaging is designed for production-grade, enterprise appl
 | -------------- | ----------------------- | --------------------------------------------------------------------------------------- |
 | **Finance**    | Tokenized Equities      | Issue equity tokens on one chain, enable compliant trading across multiple networks     |
 | **Finance**    | Cross-Chain Stablecoins | Move stablecoins natively without wrapping, maintaining 1:1 backing                     |
-| **Finance**    | Cross-Border Settlement | Route payment settlement across chain-specific corridors                                |
+| **Finance**    | Cross-Border Settlement | Route payment settlement across chains                                                  |
 | **RWAs**       | Tokenized Real Estate   | Fractionalize property ownership and enable secondary trading across chains             |
 | **RWAs**       | Supply Chain Finance    | Track and transfer tokenized invoices and trade finance instruments                     |
 | **RWAs**       | Carbon Credit Markets   | Issue, transfer, and retire carbon credits across multiple registries                   |

@@ -15,7 +15,7 @@ const vms: VMItem[] = [
   {
     icon: <EvmIcon />,
     title: 'EVM',
-    description: 'Solidity contracts on 150+ EVM networks. Inherit one contract, override one function.',
+    description: 'Solidity contracts on 150+ EVM chains. Inherit one contract, override one function.',
     link: '/docs/examples/hello-world',
     cta: 'View quickstart',
   },

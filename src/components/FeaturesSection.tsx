@@ -11,7 +11,7 @@ type FeatureItem = {
 const features: FeatureItem[] = [
   {
     icon: <NetworkIcon />,
-    title: '150+ Networks',
+    title: '150+ Chains',
     description: 'Deploy once, reach every major chain. No fragmented deployments.',
   },
   {
