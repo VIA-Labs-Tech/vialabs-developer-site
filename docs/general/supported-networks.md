@@ -32,6 +32,8 @@ Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract
 | Robinhood Testnet | `46630` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
 | Upside Testnet | `61872` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
 | PandaSea Testnet | `7770` | `0x4d0e6355875485480c43f2d6e94fbf4bf287921c` |
+| Arc Testnet | `5042002` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
+| LitVM LiteForge | `4441` | `0x6cdc2ed3321f4e6bf835b03af691d418bbb350ba` |
 | Cardano Preprod | `2273266` | `addr_test1wp4erajtev047rws58fdj6gz6hpvh53wlk7ccc65sld5xusx4z54g` |
 | Midnight Preview | `64364450` | `471dfe55c866fdbc085c9011a51f0cd0e9c9bfca6bb985c35f7716b6e73e485c` |
 | Stellar Testnet | `5555555555` | `CAMRA4FFQUG3XBVNPE2NZGDX5MGOX4OWODMNOXD3WODOQLPBQG4RPMAQ` |
@@ -53,6 +55,7 @@ Stellar also uses a VIA-assigned chain ID, and its gateway is a Soroban contract
 | Ethereum | `1` | `0xf77d64586538339e8ed6ef9a3154ad939ef5a79a` |
 | Etherlink | `42793` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Gnosis | `100` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
+| Hyper EVM | `999` | `0xfc028144bb8ec71d9d7792adcd4fdfa05a7a3b95` |
 | Ink | `57073` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Kaia | `8217` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
 | Katana | `747474` | `0xdd19500d7022f03ed51938e3a336e922fe982a56` |
