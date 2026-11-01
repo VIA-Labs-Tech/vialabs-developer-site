@@ -167,7 +167,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright \u00A9 ${new Date().getFullYear()} VIA Labs, Inc.`,
+      copyright: `Copyright \u00A9 ${new Date().getFullYear()} VIA Labs LLC`,
     },
     prism: {
       theme: prismThemes.github,
