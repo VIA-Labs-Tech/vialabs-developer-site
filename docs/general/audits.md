@@ -1,5 +1,5 @@
 ---
-description: Independent security audits of the VIA Labs contract suite.
+description: Independent security audits of VIA Labs contracts on EVM chains, Cardano, Midnight, and Stellar, with a link to every report.
 ---
 
 # Audits

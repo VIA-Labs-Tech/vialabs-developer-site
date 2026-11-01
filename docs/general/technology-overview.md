@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: "How VIA works: the gateway, the signers who check each message, the relayers who deliver it, and the security layers you configure."
 ---
 
 # Technology Overview
