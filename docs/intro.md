@@ -49,6 +49,8 @@ More patterns:
 
 That's the entire integration on EVM. Cardano, Midnight, and Stellar follow the same message flow with their own mechanics — see [Building on Cardano](/docs/examples/cardano/overview), [Building on Midnight](/docs/examples/midnight/overview), and [VIA on Stellar](/docs/examples/stellar/overview). For the full architecture, see [Technology Overview](/docs/general/technology-overview).
 
+For the same flow in plain language, with the security layers, fees, and delivery time, see [How VIA works](https://vialabs.tech/overview).
+
 ## Need Help?
 
 - **[FAQ](/docs/general/faq)** — Common questions
