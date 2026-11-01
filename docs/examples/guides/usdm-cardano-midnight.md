@@ -146,7 +146,7 @@ What happens:
 Run `node balance.mjs` again to see the USDM arrive on Midnight.
 
 :::info Mainnet takes longer by design
-Validators wait for source-chain confirmations before attesting a message: **1 block on testnet, 150 Cardano blocks (≈50 minutes) on mainnet**. For example, a mainnet transfer that has not arrived after 10 minutes is still awaiting confirmations. Check the status of your transfers at [scan.vialabs.tech](https://scan.vialabs.tech).
+VIA waits for source-chain confirmations before a message is signed: **1 block on testnet, 150 Cardano blocks (≈50 minutes) on mainnet**. For example, a mainnet transfer that has not arrived after 10 minutes is still awaiting confirmations. Check the status of your transfers at [scan.vialabs.tech](https://scan.vialabs.tech).
 :::
 
 ---
@@ -267,7 +267,7 @@ A complete working app — wallet discovery, both directions, progress UI, the f
 
 Both directions use VIA's standard Cardano/Midnight message flow. The [Cardano overview](/docs/examples/cardano/overview) covers the concepts in full. Here is how this guide maps onto them:
 
-- **`send_request`** — every Cardano-source message starts as a UTxO at the sending contract. Its datum names the sender, the recipient, and the destination chain. VIA's validators watch for these UTxOs and deliver the messages they carry.
+- **`send_request`** — every Cardano-source message starts as a UTxO at the sending contract. Its datum names the sender, the recipient, and the destination chain. VIA's node software watches for these UTxOs, and VIA delivers the messages they carry.
 - **`chain_data`** — the byte payload inside the request. For USDM it encodes the transfer: amount, source token, destination token, recipient. The destination token is named by the asset's identity **on the destination chain** — for Midnight, the USDM token color below.
 - **Routes** — each contract lists the source chains and senders it accepts. The deployed USDM contracts already carry the Cardano ↔ Midnight route in both directions. That is why this guide has no configuration step.
 

@@ -18,7 +18,7 @@
   <rect x="250" y="60" width="470" height="320" rx="10" fill="none" stroke="#00E5E5" stroke-opacity="0.2" stroke-dasharray="4 4" stroke-width="1"/>
 
   <!-- Signer cluster label -->
-  <text x="380" y="92" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="13">Validators / Signers</text>
+  <text x="380" y="92" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="13">Signers</text>
 
   <!-- Message In -->
   <rect x="30" y="190" width="150" height="80" rx="8" fill="none" stroke="#222222" stroke-width="1"/>

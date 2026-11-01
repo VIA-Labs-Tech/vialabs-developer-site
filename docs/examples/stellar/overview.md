@@ -15,10 +15,10 @@ This page is everything you need to **use and understand** the deployment. Build
 ## How a transfer works
 
 1. **Send** — you call `bridge()` on the VIAT token you hold. It burns your amount and hands the gateway a message with the recipient, amount, and an optional memo.
-2. **Sign** — VIA's validators watch the source gateway and sign the message (ed25519 on the Stellar side).
+2. **Sign** — VIA's node software watches the source gateway, and VIA's signers sign the message (ed25519 on the Stellar side).
 3. **Deliver** — a relayer submits the signed message to the destination gateway, which verifies the signatures and calls the token, which mints to the recipient.
 
-Replays are rejected on chain, total supply across chains stays constant, and transfers complete in one to three minutes. When you use VIAT, the token contract is the only contract you call. The gateway, the validators, and the relayers run behind it, and VIA operates them.
+Replays are rejected on chain, total supply across chains stays constant, and transfers complete in one to three minutes. When you use VIAT, the token contract is the only contract you call. The gateway, the signers, and the relayers run behind it, and VIA operates them.
 
 ---
 
@@ -61,7 +61,7 @@ Gateway addresses for every VIA network are on [Supported Networks](/docs/genera
 ## Fees
 
 - A transfer costs normal Stellar network fees in XLM (or gas on the EVM side). No VIA protocol fee is charged on Stellar routes during the launch period. Relayers pay the destination-side fees.
-- Stellar finalizes in about five seconds; the reference client requests zero confirmations. Delivery time is set by the validator's polling interval.
+- Stellar finalizes in about five seconds; the reference client requests zero confirmations. Delivery time is set by how often VIA's node software checks the chain.
 - **Testnet:** the transfer app's faucet buttons hand out 100 VIAT per click on either chain. SDF resets Stellar testnet quarterly — testnet addresses change after each reset; mainnet addresses are stable.
 - Explorers: [stellar.expert](https://stellar.expert/explorer/public) for Stellar, [Etherscan](https://etherscan.io) for the EVM side.
 
@@ -71,4 +71,4 @@ Gateway addresses for every VIA network are on [Supported Networks](/docs/genera
 
 - [Integration Paths](/docs/examples/stellar/integration-paths) — launching your own token or message flow with VIA
 - [Burn & Mint Client](/docs/examples/stellar/mint-burn-client) — the reference client's source, explained piece by piece
-- [Technology Overview](/docs/general/technology-overview) — the validator/relayer model shared by every VIA chain
+- [Technology Overview](/docs/general/technology-overview) — the signer and relayer model shared by every VIA chain

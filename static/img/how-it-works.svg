@@ -35,9 +35,9 @@
   <!-- Arrow 2 -->
   <line x1="423" y1="140" x2="465" y2="140" stroke="#00E5E5" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arrowHIW)"/>
 
-  <!-- Node 3: Validators -->
+  <!-- Node 3: Signers -->
   <rect x="475" y="100" width="165" height="80" rx="8" fill="none" stroke="#222222" stroke-width="1"/>
-  <text x="557" y="137" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Validators</text>
+  <text x="557" y="137" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Signers</text>
   <text x="557" y="161" text-anchor="middle" fill="#555555" font-family="system-ui, -apple-system, sans-serif" font-size="12">Verify &amp; Sign</text>
 
   <!-- Arrow 3 -->

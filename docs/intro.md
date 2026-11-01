@@ -44,7 +44,7 @@ More patterns:
 ## How It Works (30 Seconds)
 
 1. Your contract inherits `ViaIntegrationV1` and calls `messageSend()` to send data to another chain
-2. The VIA Gateway + validator network verifies and relays the message
+2. VIA's signers verify and sign the message, and a relayer delivers it
 3. Your contract on the destination chain receives it via `messageProcess()`
 
 That's the entire integration on EVM. Cardano, Midnight, and Stellar follow the same message flow with their own mechanics — see [Building on Cardano](/docs/examples/cardano/overview), [Building on Midnight](/docs/examples/midnight/overview), and [VIA on Stellar](/docs/examples/stellar/overview). For the full architecture, see [Technology Overview](/docs/general/technology-overview).

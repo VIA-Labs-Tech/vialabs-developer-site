@@ -8,7 +8,7 @@ description: How VIA cross-chain messaging works on Cardano — UTxOs, validator
 
 This page covers building cross-chain dapps on Cardano. The VIA messaging layer moves data or value (tokens) between chains — and data means anything: news, sports results, numbers, text. Tokens are the most common case, not the only one.
 
-The protocol is the same one you know from the [Technology Overview](/docs/general/technology-overview) — validators sign, relayers deliver, the destination verifies. What changes on Cardano is the execution model. This page explains the Cardano-specific concepts before you write any code.
+The protocol is the same one you know from the [Technology Overview](/docs/general/technology-overview) — signers sign, relayers deliver, the destination verifies. What changes on Cardano is the execution model. This page explains the Cardano-specific concepts before you write any code.
 
 :::info Mainnet and testnet
 VIA is live on **Cardano Mainnet** (VIA chain ID `2273265`) and **Cardano Preprod** (`2273266`), with routes to Midnight and EVM networks. The examples on these pages use Preprod addresses; every deployed value differs per network — see [One Deployment Per Network](#one-deployment-per-network) below. Addresses are on [Supported Networks](/docs/general/supported-networks).
@@ -64,7 +64,7 @@ SendRequested {
 
 All five fields are mandatory. A send_request UTxO without a valid `SendRequested` datum is not a valid message.
 
-**Stage 2 — VIA picks it up.** The validator network sees the UTxO, waits for the requested confirmations, and validates the message. When the message is processed, the auth token is burned. The burn is what guarantees each request is handled exactly once.
+**Stage 2 — VIA picks it up.** VIA's node software sees the UTxO, waits for the requested confirmations, and checks the message. Then VIA's signers sign it. When the message is processed, the auth token is burned. The burn is what guarantees each request is handled exactly once.
 
 ---
 
@@ -140,7 +140,7 @@ So "the same contract on mainnet and testnet" still means **different bytes, dif
 
 Deployments ship as a per-network manifest that carries each protocol script's final compiled form **plus the UTxO where it is published as a reference script**, so transactions reference the on-chain copy instead of attaching kilobytes of script — and consumers never hunt for references through an indexer.
 
-One more per-network value: the confirmations validators wait for before attesting a message — **1 block on Preprod, 150 on Mainnet**.
+One more per-network value: the confirmations VIA waits for before a message is signed — **1 block on Preprod, 150 on Mainnet**.
 
 ---
 
