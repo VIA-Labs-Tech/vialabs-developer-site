@@ -13,6 +13,8 @@ const config: Config = {
 
   url: 'https://developer.vialabs.tech',
   baseUrl: '/',
+  // Every page lives at page/index.html, so links, canonical tags, and the sitemap use a trailing slash.
+  trailingSlash: true,
 
   organizationName: 'VIA-Labs-Tech',
   projectName: 'vialabs-developer-site',
