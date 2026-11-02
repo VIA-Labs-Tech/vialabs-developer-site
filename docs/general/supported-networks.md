@@ -92,4 +92,4 @@ Additional mainnet gateways are being rolled out — this table is updated as ea
 
 ## Adding a New Network
 
-To request a network that isn't listed here, click **Contact us** on [vialabs.tech](https://vialabs.tech) and fill in the form. Name the network when it asks what you're building.
+To request a network that isn't listed here, click **Contact us** on [vialabs.tech](https://vialabs.tech) and fill out the form. Name the network when it asks what you're building.
