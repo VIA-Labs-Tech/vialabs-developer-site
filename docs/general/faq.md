@@ -67,7 +67,7 @@ import Head from '@docusaurus/Head';
           "name": "How long does a cross-chain message take?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You decide. Each message sets how many block confirmations it waits for on its source chain. Transfers of value usually wait longer, because each new block makes earlier blocks harder to reverse. This comes from how blockchains finalize transactions, not from VIA. For example, USDM transfers between Cardano and Midnight wait 150 confirmations on Cardano and 180 on Midnight, which takes about 50 minutes from Cardano and about 20 minutes from Midnight. Chains with fast finality, such as Avalanche and Stellar, and data streams that can wait zero confirmations move faster. On mainnet, messages that wait zero or one confirmation typically arrive in under two minutes."
+            "text": "You decide. Each message sets how many block confirmations it waits for on its source chain. Transfers of value usually wait longer, because each new block makes earlier blocks harder to reverse. This comes from how blockchains finalize transactions, not from VIA. For example, USDM transfers between Cardano and Midnight wait 150 confirmations on Cardano and 180 on Midnight, which takes about 50 minutes from Cardano and about 20 minutes from Midnight. Chains with fast finality, such as Avalanche and Stellar, and data streams that can wait zero confirmations move faster. On mainnet, messages that wait zero or one confirmation typically arrive in about two minutes."
           }
         },
         {
@@ -168,7 +168,7 @@ For example, USDM transfers between Cardano and Midnight wait 150 confirmations 
 
 Other messages can move fast. Chains with fast finality, such as Avalanche and Stellar, make a block final within seconds. Liquidity can move between them without a long wait. Data streams, such as sensor readings or price updates, can wait zero confirmations. Each new value replaces the last one. If one value matters, you can check it on [VIA Scan](https://scan.vialabs.tech) before you act on it.
 
-On mainnet, messages that wait zero or one confirmation typically arrive in under two minutes.
+On mainnet, messages that wait zero or one confirmation typically arrive in about two minutes.
 
 ### My message hasn't arrived. What should I check?
 
